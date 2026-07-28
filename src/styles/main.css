@@ -381,7 +381,8 @@ mark {
   display: flex; flex-direction: column;
   align-items: center; gap: 1rem;
 }
-.hero-carousel__dots--vertical { flex-direction: column; gap: 0.7rem; }
+.hero-carousel__dots { display: flex; align-items: center; gap: 0.7rem; }
+.hero-carousel__dots--vertical { flex-direction: column; }
 
 .hero-carousel__dot {
   width: 12px; height: 12px;
