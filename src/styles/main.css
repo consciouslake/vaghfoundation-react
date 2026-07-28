@@ -421,7 +421,7 @@ mark {
 .hero-carousel__btn--round svg { width: 16px; height: 16px; }
 
 @media (max-width: 720px) {
-  .hero-carousel__track { aspect-ratio: 4/5; min-height: 460px; }
+  .hero-carousel__track { aspect-ratio: 4/5; min-height: 380px; }
   .hero-carousel__content { padding: 2rem 1.5rem; }
   /* Only reserve right space when the vertical controls actually render */
   .hero-carousel--has-controls .hero-carousel__content { padding-right: 4rem; }
