@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { donate } from '../content/donate'
+import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
 import { EmailSignup } from '../components/EmailSignup'
 import { DonateForm } from '../components/DonateForm'
@@ -9,6 +10,11 @@ import { Marked } from '../components/Marked'
 export default function Donate() {
   return (
     <>
+      <SEO
+        title="Donate"
+        description="Every contribution creates a ripple of hope. Support Vagh Foundation's work across nourishment, wellbeing, learning, and sustainability."
+        path="/donate"
+      />
       <PageHeader data={donate.header} />
 
       <section className="section">

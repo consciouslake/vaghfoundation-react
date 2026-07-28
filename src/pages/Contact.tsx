@@ -1,4 +1,5 @@
 import { contact } from '../content/contact'
+import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
 import { SectionHead } from '../components/SectionHead'
 import { FAQAccordion } from '../components/FAQAccordion'
@@ -10,6 +11,11 @@ import { Marked } from '../components/Marked'
 export default function Contact() {
   return (
     <>
+      <SEO
+        title="Contact"
+        description="Get in touch with Vagh Foundation — whether you want to volunteer, contribute, collaborate, or simply learn more about our work."
+        path="/contact"
+      />
       <PageHeader data={contact.header} />
 
       <section className="section">

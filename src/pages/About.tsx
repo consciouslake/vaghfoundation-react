@@ -1,4 +1,5 @@
 import { about } from '../content/about'
+import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
 import { MissionStatement } from '../components/MissionStatement'
 import { GateFeature } from '../components/GateFeature'
@@ -14,6 +15,11 @@ import { Marked } from '../components/Marked'
 export default function About() {
   return (
     <>
+      <SEO
+        title="About us"
+        description="The story behind Vagh Foundation — our values, timeline, and the people whose steady, everyday work shapes lives with dignity and care."
+        path="/about"
+      />
       <PageHeader data={about.header} />
 
       <MissionStatement

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { getInvolved } from '../content/get-involved'
+import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
 import { SectionHead } from '../components/SectionHead'
 import { FocusList } from '../components/FocusList'
@@ -8,6 +9,11 @@ import { EmailSignup } from '../components/EmailSignup'
 export default function GetInvolved() {
   return (
     <>
+      <SEO
+        title="Get involved"
+        description="Four ways to join the Vagh Foundation movement — volunteer your time, support the cause, spread the word, or partner with us."
+        path="/get-involved"
+      />
       <PageHeader data={getInvolved.header} />
 
       <section className="section">

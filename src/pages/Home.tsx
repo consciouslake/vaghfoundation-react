@@ -1,4 +1,5 @@
 import { home } from '../content/home'
+import { SEO } from '../components/SEO'
 import { HeroCarousel } from '../components/HeroCarousel'
 import { HeroPillstrip } from '../components/HeroPillstrip'
 import { MissionStatement } from '../components/MissionStatement'
@@ -13,6 +14,11 @@ import { CTATogether } from '../components/CTATogether'
 export default function Home() {
   return (
     <>
+      <SEO
+        title="Compassion in action, service at heart"
+        description="Vagh Foundation nurtures lives and nourishes communities through everyday acts of compassion — food, wellbeing, learning, and care for the planet."
+        path="/"
+      />
       <HeroCarousel slides={home.hero.slides} />
       <HeroPillstrip pills={home.pills} />
       <MissionStatement

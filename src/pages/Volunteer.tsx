@@ -1,4 +1,5 @@
 import { volunteer } from '../content/volunteer'
+import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
 import { SectionHead } from '../components/SectionHead'
 import { FocusList } from '../components/FocusList'
@@ -9,6 +10,11 @@ import { VolunteerForm } from '../components/VolunteerForm'
 export default function Volunteer() {
   return (
     <>
+      <SEO
+        title="Volunteer with us"
+        description="Your time is a gift that transforms lives. Sign up to help with food distribution, resource coordination, awareness, or skill-based work."
+        path="/volunteer"
+      />
       <PageHeader data={volunteer.header} />
 
       <section className="section">
