@@ -1,11 +1,34 @@
+import { home } from '../content/home'
+import { HeroCarousel } from '../components/HeroCarousel'
+import { HeroPillstrip } from '../components/HeroPillstrip'
+import { MissionStatement } from '../components/MissionStatement'
+import { HCards } from '../components/HCards'
+import { FoundersMessage } from '../components/FoundersMessage'
+import { FourPillars } from '../components/FourPillars'
+import { IdeasGrid } from '../components/IdeasGrid'
+import { StatementQuote } from '../components/StatementQuote'
+import { GateFeature } from '../components/GateFeature'
+import { CTATogether } from '../components/CTATogether'
+
 export default function Home() {
   return (
-    <section className="section">
-      <div className="wrap">
-        <span className="kicker">Vagh Foundation</span>
-        <h1>Home — coming in Phase 4</h1>
-        <p>The full hero carousel, mission statement, founder message and CTA sections will render here.</p>
-      </div>
-    </section>
+    <>
+      <HeroCarousel slides={home.hero.slides} />
+      <HeroPillstrip pills={home.pills} />
+      <MissionStatement
+        eyebrow={home.mission.eyebrow}
+        statementMarked={home.mission.statementMarked}
+        body={home.mission.body}
+        btnText={home.mission.btnText}
+        btnUrl={home.mission.btnUrl}
+      />
+      <HCards cards={home.hCards} />
+      <FoundersMessage data={home.founder} />
+      <FourPillars data={home.pillars} />
+      <IdeasGrid data={home.ideas} />
+      <StatementQuote text={home.statement} />
+      <GateFeature data={home.gateFeature} />
+      <CTATogether data={home.cta} />
+    </>
   )
 }

@@ -1,4 +1,5 @@
-import { useEffect, useRef, type PropsWithChildren, type ElementType } from 'react'
+import { type PropsWithChildren, type ElementType } from 'react'
+import { useReveal } from '../hooks/useReveal'
 
 interface RevealProps {
   /** Element to render — defaults to a div. */
@@ -10,10 +11,10 @@ interface RevealProps {
 }
 
 /**
- * Wraps children in an element with the `reveal` class, then adds `in`
- * once the element scrolls into view. Falls back to `in` immediately if
- * IntersectionObserver is unavailable or the user prefers reduced
- * motion.
+ * Convenience wrapper — renders a div (or any HTML element) with the
+ * `reveal` class and hooks up the scroll-reveal behavior. For a
+ * <Link>, <NavLink> or any non-HTML component, use the useReveal()
+ * hook directly on the element ref.
  */
 export function Reveal({
   as: Tag = 'div',
@@ -21,31 +22,7 @@ export function Reveal({
   index = 0,
   children,
 }: PropsWithChildren<RevealProps>) {
-  const ref = useRef<HTMLElement | null>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    el.style.transitionDelay = `${(index % 4) * 70}ms`
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-      el.classList.add('in')
-      return
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in')
-            io.unobserve(e.target)
-          }
-        })
-      },
-      { threshold: 0.14, rootMargin: '0px 0px -40px 0px' },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [index])
-
+  const ref = useReveal(index)
   const cls = className ? `reveal ${className}` : 'reveal'
   return (
     <Tag ref={ref} className={cls}>
