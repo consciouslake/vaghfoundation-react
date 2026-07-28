@@ -1,5 +1,6 @@
 import { home } from '../content/home'
 import { SEO } from '../components/SEO'
+import { OrganizationJsonLd } from '../components/OrganizationJsonLd'
 import { HeroCarousel } from '../components/HeroCarousel'
 import { HeroPillstrip } from '../components/HeroPillstrip'
 import { MissionStatement } from '../components/MissionStatement'
@@ -19,6 +20,7 @@ export default function Home() {
         description="Vagh Foundation nurtures lives and nourishes communities through everyday acts of compassion — food, wellbeing, learning, and care for the planet."
         path="/"
       />
+      <OrganizationJsonLd />
       <HeroCarousel slides={home.hero.slides} />
       <HeroPillstrip pills={home.pills} />
       <MissionStatement
