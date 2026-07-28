@@ -13,6 +13,22 @@ export const home: HomePage = {
         btn2Text: 'Support our work',
         btn2Url: '/donate',
       },
+      {
+        image: '/images/header-about.jpg',
+        h1Line1: 'Rooted in compassion.',
+        h1Line2: 'Guided by service.',
+        lede: 'A quiet commitment to doing good, every day — through consistent, heartfelt acts that touch lives where it matters most.',
+        btnText: 'Read our story',
+        btnUrl: '/about',
+      },
+      {
+        image: '/images/header-wwd.jpg',
+        h1Line1: 'Small acts.',
+        h1Line2: 'Extraordinary change.',
+        lede: 'Nourishment, peace of mind, learning and care for our planet — the four causes we champion, and the initiatives that bring them to life.',
+        btnText: 'See what we do',
+        btnUrl: '/what-we-do',
+      },
     ],
   },
   pills: [
