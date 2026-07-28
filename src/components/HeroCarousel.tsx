@@ -9,11 +9,12 @@ interface HeroCarouselProps {
 
 export function HeroCarousel({ slides }: HeroCarouselProps) {
   const total = slides.length
+  const hasControls = total > 1
   const { current, playing, next, prev, goTo, togglePlayPause, bind } = useCarousel(total)
 
   return (
     <section
-      className="hero-carousel"
+      className={`hero-carousel${hasControls ? ' hero-carousel--has-controls' : ''}`}
       aria-label="Featured"
       onMouseEnter={bind.onMouseEnter}
       onMouseLeave={bind.onMouseLeave}
