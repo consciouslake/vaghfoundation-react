@@ -1,0 +1,311 @@
+/**
+ * A string that may contain inline <mark>...</mark> tags for the
+ * italic-green editorial emphasis (Gates-style). Rendered safely via
+ * the <Marked/> component.
+ */
+export type MarkedText = string
+
+/** Plain URL — absolute or root-relative. */
+export type Href = string
+
+/** Absolute path served from /public — e.g. "/images/hero.jpg". */
+export type Src = string
+
+export interface NavLink {
+  label: string
+  href: Href
+  /** Marks this link as the "Donate" CTA style in the top nav. */
+  cta?: boolean
+}
+
+export interface MegaNavLink {
+  label: string
+  href: Href
+  desc: string
+}
+
+export interface SocialLink {
+  label: string
+  href: Href
+  /** SVG path — inlined without an <svg> wrapper. */
+  icon: 'twitter' | 'facebook' | 'instagram' | 'linkedin'
+}
+
+export interface Site {
+  brand: string
+  logoLight: Src
+  logoDark: Src
+  contactEmail: string
+  contactPhone: string
+  contactAddress: string
+  socials: SocialLink[]
+  footerTagline: string
+  footerCopyright: string
+  footerSlogan: string
+  footerExploreHeading: string
+  footerActHeading: string
+  footerContactHeading: string
+  footerExplore: NavLink[]
+  footerAct: NavLink[]
+}
+
+export interface Nav {
+  primary: NavLink[]
+  mega: MegaNavLink[]
+  megaFooterLinks: NavLink[]
+}
+
+/* ── Building blocks ─────────────────────────────────────────────── */
+
+export interface Slide {
+  image: Src
+  h1Line1: string
+  h1Line2?: string
+  lede: MarkedText
+  btnText: string
+  btnUrl: Href
+  btn2Text?: string
+  btn2Url?: Href
+}
+
+export interface Pillar {
+  title: string
+  body: MarkedText
+  image: Src
+}
+
+export interface IdeaCard {
+  kicker: string
+  topic: 'nourishment' | 'learning' | 'wellbeing'
+  title: string
+  body: MarkedText
+  image: Src
+}
+
+export interface FounderMessage {
+  eyebrow: string
+  photo: Src
+  name: string
+  role: string
+  quote: MarkedText
+}
+
+export interface GateFeature {
+  image: Src
+  kicker: string
+  titleMarked: MarkedText
+  desc: MarkedText
+  btnText: string
+  btnUrl: Href
+}
+
+export interface PageHeader {
+  eyebrow: string
+  h1Marked: MarkedText
+  lede: MarkedText
+  image: Src
+}
+
+export interface TimelineEntry {
+  year: string
+  title: string
+  body: MarkedText
+}
+
+export interface ValueItem {
+  title: string
+  body: MarkedText
+}
+
+export interface TeamMember {
+  name: string
+  role: string
+  photo: Src
+}
+
+export interface FAQItem {
+  q: string
+  a: MarkedText
+}
+
+export interface Initiative {
+  label: string
+  h3: string
+  para1: MarkedText
+  para2?: MarkedText
+  image: Src
+}
+
+export interface FocusItem {
+  title: string
+  body: MarkedText
+  btnText?: string
+  btnHref?: Href
+}
+
+export interface ImpactItem {
+  title: string
+  body: MarkedText
+}
+
+export interface ContactItem {
+  label: string
+  value: string
+  /** e.g. mailto:info@... or tel:+91... — empty for plain text (address). */
+  href?: Href
+}
+
+/* ── Page shapes ─────────────────────────────────────────────────── */
+
+export interface HomePage {
+  hero: {
+    slides: Slide[]
+  }
+  pills: string[]
+  mission: {
+    eyebrow: string
+    statementMarked: MarkedText
+    body: MarkedText
+    btnText: string
+    btnUrl: Href
+  }
+  hCards: {
+    work: { image: Src; desc: MarkedText; href: Href }
+    story: { image: Src; desc: MarkedText; href: Href }
+  }
+  founder: FounderMessage
+  pillars: {
+    eyebrow: string
+    headingMarked: MarkedText
+    sub: MarkedText
+    items: Pillar[]
+    btnText: string
+    btnHref: Href
+  }
+  ideas: {
+    eyebrow: string
+    heading: string
+    sub: MarkedText
+    items: IdeaCard[]
+  }
+  statement: MarkedText
+  gateFeature: GateFeature
+  cta: {
+    headingMarked: MarkedText
+    body: MarkedText
+    btn1Text: string
+    btn1Href: Href
+    btn2Text: string
+    btn2Href: Href
+  }
+}
+
+export interface AboutPage {
+  header: PageHeader
+  missionStatementMarked: MarkedText
+  missionCta: { label: string; href: Href }
+  gateMission: GateFeature
+  story: {
+    eyebrow: string
+    headingMarked: MarkedText
+    paragraphs: MarkedText[]
+  }
+  timeline: {
+    eyebrow: string
+    headingMarked: MarkedText
+    intro: MarkedText
+    entries: TimelineEntry[]
+  }
+  values: {
+    eyebrow: string
+    heading: string
+    intro: MarkedText
+    items: ValueItem[]
+  }
+  team: {
+    eyebrow: string
+    headingMarked: MarkedText
+    intro: MarkedText
+    members: TeamMember[]
+  }
+  faq: {
+    eyebrow: string
+    heading: string
+    items: FAQItem[]
+  }
+  emailSignup: {
+    titleWithEm: string
+    body: MarkedText
+  }
+}
+
+export interface WhatWeDoPage {
+  header: PageHeader
+  initiatives: Initiative[]
+  emailSignup: {
+    titleWithEm: string
+    body: MarkedText
+  }
+}
+
+export interface GetInvolvedPage {
+  header: PageHeader
+  section: {
+    eyebrow: string
+    headingMarked: MarkedText
+  }
+  ways: FocusItem[]
+  emailSignup: {
+    titleWithEm: string
+    body: MarkedText
+  }
+}
+
+export interface VolunteerPage {
+  header: PageHeader
+  section: {
+    eyebrow: string
+    headingMarked: MarkedText
+    body: MarkedText
+  }
+  ways: FocusItem[]
+  form: {
+    eyebrow: string
+    headingMarked: MarkedText
+    body: MarkedText
+    checks: { title: string; body: MarkedText }[]
+  }
+}
+
+export interface ContactPage {
+  header: PageHeader
+  section: {
+    eyebrow: string
+    headingMarked: MarkedText
+  }
+  items: ContactItem[]
+  faq: {
+    eyebrow: string
+    heading: string
+    items: FAQItem[]
+  }
+}
+
+export interface DonatePage {
+  header: PageHeader
+  section: {
+    eyebrow: string
+    headingMarked: MarkedText
+    body: MarkedText
+  }
+  impact: ImpactItem[]
+  trust: { title: string; body: MarkedText }
+  amountChips: number[]
+  defaultChip: number
+  volunteerCta: {
+    titleWithEm: string
+    body: MarkedText
+    btnText: string
+    btnHref: Href
+  }
+}
