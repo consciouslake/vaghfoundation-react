@@ -1,10 +1,43 @@
+import { Link } from 'react-router-dom'
+import { whatWeDo } from '../content/what-we-do'
+import { PageHeader } from '../components/PageHeader'
+import { Initiative } from '../components/Initiative'
+import { EmailSignup } from '../components/EmailSignup'
+
 export default function WhatWeDo() {
   return (
-    <section className="section">
-      <div className="wrap">
-        <span className="kicker">What we do</span>
-        <h1>What we do — coming in Phase 5</h1>
-      </div>
-    </section>
+    <>
+      <PageHeader data={whatWeDo.header} />
+
+      <section className="section">
+        <div className="wrap">
+          {whatWeDo.initiatives.map((init, i) => (
+            <Initiative key={init.h3} data={init} index={i} />
+          ))}
+        </div>
+      </section>
+
+      <EmailSignup
+        titleWithEm={whatWeDo.emailSignup.titleWithEm}
+        body={whatWeDo.emailSignup.body}
+      >
+        <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link to="/volunteer" className="btn btn--on-dark">
+            Volunteer with us
+          </Link>
+          <Link
+            to="/donate"
+            className="btn"
+            style={{
+              background: 'var(--white)',
+              color: 'var(--ink)',
+              borderColor: 'var(--white)',
+            }}
+          >
+            Make a donation
+          </Link>
+        </div>
+      </EmailSignup>
+    </>
   )
 }

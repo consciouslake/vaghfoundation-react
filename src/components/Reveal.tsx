@@ -1,4 +1,4 @@
-import { type PropsWithChildren, type ElementType } from 'react'
+import { type CSSProperties, type PropsWithChildren, type ElementType } from 'react'
 import { useReveal } from '../hooks/useReveal'
 
 interface RevealProps {
@@ -6,6 +6,10 @@ interface RevealProps {
   as?: ElementType
   /** Optional extra classes on the wrapper. */
   className?: string
+  /** Inline styles forwarded to the element. */
+  style?: CSSProperties
+  /** Optional id (useful for scroll-target anchors). */
+  id?: string
   /** Stagger index used for CSS transition-delay: (i % 4) * 70ms. */
   index?: number
 }
@@ -19,13 +23,15 @@ interface RevealProps {
 export function Reveal({
   as: Tag = 'div',
   className,
+  style,
+  id,
   index = 0,
   children,
 }: PropsWithChildren<RevealProps>) {
   const ref = useReveal(index)
   const cls = className ? `reveal ${className}` : 'reveal'
   return (
-    <Tag ref={ref} className={cls}>
+    <Tag ref={ref} className={cls} style={style} id={id}>
       {children}
     </Tag>
   )
