@@ -5,7 +5,7 @@ export const donate: DonatePage = {
     eyebrow: 'Support our work',
     h1Marked: 'Every contribution creates a <mark>ripple</mark> of hope.',
     lede: 'When you give to Vagh Foundation, you become a partner in compassion — and a force for extraordinary change.',
-    image: '/images/header-don.jpg',
+    image: '/images/donate-hero.png',
   },
   section: {
     eyebrow: 'Where your support goes',

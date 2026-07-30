@@ -5,7 +5,7 @@ export const volunteer: VolunteerPage = {
     eyebrow: 'Volunteer with us',
     h1Marked: 'Your <mark>time</mark> is a gift that transforms lives.',
     lede: 'Volunteering with us is more than an act of giving — it’s an experience of connection, purpose, and shared humanity.',
-    image: '/images/header-vol.jpg',
+    image: '/images/volunteer-hero.png',
   },
   section: {
     eyebrow: 'How you can help',

@@ -5,7 +5,7 @@ export const getInvolved: GetInvolvedPage = {
     eyebrow: 'Join the movement',
     h1Marked: 'Be the <mark>change</mark> you wish to see.',
     lede: 'Whether you have time, resources, or simply a willingness to help, your contribution creates ripples that reach further than you might imagine.',
-    image: '/images/header-gi.jpg',
+    image: '/images/gi-hero.png',
   },
   section: {
     eyebrow: 'Ways to contribute',

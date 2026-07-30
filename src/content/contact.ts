@@ -8,7 +8,7 @@ export const contact: ContactPage = {
     eyebrow: 'Get in touch',
     h1Marked: 'We’d love to <mark>hear</mark> from you.',
     lede: 'Whether you’d like to volunteer, contribute, collaborate, or simply learn more — every conversation is a step toward greater good.',
-    image: '/images/header-con.jpg',
+    image: '/images/contact-hero.png',
   },
   section: {
     eyebrow: 'Reach us',

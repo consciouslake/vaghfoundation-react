@@ -4,7 +4,7 @@ export const home: HomePage = {
   hero: {
     slides: [
       {
-        image: '/images/hero.jpg',
+        image: '/images/hero-slide-1.png',
         h1Line1: 'Nurturing lives.',
         h1Line2: 'Nourishing communities.',
         lede: 'We believe lasting change begins with compassion in action. Through everyday acts of giving and support, we work toward a world where wellbeing, dignity, and opportunity reach everyone.',
@@ -14,7 +14,7 @@ export const home: HomePage = {
         btn2Url: '/donate',
       },
       {
-        image: '/images/header-about.jpg',
+        image: '/images/hero-slide-2.png',
         h1Line1: 'Rooted in compassion.',
         h1Line2: 'Guided by service.',
         lede: 'A quiet commitment to doing good, every day — through consistent, heartfelt acts that touch lives where it matters most.',
@@ -22,7 +22,7 @@ export const home: HomePage = {
         btnUrl: '/about',
       },
       {
-        image: '/images/header-wwd.jpg',
+        image: '/images/hero-slide-3.png',
         h1Line1: 'Small acts.',
         h1Line2: 'Extraordinary change.',
         lede: 'Nourishment, peace of mind, learning and care for our planet — the four causes we champion, and the initiatives that bring them to life.',
@@ -46,20 +46,20 @@ export const home: HomePage = {
   },
   hCards: {
     work: {
-      image: '/images/cta-home.jpg',
+      image: '/images/home-our-work.jpg',
       desc: 'The four causes we champion — nourishment, peace of mind, learning and care for our planet — and the initiatives that bring them to life.',
       href: '/what-we-do',
     },
     story: {
-      image: '/images/header-about.jpg',
+      image: '/images/home-our-story.jpg',
       desc: 'Vagh Foundation was born from a simple belief — that meaningful change is built through consistent, heartfelt acts of service.',
       href: '/about',
     },
   },
   founder: {
     eyebrow: 'A message from our founder',
-    photo: '/images/story-2.jpg',
-    name: 'A. Kumar',
+    photo: '/images/founder-dhirubhai.png',
+    name: 'Dhirubhai S. Vagh',
     role: 'Founder, Vagh Foundation',
     quote: 'Compassion, when practiced with consistency, becomes a quiet force. It doesn’t demand attention — it simply shows up, day after day, wherever it is needed most. Vagh Foundation was born from this belief, and grows with every act of service.',
   },
@@ -71,22 +71,22 @@ export const home: HomePage = {
       {
         title: 'Nourishment for all',
         body: 'Food distribution initiatives that ensure no one is left behind when it comes to a basic human need.',
-        image: '/images/hero.jpg',
+        image: '/images/pillar-1-nourishment.png',
       },
       {
         title: 'Peace of mind',
         body: 'Support for spaces of inner wellbeing and self-reflection, helping people find calm and renewal.',
-        image: '/images/cta-about.jpg',
+        image: '/images/pillar-2-peace.png',
       },
       {
         title: 'Empowering through learning',
         body: 'Access to knowledge and skill-building that opens doors of opportunity for curious minds.',
-        image: '/images/header-wwd.jpg',
+        image: '/images/pillar-3-learning.png',
       },
       {
         title: 'Caring for our planet',
         body: 'Sustainability initiatives that protect the environment for generations to come.',
-        image: '/images/header-con.jpg',
+        image: '/images/pillar-4-planet.png',
       },
     ],
     btnText: 'Explore what we do',
@@ -102,27 +102,27 @@ export const home: HomePage = {
         topic: 'nourishment',
         title: 'What does a warm meal really give?',
         body: 'Beyond hunger — dignity, and evenings a family can share.',
-        image: '/images/story-1.jpg',
+        image: '/images/story-1-warm-meal.png',
       },
       {
         kicker: 'Learning',
         topic: 'learning',
         title: 'Can a community teach itself?',
         body: 'Neighbours becoming teachers in the learning circles.',
-        image: '/images/story-2.jpg',
+        image: '/images/story-2-community-teach.png',
       },
       {
         kicker: 'Wellbeing',
         topic: 'wellbeing',
         title: 'How much quiet does a life need?',
         body: 'On the spaces we support for reflection and peace.',
-        image: '/images/story-3.jpg',
+        image: '/images/story-3-quiet-life.png',
       },
     ],
   },
   statement: 'Every meal shared, every mind at peace, every life empowered — <mark>it all begins with people who care.</mark>',
   gateFeature: {
-    image: '/images/header-gi.jpg',
+    image: '/images/home-compassion-in-action.png',
     kicker: 'Compassion in action',
     titleMarked: 'Small acts, gathered together, become a <mark>force</mark> for extraordinary change.',
     desc: 'We walk quietly alongside those we serve — offering nourishment, supporting peace of mind, encouraging learning, and caring for the world we all share.',
