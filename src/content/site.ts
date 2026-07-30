@@ -6,7 +6,7 @@ export const site: Site = {
   logoDark: '/images/logo-color.png',
   contactEmail: 'info@vaghfoundation.org',
   contactPhone: '+91 84888 96555',
-  contactAddress: 'A-609, Siddhivinayak Tower, Makarba, Ahmedabad — 380051',
+  contactAddress: 'A-609, Siddhivinayak Tower, Makarba, Ahmedabad - 380051',
   socials: [
     { label: 'Twitter',   href: '#', icon: 'twitter'   },
     { label: 'Facebook',  href: '#', icon: 'facebook'  },

@@ -4,7 +4,7 @@ export const about: AboutPage = {
   header: {
     eyebrow: 'About Vagh Foundation',
     h1Marked: 'About the <mark>Vagh Foundation</mark>',
-    lede: 'We walk quietly alongside those we serve — offering nourishment, supporting peace of mind, encouraging learning, and caring for the world we all share.',
+    lede: 'We walk quietly alongside those we serve, offering nourishment, supporting peace of mind, encouraging learning, and caring for the world we all share.',
     image: '/images/about-hero.png',
   },
   missionStatementMarked: 'Our mission is to nurture <mark>lives</mark> with dignity and to nourish <mark>communities</mark> with lasting care.',
@@ -22,16 +22,16 @@ export const about: AboutPage = {
     headingMarked: 'Meaningful change, built <mark>one act</mark> at a time.',
     paragraphs: [
       'Vagh Foundation was born from a simple yet powerful belief: that meaningful change is created not through grand gestures alone, but through consistent, heartfelt acts of service.',
-      'Our work is guided not by recognition, but by the genuine difference we can make in everyday lives — quietly, patiently, and with lasting care.',
+      'Our work is guided not by recognition, but by the genuine difference we can make in everyday lives: quietly, patiently, and with lasting care.',
     ],
   },
   timeline: {
     eyebrow: 'Our journey',
     headingMarked: '<mark>Milestones</mark> along the way',
-    intro: 'A brief record of the moments that shaped our work — and the steady steps forward that continue to define us.',
+    intro: 'A brief record of the moments that shaped our work, and the steady steps forward that continue to define us.',
     entries: [
       { year: '2024', title: 'Foundation established',   body: 'Vagh Foundation was formally established with a small circle of committed volunteers.' },
-      { year: '2024', title: 'First food distribution',   body: 'Our first community meal reached families in Bengaluru — the seed of what became a recurring initiative.' },
+      { year: '2024', title: 'First food distribution',   body: 'Our first community meal reached families in Bengaluru: the seed of what became a recurring initiative.' },
       { year: '2025', title: 'Learning circles begin',    body: 'We began supporting reading and skill circles for children and elderly members of the community.' },
       { year: '2025', title: 'Mindfulness spaces',        body: 'Support extended to spaces of inner wellbeing and quiet reflection.' },
       { year: '2026', title: 'Environmental care',        body: 'Sustainability initiatives added to our work, connecting people and planet.' },
@@ -67,11 +67,11 @@ export const about: AboutPage = {
       { q: 'Is Vagh Foundation a registered non-profit?',           a: 'Yes. Vagh Foundation is a registered non-profit under Indian law and operates with full transparency in every initiative we undertake.' },
       { q: 'Can I direct my contribution to a specific cause?',    a: 'Absolutely. If you’d like your support to go toward a specific initiative, you can note that when you donate or reach out to us directly.' },
       { q: 'How do I know my contribution is used well?',           a: 'We publish periodic notes on our work and are always happy to answer specific questions. Reach out through the contact page.' },
-      { q: 'Can our organisation partner with you?',                a: 'Yes — we welcome partnerships with organisations that share our values. Please start a conversation through the contact form.' },
+      { q: 'Can our organisation partner with you?',                a: 'Yes. We welcome partnerships with organisations that share our values. Please start a conversation through the contact form.' },
     ],
   },
   emailSignup: {
     titleWithEm: 'Walk with <em>us</em>',
-    body: 'Occasional updates on our work — and the people we walk with.',
+    body: 'Occasional updates on our work, and the people we walk with.',
   },
 }

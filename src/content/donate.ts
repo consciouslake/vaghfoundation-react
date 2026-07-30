@@ -4,13 +4,13 @@ export const donate: DonatePage = {
   header: {
     eyebrow: 'Support our work',
     h1Marked: 'Every contribution creates a <mark>ripple</mark> of hope.',
-    lede: 'When you give to Vagh Foundation, you become a partner in compassion — and a force for extraordinary change.',
+    lede: 'When you give to Vagh Foundation, you become a partner in compassion, and a force for extraordinary change.',
     image: '/images/donate-hero.png',
   },
   section: {
     eyebrow: 'Where your support goes',
     headingMarked: 'Kindness, directed where it’s <mark>needed most</mark>',
-    body: 'No contribution is too small — because every act of kindness, multiplied across many hearts, becomes a force for good.',
+    body: 'No contribution is too small. Every act of kindness, multiplied across many hearts, becomes a force for good.',
   },
   impact: [
     { title: 'Nourishment',     body: 'Helps provide wholesome meals through our food distribution initiatives.' },

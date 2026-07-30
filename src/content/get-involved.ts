@@ -37,6 +37,6 @@ export const getInvolved: GetInvolvedPage = {
   ],
   emailSignup: {
     titleWithEm: 'Ready <em>when</em> you are',
-    body: 'Two simple steps to begin — pick the one that fits you today.',
+    body: 'Two simple steps to begin. Pick the one that fits you today.',
   },
 }

@@ -15,7 +15,7 @@ interface SEOProps {
 const SITE_URL = 'https://vaghfoundation.org'
 
 export function SEO({ title, description, image, path }: SEOProps) {
-  const fullTitle = `${title} — ${site.brand}`
+  const fullTitle = `${title} | ${site.brand}`
   const ogImage = image ?? site.logoLight
   const url = path ? `${SITE_URL}${path}` : SITE_URL
   return (

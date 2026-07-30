@@ -10,7 +10,7 @@ export default function WhatWeDo() {
     <>
       <SEO
         title="What we do"
-        description="Our initiatives across nourishment, peace of mind, learning, environmental care, and community wellbeing — turning compassion into meaningful action."
+        description="Our initiatives across nourishment, peace of mind, learning, environmental care, and community wellbeing. Turning compassion into meaningful action."
         path="/what-we-do"
       />
       <PageHeader data={whatWeDo.header} />

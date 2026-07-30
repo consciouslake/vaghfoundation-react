@@ -25,7 +25,7 @@ export function ValuesGrid({ items }: { items: ValueItem[] }) {
               marginBottom: '0.8rem',
             }}
           >
-            0{i + 1} —
+            0{i + 1}
           </div>
           <h4 style={{ marginBottom: '0.5rem' }}>{v.title}</h4>
           <p style={{ color: 'var(--ink-2)', fontSize: '0.95rem' }}>

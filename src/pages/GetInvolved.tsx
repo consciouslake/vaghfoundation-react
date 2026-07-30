@@ -11,7 +11,7 @@ export default function GetInvolved() {
     <>
       <SEO
         title="Get involved"
-        description="Four ways to join the Vagh Foundation movement — volunteer your time, support the cause, spread the word, or partner with us."
+        description="Four ways to join the Vagh Foundation movement: volunteer your time, support the cause, spread the word, or partner with us."
         path="/get-involved"
       />
       <PageHeader data={getInvolved.header} />

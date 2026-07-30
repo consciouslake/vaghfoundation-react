@@ -37,7 +37,7 @@ export function Initiative({ data, index }: InitiativeProps) {
             textTransform: 'uppercase',
           }}
         >
-          0{index + 1} — {data.label}
+          0{index + 1} · {data.label}
         </div>
         <h2 style={{ marginBottom: '1.2rem', maxWidth: '18ch' }}>{data.h3}</h2>
         <p style={{ color: 'var(--ink-2)', fontSize: '1.02rem', marginBottom: '1rem' }}>

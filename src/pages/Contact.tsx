@@ -13,7 +13,7 @@ export default function Contact() {
     <>
       <SEO
         title="Contact"
-        description="Get in touch with Vagh Foundation — whether you want to volunteer, contribute, collaborate, or simply learn more about our work."
+        description="Get in touch with Vagh Foundation. Whether you want to volunteer, contribute, collaborate, or simply learn more about our work."
         path="/contact"
       />
       <PageHeader data={contact.header} />

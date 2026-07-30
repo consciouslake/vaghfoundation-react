@@ -10,7 +10,7 @@ export const nav: Nav = {
     { label: 'Donate',       href: '/donate', cta: true },
   ],
   mega: [
-    { label: 'Home',         href: '/',             desc: 'Vagh Foundation — compassion in action' },
+    { label: 'Home',         href: '/',             desc: 'Vagh Foundation: compassion in action' },
     { label: 'About us',     href: '/about',        desc: 'Our story, values, and the people behind the work' },
     { label: 'What we do',   href: '/what-we-do',   desc: 'Nourishment, learning, wellbeing, sustainability' },
     { label: 'Get involved', href: '/get-involved', desc: 'Volunteer, donate, partner with us' },

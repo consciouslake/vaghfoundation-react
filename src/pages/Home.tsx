@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <SEO
         title="Compassion in action, service at heart"
-        description="Vagh Foundation nurtures lives and nourishes communities through everyday acts of compassion — food, wellbeing, learning, and care for the planet."
+        description="Vagh Foundation nurtures lives and nourishes communities through everyday acts of compassion: food, wellbeing, learning, and care for the planet."
         path="/"
       />
       <OrganizationJsonLd />

@@ -17,7 +17,7 @@ export default function About() {
     <>
       <SEO
         title="About us"
-        description="The story behind Vagh Foundation — our values, timeline, and the people whose steady, everyday work shapes lives with dignity and care."
+        description="The story behind Vagh Foundation: our values, timeline, and the people whose steady, everyday work shapes lives with dignity and care."
         path="/about"
       />
       <PageHeader data={about.header} />

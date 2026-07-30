@@ -69,7 +69,7 @@ export function IdeasGrid({ data }: { data: HomePage['ideas'] }) {
               className="ideas-empty"
               style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.95rem', gridColumn: '1 / -1' }}
             >
-              No stories in this topic yet — check back soon.
+              No stories in this topic yet. Check back soon.
             </p>
           )}
         </div>
