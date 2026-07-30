@@ -20,7 +20,7 @@ export function Initiative({ data, index }: InitiativeProps) {
       className="split reveal"
       style={{ marginBottom: 'clamp(3rem, 6vw, 5rem)', alignItems: 'center' }}
     >
-      <div style={flip ? { order: 2 } : undefined}>
+      <div className={flip ? 'initiative-media-flip' : undefined}>
         <div className="split-image" style={{ aspectRatio: '5/4' }}>
           <img src={data.image} alt="" />
         </div>

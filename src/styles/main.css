@@ -612,7 +612,7 @@ mark {
 }
 .cta-together__title {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.55rem, 4vw, 3rem);
   color: var(--white);
   font-weight: 400;
   margin-bottom: 1rem;
@@ -960,6 +960,11 @@ mark {
    SPLIT
    ============================================================ */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 5vw, 5rem); align-items: start; }
+/* Flip modifier used by WWD initiatives — only active on desktop so mobile
+   preserves source order (image above its own text, no adjacent-image collision) */
+@media (min-width: 801px) {
+  .initiative-media-flip { order: 2; }
+}
 .split-image { aspect-ratio: 4/5; overflow: hidden; background: var(--paper); border-radius: var(--gate-arch); }
 .split-image img { width: 100%; height: 100%; object-fit: cover; }
 .split-narrow { display: grid; grid-template-columns: 1fr 1.4fr; gap: clamp(2.5rem, 5vw, 4.5rem); align-items: start; }
