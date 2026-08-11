@@ -9,12 +9,7 @@ export function ContactRows({ items }: { items: ContactItem[] }) {
             <h4>{i.label}</h4>
             <p>
               {i.href ? (
-                <a
-                  href={i.href}
-                  style={{ borderBottom: '1px solid var(--accent)', color: 'var(--ink)' }}
-                >
-                  {i.value}
-                </a>
+                <a href={i.href}>{i.value}</a>
               ) : (
                 i.value
               )}

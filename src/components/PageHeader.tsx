@@ -1,45 +1,30 @@
 import type { PageHeader as PageHeaderData } from '../content/types'
 import { Marked } from './Marked'
 
+/** Band fill for the header. Pages cycle these so the set feels varied. */
+export type Tone = 'orange' | 'orange-soft' | 'blue' | 'blue-soft' | 'yellow' | 'green'
+
+interface PageHeaderProps {
+  data: PageHeaderData
+  tone?: Tone
+}
+
 /**
- * Photo-variant page header used by every inner page. Renders an arch-
- * framed hero with kicker + h1 (may contain <mark>) + lede, plus the
- * 4 concave corner spans (matches the WP has-photo layout exactly).
- * Falls back to a text-only header if no image is provided.
+ * Inner-page header — a full-bleed solid colour band holding an
+ * oversized black h1 and a one-line deck. No image: the page's photo
+ * is placed further down the page by the page itself.
  */
-export function PageHeader({ data }: { data: PageHeaderData }) {
-  if (!data.image) {
-    return (
-      <section className="page-header">
-        <div className="wrap">
-          <span className="kicker">{data.eyebrow}</span>
-          <h1>
-            <Marked>{data.h1Marked}</Marked>
-          </h1>
-          <p>
-            <Marked>{data.lede}</Marked>
-          </p>
-        </div>
-      </section>
-    )
-  }
+export function PageHeader({ data, tone = 'orange' }: PageHeaderProps) {
   return (
-    <section className="page-header has-photo">
-      <div className="header-frame">
-        <div className="hero-bg" style={{ backgroundImage: `url('${data.image}')` }} />
-        <div className="header-content">
-          <span className="kicker">{data.eyebrow}</span>
-          <h1>
-            <Marked>{data.h1Marked}</Marked>
-          </h1>
-          <p>
-            <Marked>{data.lede}</Marked>
-          </p>
-        </div>
-        <span className="hero-arch-corner hero-arch-corner--tl" aria-hidden="true" />
-        <span className="hero-arch-corner hero-arch-corner--tr" aria-hidden="true" />
-        <span className="hero-arch-corner hero-arch-corner--bl" aria-hidden="true" />
-        <span className="hero-arch-corner hero-arch-corner--br" aria-hidden="true" />
+    <section className={`page-header band band--${tone}`}>
+      <div className="wrap">
+        <span className="kicker">{data.eyebrow}</span>
+        <h1>
+          <Marked>{data.h1Marked}</Marked>
+        </h1>
+        <p>
+          <Marked>{data.lede}</Marked>
+        </p>
       </div>
     </section>
   )

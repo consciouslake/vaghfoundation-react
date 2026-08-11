@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Mozilla design reference: commit the scripts + distilled docs, not the 66MB
+# of captured binaries. Regenerate with `node mozilla-reference/scrape.cjs`.
+mozilla-reference/output/screenshots/
+mozilla-reference/output/screenshots-mobile/
+mozilla-reference/output/tiles/
+mozilla-reference/output/assets/

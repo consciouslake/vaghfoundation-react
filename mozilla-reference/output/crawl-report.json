@@ -1,0 +1,107 @@
+[
+  {
+    "name": "home",
+    "url": "https://www.mozillafoundation.org/en/",
+    "status": 200,
+    "title": "Welcome to Mozilla Foundation - Mozilla Foundation",
+    "maps": "front-page.php"
+  },
+  {
+    "name": "meet-mozilla",
+    "url": "https://www.mozillafoundation.org/en/meet-mozilla/",
+    "status": 200,
+    "title": "Discover Mozilla Foundation’s Story & Vision - Mozilla Foundation",
+    "maps": "page-about.php"
+  },
+  {
+    "name": "person-nabiha-syed",
+    "url": "https://www.mozillafoundation.org/en/meet-mozilla/nabiha-syed/",
+    "status": 200,
+    "title": "Nabiha Syed - Executive Director | Mozilla Foundation - Mozilla Foundation",
+    "maps": "team member detail"
+  },
+  {
+    "name": "press-center",
+    "url": "https://www.mozillafoundation.org/en/meet-mozilla/press-center/",
+    "status": 200,
+    "title": "Press Center | Mozilla Foundation - Mozilla Foundation",
+    "maps": "news index"
+  },
+  {
+    "name": "press-article",
+    "url": "https://www.mozillafoundation.org/en/meet-mozilla/press-center/nothing-personal-magazine-launch/",
+    "status": 200,
+    "title": "Mozilla Foundation Launches New Editorial Brand “Nothing Personal,” a counterculture magazine and platform for independent thinkers - Mozilla Foundation",
+    "maps": "single post"
+  },
+  {
+    "name": "annual-reports",
+    "url": "https://www.mozillafoundation.org/en/meet-mozilla/annual-reports-and-financials/",
+    "status": 200,
+    "title": "Annual Reports and Financials | Mozilla Foundation - Mozilla Foundation",
+    "maps": "reports / financials"
+  },
+  {
+    "name": "what-we-do",
+    "url": "https://www.mozillafoundation.org/en/what-we-do/",
+    "status": 200,
+    "title": "Powering People-First Technology - Mozilla Foundation",
+    "maps": "page-what-we-do.php"
+  },
+  {
+    "name": "what-we-do-imagine",
+    "url": "https://www.mozillafoundation.org/en/what-we-do/imagine/",
+    "status": 200,
+    "title": "Disrupting Tech Defaults - Mozilla Foundation",
+    "maps": "programme detail"
+  },
+  {
+    "name": "what-we-do-co-create",
+    "url": "https://www.mozillafoundation.org/en/what-we-do/co-create/",
+    "status": 200,
+    "title": "Making good tech - Mozilla Foundation",
+    "maps": "programme detail"
+  },
+  {
+    "name": "what-we-do-mobilize",
+    "url": "https://www.mozillafoundation.org/en/what-we-do/mobilize/",
+    "status": 200,
+    "title": "Mozilla Foundation Mobilizes People & Ideas - Mozilla Foundation",
+    "maps": "programme detail"
+  },
+  {
+    "name": "grantmaking",
+    "url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/",
+    "status": 200,
+    "title": "Mozilla Foundation Grantmaking | Mozilla Foundation - Mozilla Foundation",
+    "maps": "programmes index"
+  },
+  {
+    "name": "fellowship",
+    "url": "https://www.mozillafoundation.org/en/what-we-do/grantmaking/fellowship/",
+    "status": 200,
+    "title": "Mozilla Fellowship Program | Mozilla Foundation - Mozilla Foundation",
+    "maps": "programme detail"
+  },
+  {
+    "name": "join-us",
+    "url": "https://www.mozillafoundation.org/en/join-us/",
+    "status": 200,
+    "title": "Drive Change with Mozilla Foundation - Mozilla Foundation",
+    "maps": "page-get-involved.php / page-volunteer.php"
+  },
+  {
+    "name": "future-of-tech",
+    "url": "https://www.mozillafoundation.org/en/join-us/the-future-of-tech/",
+    "status": 200,
+    "maps": "campaign page",
+    "title": "The future of tech is ours to build - Mozilla Foundation"
+  },
+  {
+    "name": "sample-page",
+    "url": "https://www.mozillafoundation.org/en/docs/how-do-i-wagtail/general-editing/sample-page/",
+    "status": 200,
+    "maps": "generic content page",
+    "title": "Sample Page Title - Mozilla Foundation"
+  }
+]

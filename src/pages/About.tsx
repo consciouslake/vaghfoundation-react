@@ -1,16 +1,24 @@
 import { about } from '../content/about'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
+import { PageLead } from '../components/PageLead'
 import { MissionStatement } from '../components/MissionStatement'
-import { GateFeature } from '../components/GateFeature'
+import { FeatureCard } from '../components/FeatureCard'
 import { SectionHead } from '../components/SectionHead'
-import { Timeline } from '../components/Timeline'
+import { ColourCards, type ColourCard } from '../components/ColourCards'
 import { ValuesGrid } from '../components/ValuesGrid'
 import { TeamGrid } from '../components/TeamGrid'
 import { FAQAccordion } from '../components/FAQAccordion'
 import { EmailSignup, EmailSignupForm } from '../components/EmailSignup'
 import { Reveal } from '../components/Reveal'
 import { Marked } from '../components/Marked'
+
+/** The journey entries render as colour cards — the year is the eyebrow. */
+const journeyCards: ColourCard[] = about.timeline.entries.map((e) => ({
+  eyebrow: e.year,
+  title: e.title,
+  body: e.body,
+}))
 
 export default function About() {
   return (
@@ -20,7 +28,8 @@ export default function About() {
         description="The story behind Vagh Foundation: our values, timeline, and the people whose steady, everyday work shapes lives with dignity and care."
         path="/about"
       />
-      <PageHeader data={about.header} />
+      <PageHeader data={about.header} tone="orange" />
+      <PageLead image={about.header.image} arch="tr" />
 
       <MissionStatement
         statementMarked={about.missionStatementMarked}
@@ -28,27 +37,20 @@ export default function About() {
         btnUrl={about.missionCta.href}
       />
 
-      <GateFeature data={about.gateMission} />
+      <FeatureCard data={about.gateMission} tone="blue" />
 
       <section className="section" id="our-story">
         <div className="wrap">
           <div className="split">
             <Reveal>
               <span className="kicker">{about.story.eyebrow}</span>
-              <h2 style={{ maxWidth: '15ch' }}>
+              <h2>
                 <Marked>{about.story.headingMarked}</Marked>
               </h2>
             </Reveal>
-            <Reveal style={{ paddingTop: '2rem' }}>
+            <Reveal>
               {about.story.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  style={{
-                    color: 'var(--ink-2)',
-                    fontSize: '1.05rem',
-                    marginBottom: i === about.story.paragraphs.length - 1 ? 0 : '1.2rem',
-                  }}
-                >
+                <p key={i} className="lede">
                   <Marked>{p}</Marked>
                 </p>
               ))}
@@ -57,23 +59,17 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section--tight">
         <div className="wrap">
-          <div className="split-narrow">
-            <Reveal>
-              <span className="kicker">{about.timeline.eyebrow}</span>
-              <h2 style={{ maxWidth: '18ch' }}>
-                <Marked>{about.timeline.headingMarked}</Marked>
-              </h2>
-              <p style={{ color: 'var(--ink-2)', marginTop: '1rem', maxWidth: '40ch' }}>
-                <Marked>{about.timeline.intro}</Marked>
-              </p>
-            </Reveal>
-            <Reveal>
-              <Timeline entries={about.timeline.entries} />
-            </Reveal>
-          </div>
+          <SectionHead
+            eyebrow={about.timeline.eyebrow}
+            heading="Milestones along the way"
+            headingMarked={about.timeline.headingMarked}
+            intro={about.timeline.intro}
+            rays
+          />
         </div>
+        <ColourCards items={journeyCards} label="Our journey" />
       </section>
 
       <section className="section">
@@ -87,7 +83,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="wrap">
           <SectionHead
             eyebrow={about.team.eyebrow}
@@ -99,7 +95,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="wrap-r">
           <SectionHead eyebrow={about.faq.eyebrow} heading={about.faq.heading} />
           <Reveal>

@@ -1,38 +1,39 @@
 import { useState, type PropsWithChildren } from 'react'
 import { Marked } from './Marked'
+import { Doodle } from './Doodle'
+import { ArrowRight } from './ArrowRight'
+import type { Tone } from './PageHeader'
 
-interface EmailSignupBaseProps {
+interface EmailSignupProps {
   /** Title string with optional <em>...</em> for the italic emphasis. */
   titleWithEm: string
   body: string
+  tone?: Tone | 'dark'
 }
 
 /**
- * Dark section used at the bottom of most inner pages. Renders a title
- * with optional <em>, an intro paragraph, and either an email form
- * (subscribe pattern) or arbitrary children (typically buttons).
+ * Closing band on most inner pages — a solid colour slab carrying a
+ * display heading, a line of copy, and either the subscribe form or
+ * arbitrary children (typically a pair of buttons).
  */
 export function EmailSignup({
   titleWithEm,
   body,
+  tone = 'orange-soft',
   children,
-}: PropsWithChildren<EmailSignupBaseProps>) {
+}: PropsWithChildren<EmailSignupProps>) {
   return (
-    <section className="email-signup">
-      <h2 className="email-signup__title">
-        <Marked>{titleWithEm}</Marked>
-      </h2>
-      <p
-        style={{
-          color: 'rgba(255,255,255,0.9)',
-          maxWidth: '44ch',
-          margin: '0 auto 1.6rem',
-          fontSize: '0.98rem',
-        }}
-      >
-        {body}
-      </p>
-      {children}
+    <section className={`email-signup band band--${tone}`}>
+      <div className="email-signup__inner">
+        <div>
+          <Doodle name="rays" className={tone === 'dark' ? 'doodle--light' : undefined} />
+          <h2 className="email-signup__title">
+            <Marked>{titleWithEm}</Marked>
+          </h2>
+          <p className="email-signup__body">{body}</p>
+        </div>
+        <div>{children}</div>
+      </div>
     </section>
   )
 }
@@ -45,16 +46,17 @@ export function EmailSignupForm() {
       className="email-signup__form"
       onSubmit={(e) => {
         e.preventDefault()
+        const form = e.currentTarget
         setState('sent')
         window.setTimeout(() => {
           setState('idle')
-          e.currentTarget?.reset?.()
+          form.reset()
         }, 2600)
       }}
     >
-      <input type="email" placeholder="Your email address" aria-label="Email" required />
+      <input type="email" placeholder="Email" aria-label="Email address" required />
       <button type="submit" disabled={state === 'sent'}>
-        {state === 'sent' ? 'Thank you ✓' : 'Subscribe'}
+        {state === 'sent' ? 'Thank you ✓' : <>Sign Up <ArrowRight /></>}
       </button>
     </form>
   )

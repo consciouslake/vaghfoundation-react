@@ -1,0 +1,1404 @@
+<!DOCTYPE html><html lang="en"><head><style id="__funBackdropStyles">.fun-widget-backdrop-holder {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  position: fixed !important;
+  z-index: 2147483646 !important;
+  transition: opacity 0.2s ease-in-out !important;
+  translate: 0 0 99px !important;
+  animation: fun-widget-backdrop 0.2s ease-in-out !important;
+}
+
+.fun-widget-backdrop {
+  position: absolute !important;
+  inset-inline-start: 50% !important;
+  top: 50% !important;
+  animation:
+    fun-widget-backdrop-rotate 1.5s infinite linear,
+    fun-widget-backdrop-fadein 0.6s ease-in-out !important;
+  padding: 0 !important;
+  margin: -30px 0 0 -30px !important;
+  width: 60px !important;
+  min-width: 60px !important;
+  max-width: 60px !important;
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+  border-radius: 50% !important;
+  border: 4px solid !important;
+  border-color: #e3e3e3 #e3e3e3 #666 #666 !important;
+}
+
+@keyframes fun-widget-backdrop {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fun-widget-backdrop-fadein {
+  0% {
+    opacity: 0;
+  }
+
+  33% {
+    opacity: 0;
+  }
+
+  66% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fun-widget-backdrop-rotate {
+  0% {
+    rotate: 0deg;
+  }
+
+  100% {
+    rotate: 359deg;
+  }
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9wcmVsb2FkZXIvYmFja2Ryb3AuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsbUJBQW1CO0VBQ25CLHNCQUFzQjtFQUN0Qix1QkFBdUI7RUFDdkIseUJBQXlCO0VBQ3pCLDBCQUEwQjtFQUMxQiw4QkFBOEI7RUFDOUIsK0NBQStDO0VBQy9DLDhCQUE4QjtFQUM5QiwwREFBMEQ7QUFDNUQ7O0FBRUE7RUFDRSw2QkFBNkI7RUFDN0Isa0NBQWtDO0VBQ2xDLG1CQUFtQjtFQUNuQjs7MERBRXdEO0VBQ3hELHFCQUFxQjtFQUNyQixrQ0FBa0M7RUFDbEMsc0JBQXNCO0VBQ3RCLDBCQUEwQjtFQUMxQiwwQkFBMEI7RUFDMUIsdUJBQXVCO0VBQ3ZCLDJCQUEyQjtFQUMzQiwyQkFBMkI7RUFDM0IsNkJBQTZCO0VBQzdCLDRCQUE0QjtFQUM1QixrREFBa0Q7QUFDcEQ7O0FBRUE7RUFDRTtJQUNFLFVBQVU7RUFDWjs7RUFFQTtJQUNFLFVBQVU7RUFDWjtBQUNGOztBQUVBO0VBQ0U7SUFDRSxVQUFVO0VBQ1o7O0VBRUE7SUFDRSxVQUFVO0VBQ1o7O0VBRUE7SUFDRSxVQUFVO0VBQ1o7O0VBRUE7SUFDRSxVQUFVO0VBQ1o7QUFDRjs7QUFFQTtFQUNFO0lBQ0UsWUFBWTtFQUNkOztFQUVBO0lBQ0UsY0FBYztFQUNoQjtBQUNGIiwic291cmNlc0NvbnRlbnQiOlsiLmZ1bi13aWRnZXQtYmFja2Ryb3AtaG9sZGVyIHtcbiAgaW5zZXQ6IDAgIWltcG9ydGFudDtcbiAgd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcbiAgaGVpZ2h0OiAxMDAlICFpbXBvcnRhbnQ7XG4gIGRpc3BsYXk6IGJsb2NrICFpbXBvcnRhbnQ7XG4gIHBvc2l0aW9uOiBmaXhlZCAhaW1wb3J0YW50O1xuICB6LWluZGV4OiAyMTQ3NDgzNjQ2ICFpbXBvcnRhbnQ7XG4gIHRyYW5zaXRpb246IG9wYWNpdHkgMC4ycyBlYXNlLWluLW91dCAhaW1wb3J0YW50O1xuICB0cmFuc2xhdGU6IDAgMCA5OXB4ICFpbXBvcnRhbnQ7XG4gIGFuaW1hdGlvbjogZnVuLXdpZGdldC1iYWNrZHJvcCAwLjJzIGVhc2UtaW4tb3V0ICFpbXBvcnRhbnQ7XG59XG5cbi5mdW4td2lkZ2V0LWJhY2tkcm9wIHtcbiAgcG9zaXRpb246IGFic29sdXRlICFpbXBvcnRhbnQ7XG4gIGluc2V0LWlubGluZS1zdGFydDogNTAlICFpbXBvcnRhbnQ7XG4gIHRvcDogNTAlICFpbXBvcnRhbnQ7XG4gIGFuaW1hdGlvbjpcbiAgICBmdW4td2lkZ2V0LWJhY2tkcm9wLXJvdGF0ZSAxLjVzIGluZmluaXRlIGxpbmVhcixcbiAgICBmdW4td2lkZ2V0LWJhY2tkcm9wLWZhZGVpbiAwLjZzIGVhc2UtaW4tb3V0ICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmc6IDAgIWltcG9ydGFudDtcbiAgbWFyZ2luOiAtMzBweCAwIDAgLTMwcHggIWltcG9ydGFudDtcbiAgd2lkdGg6IDYwcHggIWltcG9ydGFudDtcbiAgbWluLXdpZHRoOiA2MHB4ICFpbXBvcnRhbnQ7XG4gIG1heC13aWR0aDogNjBweCAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDYwcHggIWltcG9ydGFudDtcbiAgbWluLWhlaWdodDogNjBweCAhaW1wb3J0YW50O1xuICBtYXgtaGVpZ2h0OiA2MHB4ICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDUwJSAhaW1wb3J0YW50O1xuICBib3JkZXI6IDRweCBzb2xpZCAhaW1wb3J0YW50O1xuICBib3JkZXItY29sb3I6ICNlM2UzZTMgI2UzZTNlMyAjNjY2ICM2NjYgIWltcG9ydGFudDtcbn1cblxuQGtleWZyYW1lcyBmdW4td2lkZ2V0LWJhY2tkcm9wIHtcbiAgMCUge1xuICAgIG9wYWNpdHk6IDA7XG4gIH1cblxuICAxMDAlIHtcbiAgICBvcGFjaXR5OiAxO1xuICB9XG59XG5cbkBrZXlmcmFtZXMgZnVuLXdpZGdldC1iYWNrZHJvcC1mYWRlaW4ge1xuICAwJSB7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuXG4gIDMzJSB7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuXG4gIDY2JSB7XG4gICAgb3BhY2l0eTogMDtcbiAgfVxuXG4gIDEwMCUge1xuICAgIG9wYWNpdHk6IDE7XG4gIH1cbn1cblxuQGtleWZyYW1lcyBmdW4td2lkZ2V0LWJhY2tkcm9wLXJvdGF0ZSB7XG4gIDAlIHtcbiAgICByb3RhdGU6IDBkZWc7XG4gIH1cblxuICAxMDAlIHtcbiAgICByb3RhdGU6IDM1OWRlZztcbiAgfVxufVxuIl0sInNvdXJjZVJvb3QiOiIifQ== */</style>
+        <meta charset="utf-8">
+        <title>
+            
+                
+                    Powering People-First Technology
+                
+            
+            
+                
+                - Mozilla Foundation
+            
+        </title>
+        
+            <meta name="description" content="Explore how Mozilla Foundation empowers communities and developers to shape a more open, ethical internet for all through data, education, and fellowships">
+
+        
+            
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Powering People-First Technology">
+<meta name="twitter:description" content="Explore how Mozilla Foundation empowers communities and developers to shape a more open, ethical internet for all through data, education, and fellowships">
+<meta name="twitter:image" content="https://assets.mofoprod.net/network/images/Generic-OG.original.png">
+
+
+
+<meta property="og:url" content="https://www.mozillafoundation.org/en/what-we-do/">
+<meta property="og:title" content="Powering People-First Technology">
+<meta property="og:description" content="Explore how Mozilla Foundation empowers communities and developers to shape a more open, ethical internet for all through data, education, and fellowships">
+<meta property="og:site_name" content="Mozilla Foundation">
+
+<meta property="og:image" content="https://assets.mofoprod.net/network/images/Generic-OG.original.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="628">
+
+
+
+
+
+    <meta itemprop="url" content="https://www.mozillafoundation.org/en/what-we-do/">
+    <meta itemprop="name" content="Powering People-First Technology">
+    <meta itemprop="description" content="Explore how Mozilla Foundation empowers communities and developers to shape a more open, ethical internet for all through data, education, and fellowships">
+    <meta itemprop="image" content="https://assets.mofoprod.net/network/images/Generic-OG.original.png">
+    <meta name="description" content="Explore how Mozilla Foundation empowers communities and developers to shape a more open, ethical internet for all through data, education, and fellowships">
+
+
+
+        
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        
+    
+        
+            
+            <link rel="stylesheet" href="https://assets.mofoprod.net/static/foundation_cms/_css/redesign_fallback.compiled.cf0a9ac55c27.css">
+        
+
+    
+        <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="https://assets.mofoprod.net/static/foundation_cms/_images/favicon.bb5d7d637881.png">
+        <link rel="icon" type="image/png" sizes="196x196" href="https://assets.mofoprod.net/static/foundation_cms/_images/favicon.bb5d7d637881.png">
+        <link rel="shortcut icon" href="https://assets.mofoprod.net/static/foundation_cms/_images/favicon.bb5d7d637881.png">
+
+    
+        
+            <meta name="google-site-verification" content="D7k-r3fHm-XfJ9E7T1uZ5aqHJG2mx-0uUZFeBUDN2lY">
+            <meta name="gtm-identifier" content="GTM-PQQ8H6PM">
+            <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-1QH1RS2VWE&amp;cx=c&amp;gtm=4e6871h1" nonce=""></script><script async="" src="https://cdn.fundraiseup.com/widget/ADCYPWMX"></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-PQQ8H6PM"></script><script nonce="">window.dataLayer = window.dataLayer || [];</script>
+            <script nonce="">
+                // Consent Mode v2: deny all by default before GTM loads.
+                // Civic updates these via onAccept/onRevoke callbacks.
+                // https://cookiecontrol.com/docs/v9/optional-categories#step-1-site-cleanup
+                // https://developers.google.com/tag-platform/security/guides/consent
+                function gtag(){dataLayer.push(arguments);}
+                gtag("consent", "default", {
+                    "ad_storage": "denied",
+                    "analytics_storage": "denied",
+                    "ad_personalization": "denied",
+                    "ad_user_data": "denied"
+                });
+            </script>
+            <script nonce="">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                                                          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PQQ8H6PM');</script>
+        
+
+        
+            <script nonce="">(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
+                    .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
+                        :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
+                j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
+                t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
+                for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
+            })(window,document,'script','FundraiseUp','ADCYPWMX');</script>
+        
+
+        
+    
+    
+        
+    
+    
+
+
+        
+
+
+    
+    
+        
+        <script id="abtesting-page-id" type="application/json">31569</script>
+    
+
+    
+    
+
+    
+    
+    <script id="abtesting-register-participant-url" type="application/json">"/abtesting/register-participant/"</script>
+    
+    <script id="abtesting-goal-reached-url" type="application/json">"/abtesting/goal-reached/"</script>
+
+    <script nonce="">
+        // Read values from the DOM
+        const registerParticipantUrl = JSON.parse(document.getElementById('abtesting-register-participant-url').textContent);
+        const goalReachedUrl = JSON.parse(document.getElementById('abtesting-goal-reached-url').textContent);
+
+        window.wagtailAbTesting = {
+            urls :{
+                registerParticipant: registerParticipantUrl,
+                goalReached: goalReachedUrl
+            }
+        };
+
+        if (document.getElementById('abtesting-page-id')) {
+            const pageId = JSON.parse(document.getElementById('abtesting-page-id').textContent);
+            window.wagtailAbTesting.pageId = pageId;
+        }
+
+        let testId = null;
+        let version = null;
+
+        if (document.getElementById('abtesting-test-id')) {
+            testId = JSON.parse(document.getElementById('abtesting-test-id').textContent);
+        }
+
+        if (document.getElementById('abtesting-version')) {
+            version = JSON.parse(document.getElementById('abtesting-version').textContent);
+        }
+
+        if (testId && version) {
+            const goalEvent = JSON.parse(document.getElementById('abtesting-goal-event').textContent);
+            const goalPageId = JSON.parse(document.getElementById('abtesting-goal-page-id').textContent);
+            window.wagtailAbTesting.testId = testId;
+            window.wagtailAbTesting.version = version;
+            window.wagtailAbTesting.goalEvent = goalEvent;
+            window.wagtailAbTesting.goalPageId = goalPageId;
+        }
+    </script>
+
+    <script nonce="" src="https://assets.mofoprod.net/static/wagtail_ab_testing/js/tracker.673dc7a4c0b3.js" defer="" async=""></script>
+
+    <meta class="foundation-mq" name="foundation-mq" content=""><style>.ccc-disable-scroll{overflow-y:scroll;position:fixed}#ccc{font-family:Arial,sans-serif;font-size:16px;line-height:1.4em;position:fixed;z-index:2147483647}#ccc-icon{background:transparent;border:0;bottom:0;cursor:pointer;height:80px;padding:0;position:fixed;width:80px;z-index:20}#ccc-icon.ccc-icon--left{left:0}#ccc-icon.ccc-icon--right{right:0}#ccc-icon.ccc-icon--dark{fill:#000025}#ccc-icon.ccc-icon--dark #star path{fill:#fff}#ccc-icon.ccc-icon--light{fill:#555}#ccc-icon.ccc-icon--light #star path{fill:#f4f4f4}#ccc-overlay{animation-duration:.4s;animation-iteration-count:1;animation-name:fade-in;backface-visibility:hidden;background:rgba(0,0,0,.4);bottom:0;left:0;opacity:1;perspective:0;position:fixed;right:0;top:0;will-change:opacity;z-index:1}#ccc-module{height:100%;position:fixed;width:100%;z-index:2}#ccc-module.ccc-module--slideout{bottom:0;max-width:520px;top:0;width:90%}#ccc-module.ccc-module--slideout.ccc-module--left{animation-duration:.4s;animation-iteration-count:1;animation-name:slide-right;left:0}#ccc-module.ccc-module--slideout.ccc-module--right{animation-duration:.4s;animation-iteration-count:1;animation-name:slide-left;right:0}#ccc-content{box-sizing:border-box;height:100%;overflow-y:auto;padding:24px;position:absolute;width:100%}.ccc-content--dark{fill:#fff;background-color:#313147;color:#fff}.ccc-content--light{fill:#333;background-color:#f4f4f4;color:#333}#ccc-close{align-items:center;background-color:transparent;border:0;cursor:pointer;display:flex;padding:0!important;position:absolute;right:16px;top:16px;z-index:10}#ccc-title,.ccc-title{font-size:1.2em;font-weight:700;line-height:1.5em;margin:0;padding-right:32px;text-align:left}#ccc #ccc-recommended-settings{clear:both;float:none;margin-left:0}#ccc h2,#ccc h3{font-weight:700;margin:0;padding-right:120px}#ccc h2,#ccc h3,#ccc p,.ccc-intro{font-size:1em;line-height:1.5em;text-align:left}#ccc p,.ccc-intro{font-weight:400;margin:1em 0}#ccc hr{border:0;height:1px;margin:24px 0;opacity:.25}#ccc .ccc-svg-element{display:inline-block;height:16px;margin-left:8px;position:relative;top:6px;width:16px}#ccc .ccc-content--dark hr{background-color:#fff}#ccc .ccc-content--dark a,#ccc .ccc-content--dark h1,#ccc .ccc-content--dark h2,#ccc .ccc-content--dark h3,#ccc .ccc-content--dark p,#ccc .ccc-content--dark span{fill:#fff;color:#fff}#ccc .ccc-content--light hr{background-color:#333}#ccc .ccc-content--light a,#ccc .ccc-content--light h1,#ccc .ccc-content--light h2,#ccc .ccc-content--light h3,#ccc .ccc-content--light p,#ccc .ccc-content--light span{fill:#333;color:#333}#ccc .optional-cookie{position:relative}.checkbox-toggle{margin:0;position:absolute;right:0;top:-3px}#ccc .checkbox-toggle-input{bottom:0;display:block;height:100%;left:0;margin:0;opacity:0;padding:0;position:absolute;right:0;top:0;width:100%;z-index:1}#ccc .checkbox-toggle--checkbox{border:2px solid #fff;border-radius:4px}#ccc .checkbox-toggle--checkbox .checkbox-toggle-label{display:block;height:24px;width:24px}#ccc .checkbox-toggle--checkbox .checkbox-toggle-off,#ccc .checkbox-toggle--checkbox .checkbox-toggle-on{display:none}#ccc .checkbox-toggle--checkbox .checkbox-toggle-toggle{border-radius:4px;display:block;height:100%;position:relative;width:100%}#ccc .checkbox-toggle--checkbox input:checked~.checkbox-toggle-toggle:after{border:solid #fff;border-width:0 3px 3px 0;content:"";height:10px;left:9px;position:absolute;top:5px;transform:rotate(45deg);width:5px}#ccc .checkbox-toggle--slider{border:4px solid #fff;border-radius:50px}#ccc .checkbox-toggle--slider .checkbox-toggle-label{cursor:pointer;display:flex;margin:0;z-index:1}#ccc .checkbox-toggle--slider .checkbox-toggle-off,#ccc .checkbox-toggle--slider .checkbox-toggle-on{flex:1;flex-basis:50%;font-size:.75em;font-weight:700;min-width:40px;padding:0 6px;text-align:center;white-space:nowrap;width:50%;z-index:2}#ccc .checkbox-toggle--slider .checkbox-toggle-off{opacity:.65}#ccc .checkbox-toggle--slider .checkbox-toggle-toggle{background-color:#000;border-radius:50px;cursor:pointer;display:block;height:100%;left:0;position:absolute;top:0;transition:all .4s ease;width:50%;z-index:3}#ccc .checkbox-toggle--slider input:checked~.checkbox-toggle-toggle{left:50%}#ccc .checkbox-toggle--slider.checkbox-toggle--dark{background-color:#111125;border-color:#111125}#ccc .checkbox-toggle--checkbox.checkbox-toggle--dark{background-color:#111125;border-color:#fff}#ccc .checkbox-toggle--dark .checkbox-toggle-toggle{background-color:#2f2f5f}#ccc .checkbox-toggle--light{background-color:#555;border-color:#555}#ccc .checkbox-toggle--light .checkbox-toggle-toggle{background-color:#000}#ccc .checkbox-toggle--light .checkbox-toggle-on,#ccc .checkbox-toggle--slider.checkbox-toggle--light .checkbox-toggle-off{color:#fff}#ccc .checkbox-toggle--slider input:checked~.checkbox-toggle-toggle{background-color:#fff}#ccc .ccc-alert{border-radius:8px;margin:24px 0;padding:16px}#ccc .ccc-alert-title{align-items:center;display:flex;padding:0}#ccc .ccc-alert-icon{display:inline-block;flex-shrink:0;height:30px;margin:0 8px 0 0;width:30px}#ccc .ccc-alert-break{margin:12px 0}.third-party-cookie-link{align-items:center;display:flex;margin:16px 0}.third-party-cookie-name{font-size:1em;font-weight:700}.third-party-cookie-icon{display:inline-block;height:16px;margin-left:16px;width:16px}#ccc .ccc-content--dark .ccc-alert{fill:#fff;background:#111125;color:#fff}#ccc .ccc-content--dark .third-party-cookie-link{background:#111125;color:#fff}#ccc .ccc-content--light .ccc-alert,#ccc .ccc-content--light .third-party-cookie-link{background:#eaeaea}#ccc .ccc-module--popup{animation-duration:.4s;animation-iteration-count:1;animation-name:slide-up;bottom:0;left:0;opacity:1;right:0;top:0}#ccc .ccc-module--popup #ccc-content{border-radius:12px;height:90%;left:50%;max-height:600px;max-width:600px;top:50%;transform:translate(-50%,-50%);width:90%}#ccc .ccc-notify-box-dismiss{display:none!important}@media (min-width:600px){#ccc #ccc-notify.ccc-notify__box{animation-duration:.8s;animation-iteration-count:1;animation-name:box-slide-up;border-radius:12px;box-sizing:border-box;flex-direction:column;height:90%;left:50%;max-height:240px;max-width:600px;opacity:1;padding:32px 64px;top:50%;transform:translate(-50%,-50%);width:90%}#ccc .ccc-notify-box-dismiss{display:block!important;position:absolute!important;right:16px!important;top:16px!important}}#ccc #ccc-notify{animation-duration:.4s;animation-iteration-count:1;animation-name:slide-up;border-radius:0;bottom:0;display:flex;flex-direction:column;height:auto;justify-content:space-between;left:0;margin:0;max-height:80vh;min-height:48px;opacity:1;overflow:hidden;overflow-y:auto;padding:16px;position:fixed;right:0;z-index:30}.ccc-notify-text h1{font-size:1em;font-weight:700;line-height:1.5em;margin:0;padding-right:120px;text-align:left}#ccc #ccc-notify.ccc-notify__top{animation-duration:.4s;animation-iteration-count:1;animation-name:slide-down;bottom:auto;top:0}#ccc #ccc-notify h3{padding:0}#ccc #ccc-notify p{font-size:.9em;margin:0;opacity:.8}#ccc .ccc-notify-buttons{margin-top:16px;padding-right:24px;position:relative}#ccc .ccc-notify-button{background:transparent;border:2px solid;border-radius:4px;cursor:pointer;font-size:1em;font-weight:400;line-height:1.5em;margin:4px 8px 16px 0;padding:8px 16px!important}#ccc #ccc-notify-dismiss{background-color:transparent;border:0;cursor:pointer;display:inline-flex;height:24px;padding:0!important;position:absolute;right:0;top:-4px;width:24px}@media (min-width:400px){#ccc #ccc-notify-dismiss{position:relative;right:auto}#ccc .ccc-notify-buttons{padding-right:0}}@media (min-width:1020px){#ccc #ccc-notify{align-items:center;flex-direction:row}#ccc .ccc-notify-text{margin-right:16px}#ccc .ccc-notify-buttons{flex-shrink:0;white-space:nowrap}}@media (min-width:1200px){#ccc #ccc-notify{font-size:16px;padding:16px 100px;z-index:10}}#ccc .ccc-content--dark #ccc-notify,#ccc .ccc-content--dark #ccc-notify span{fill:#fff;background-color:#313147;color:#fff}#ccc .ccc-content--dark .ccc-notify-button,#ccc .ccc-content--dark .ccc-notify-button span{border-color:#fff;color:#fff}#ccc .ccc-content--dark .ccc-button-solid,#ccc .ccc-content--dark .ccc-button-solid span{background:#fff;color:#111125;font-weight:700}.ccc-notify-link{border:0!important;text-decoration:underline}#ccc .ccc-content--light #ccc-notify,#ccc .ccc-content--light #ccc-notify span{fill:#000;background:#f4f4f4;color:#000}#ccc .ccc-content--light .ccc-notify-button,#ccc .ccc-content--light .ccc-notify-button span{border-color:#000;color:#000}#ccc .ccc-content--light .ccc-button-solid,#ccc .ccc-content--light .ccc-button-solid span{background:#000;color:#fff;font-weight:700}.ccc-info-link{font-size:.8em;font-weight:700;text-decoration:none}.ccc-info-link .svg-element{height:14px;margin-left:6px;width:14px}#ccc .ccc-module--slideout .ccc-info{height:100px}#ccc[popup] .ccc-info{height:40px}@media print{#ccc{display:none!important}}#ccc-close-label{display:block;font-size:16px}#ccc .ccc-panel--indent #ccc-title{padding-right:180px}#ccc-close.ccc-close--labelled{padding:8px!important;right:0;top:0}#ccc-content.ccc-content--light #ccc-close.ccc-close--labelled{background-color:#eaeaea}#ccc-content.ccc-content--dark #ccc-close.ccc-close--labelled{background-color:#111125}#ccc-end{margin:16px 0 32px}#ccc-dismiss-button{display:block}#ccc .ccc-content--highlight .ccc-link.ccc-tabbable:focus{filter:invert(100%);padding:8px}#ccc .ccc-content--highlight.ccc-content--light .ccc-link.ccc-tabbable:focus{background-color:#eaeaea!important;border-color:#eaeaea!important}#ccc .ccc-content--highlight.ccc-content--dark .ccc-link.ccc-tabbable:focus{background-color:#111125!important;border-color:#111125!important}#ccc .ccc-content--highlight #ccc-close:focus,#ccc .ccc-content--highlight .ccc-button-solid:focus,#ccc .ccc-content--highlight .third-party-cookie-link:focus{filter:invert(100%)}#ccc .ccc-content--highlight.ccc-content--light .ccc-tabbable:focus{box-shadow:0 4px 8px 0 hsla(0,0%,100%,.2),0 6px 20px 0 hsla(0,0%,100%,.2)}#ccc .ccc-content--highlight.ccc-content--dark .ccc-tabbable:focus{box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.2)}#ccc .checkbox-toggle:focus-within{outline:auto}#ccc .checkbox-toggle--slider.checkbox-toggle--light:focus-within{box-shadow:0 0 0 4px rgba(0,0,0,.8);outline:3px solid #f2ab3d}#ccc #ccc-icon.ccc-icon--no-outline,#ccc .ccc-content--no-outline *,#ccc .ccc-content--no-outline .ccc-tabbable{outline:none}#ccc .ccc-content--highlight .ccc-tabbable:active,#ccc .ccc-content--highlight .ccc-tabbable:hover,#ccc .ccc-icon--highlight:active,#ccc .ccc-icon--highlight:hover{box-shadow:none!important;filter:none!important}.ccc-panel{left:24px;position:absolute;right:24px;top:24px}.ccc-panel.hidden{height:0;opacity:0;overflow:hidden}.ccc-panel.visible{height:auto;opacity:1;transition:opacity .4s}#ccc .iab-vendor,#ccc .optional-vendor{margin:0 0 8px}#ccc .optional-vendor{font-size:.875em}#ccc .optional-vendor-heading{font-weight:700;padding-left:24px;text-decoration:underline}#ccc .ccc-vendor-reveal{align-items:center;background:transparent;border:1px dotted;display:flex;font-size:.875em;opacity:.5;transition:opacity .4s}#ccc .ccc-vendor-reveal:focus,#ccc .ccc-vendor-reveal:hover{opacity:1}#ccc .ccc-legal-description{margin-top:1rem}#ccc .ccc-vendor-reveal svg{height:16px;margin-left:8px;width:16px}#ccc .optional-vendor-warning{align-items:center;display:flex}#ccc .optional-vendor-warning svg{height:16px;margin-right:8px;width:16px}#ccc .optional-vendor-content{padding-left:24px}#ccc .iab-vendor-heading{font-size:.875em;font-weight:400;text-decoration:underline}#ccc .cmp-button-holder{display:flex;font-size:.75em;justify-content:space-between}#ccc .cmp-back{opacity:.5;transition:opacity .4s}#ccc .cmp-back:hover{opacity:1}.ccc-sr-only{clip:rect(0,0,0,0);border:0;height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}@keyframes fade-in{0%{opacity:0}to{opacity:1}}@keyframes slide-right{0%{transform:translate3d(-100%,0,0)}to{transform:translateZ(0)}}@keyframes slide-left{0%{transform:translate3d(100%,0,0)}to{transform:translateZ(0)}}@keyframes slide-up{0%{transform:translate3d(0,100%,0)}to{transform:translateZ(0)}}@keyframes box-slide-up{0%{transform:translate3d(-50%,100%,0)}to{transform:translate3d(-50%,-50%,0)}}@keyframes slide-down{0%{transform:translate3d(0,-100%,0)}to{transform:translateZ(0)}}#ccc .iab-object{height:48px;position:relative;width:98%}#ccc .iab-object.iab-object--vendor{width:85%}#ccc .iab-object .checkbox-toggle{left:0;right:auto;top:4px}#ccc .iab-object .checkbox-toggle-label{height:18px;width:18px}#ccc .iab-object .checkbox-toggle--checkbox input:checked~.checkbox-toggle-toggle:after{border-width:0 2px 2px 0;height:8px;left:7px;top:3px;width:3px}#ccc .iab-object-label{display:block;font-size:.75em;margin-left:32px}#ccc .vendor-details{font-size:.75rem;margin-bottom:16px}#ccc .vendor-details h4{margin:.5rem 0}#ccc .ccc-title.ccc-title--iab{margin-bottom:1rem}#ccc .iab-header-toggle{align-items:center;display:flex;margin-bottom:1rem}#ccc .iab-header-toggle .ccc-title{margin:0 0 0 16px}#ccc .iab-header-toggle .ccc-vendor-reveal svg{margin:0}#ccc .iab-vendor-toggle .checkbox-toggle{top:auto}#ccc .iab-vendor-toggle h3{padding-right:180px}#ccc .iab-disclosure-load{align-items:center;display:flex}#ccc .iab-disclosure-load button{margin-right:12px}#ccc .iab-disclosure-load a{text-decoration:none}#ccc .iab-disclosure-load a>span{position:relative;top:-2px}#ccc .iab-disclosure-load a>.ccc-svg-element{top:4px}#ccc .iab-disclosure-table{border-collapse:collapse;margin:2em 0;width:100%}#ccc .iab-disclosure-table td,#ccc .iab-disclosure-table th{border:1px solid}#ccc .iab-disclosure-table thead td{border:none}#ccc .ccc-content--dark td,#ccc .ccc-content--dark th{border-color:#fff}#ccc .iab-disclosure-table dl{display:grid;grid-template:auto;width:150px}#ccc .iab-disclosure-table ul{list-style:none}#ccc .iab-disclosure-table dl,#ccc .iab-disclosure-table ul{margin:0;padding:0}#ccc .iab-disclosure-table dd,#ccc .iab-disclosure-table dt,#ccc .iab-disclosure-table li{border-bottom:1px solid rgba(0,0,0,.1);margin:0;padding:.3em .5em}#ccc .iab-disclosure-table dd{padding-left:20px}#ccc .ccc-content--dark .iab-disclosure-table dd,#ccc .ccc-content--dark .iab-disclosure-table dt,#ccc .ccc-content--dark .iab-disclosure-table li{border-bottom:1px solid hsla(0,0%,100%,.1)}#ccc .ccc-content--dark .iab-disclosure-table li:last-child{border:none}#ccc .iab-disclosure-table td,#ccc .iab-disclosure-table th{padding:1em;vertical-align:top}#ccc .iab-disclosure-table tr:nth-child(2n){background:rgba(0,0,0,.1)}#ccc .ccc-content--highlight .ccc-tabbable:hover{outline:auto}#ccc h1,#ccc h2,#ccc h3{font-style:normal}#ccc .iab-illustrations{display:block;font-size:90%;margin:0 0 0 1rem;opacity:.95;padding:0}#ccc .iab-illustrations li{padding:1rem}#ccc .ccc-vendor-count{font-size:.8rem;font-weight:400;opacity:.8}</style><style>#ccc, #ccc button {font-family: "mozilla text", "helvetica neue", arial, sans-serif !important;}#ccc #ccc-content, #ccc #ccc-notify { background-color: #0040d4 !important;}#ccc .checkbox-toggle-on, #ccc .checkbox-toggle-off { color: #161616 !important;}#ccc .checkbox-toggle-toggle { background-color: #ffffff !important;}#ccc .checkbox-toggle { background-color: #f88539 !important; border-color: #f88539 !important;}#ccc .ccc-alert, #ccc .ccc-alert p, #ccc .ccc-alert a, #ccc .ccc-alert svg, #ccc .ccc-alert span { color: #ffffff !important; fill : #ffffff !important;}#ccc #ccc-icon { fill: #eeeeee !important;} #ccc .ccc-alert, #ccc .third-party-cookie-link { background-color: #eeeeee !important;}#ccc .ccc-notify-button.ccc-accept-button, #ccc .ccc-notify-button.ccc-accept-button span, #ccc .ccc-notify-button.ccc-close-button, #ccc .ccc-notify-button.ccc-close-button span { color: #ffffff !important;}#ccc .ccc-notify-button.ccc-accept-button, #ccc .ccc-notify-button.ccc-accept-button span, #ccc .ccc-notify-button.ccc-close-button, #ccc .ccc-notify-button.ccc-close-button span { background-color: #000000 !important; border-color: #000000 !important;}#ccc .ccc-notify-button.ccc-reject-button, #ccc .ccc-notify-button.ccc-reject-button span { color: #ffffff !important;}#ccc .ccc-notify-button.ccc-reject-button, #ccc .ccc-notify-button.ccc-reject-button span { background-color: #000000 !important; border-color: #000000 !important;}</style><link href="https://ucarecdn.com/" rel="dns-prefetch"></head>
+
+    <body class=" redesign default" data-site-type="redesign"><div id="ccc" role="region" aria-label="Cookie preferences" aria-live="polite" style="z-index: 2147483647;"><button aria-expanded="false" id="ccc-icon" class="ccc-icon--right ccc-icon--dark ccc-icon--highlight " aria-label="Set cookie preferences" style="width: 80px; height: 80px;"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 72.5 72.5" enable-background="new 0 0 72.5 72.5" aria-hidden="true"><g id="triangle"><path d="M72.5,72.5H0L72.5,0V72.5z"></path></g><g id="star"><path d="M62.2,51.9l-3.9-2.6l1.6-4.4l-4.7,0.2L54,40.6l-3.7,2.9l-3.7-2.9l-1.2,4.5l-4.7-0.2l1.6,4.4l-3.9,2.6l3.9,2.6l-1.6,4.4l4.7-0.2l1.2,4.5l3.7-2.9l3.7,2.9l1.2-4.5l4.7,0.2l-1.6-4.4L62.2,51.9z M53.6,55.3c-0.3,0.4-0.8,0.8-1.3,1s-1.1,0.3-1.9,0.3c-0.9,0-1.7-0.1-2.3-0.4s-1.1-0.7-1.5-1.4c-0.4-0.7-0.6-1.6-0.6-2.6c0-1.4,0.4-2.5,1.1-3.3c0.8-0.8,1.8-1.1,3.2-1.1c1.1,0,1.9,0.2,2.6,0.7s1.1,1.1,1.4,2L52,50.9c-0.1-0.3-0.2-0.5-0.3-0.6c-0.1-0.2-0.3-0.4-0.5-0.5s-0.5-0.2-0.7-0.2c-0.6,0-1.1,0.2-1.4,0.7c-0.2,0.4-0.4,0.9-0.4,1.7c0,1,0.1,1.6,0.4,2c0.3,0.4,0.7,0.5,1.2,0.5c0.5,0,0.9-0.1,1.2-0.4s0.4-0.7,0.6-1.2l2.3,0.7C54.2,54.3,54,54.8,53.6,55.3z"></path></g></svg></button></div>
+        
+            
+        
+        
+            
+
+
+
+  
+
+  <nav role="navigation" class="primary-nav-ns">
+    <div class="grid-container">
+      <div class="primary-nav-ns__grid">
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__hamburger">
+          <button class="hamburger hamburger--collapse" type="button" aria-label="Toggle navigation" aria-controls="primary-nav-ns-menu">
+            <div class="inner">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+          </button>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__wordmark">
+          <a href="/" aria-label="Mozilla Foundation homepage">
+            <img data-name="logo" src="https://assets.mofoprod.net/static/foundation_cms/_images/primary-nav-wordmark-logo.a5c4e02afa67.svg" alt="Mozilla Foundation Logo" width="229" height="48">
+            <img data-name="symbol" src="https://assets.mofoprod.net/static/foundation_cms/_images/primary-nav-wordmark-symbol.2a1a3947ec74.svg" alt="Mozilla Foundation Symbol" width="29" height="28">
+          </a>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__menu-wrapper">
+          <div class="primary-nav-ns__menu" id="primary-nav-ns-menu">
+            
+              
+              
+                
+
+
+
+
+
+<div class="primary-nav-ns__menu-item">
+  
+    
+
+
+  <a href="https://www.mozillafoundation.org/en/meet-mozilla/" class="nav-link primary-nav-ns__link">
+    
+      Meet Mozilla
+    
+  </a>
+
+  
+
+  
+</div>
+              
+                
+
+
+
+
+
+<div class="primary-nav-ns__menu-item primary-nav-ns__menu-item--active">
+  
+    
+
+
+  <a href="https://www.mozillafoundation.org/en/what-we-do/" class="nav-link primary-nav-ns__link primary-nav-ns__link--active" aria-current="page">
+    
+      What We Do
+    
+  </a><div class="primary-nav-ns__dropdown-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="dropdown-ub4huf"></div>
+
+  
+
+  
+    <div class="primary-nav-ns__dropdown" id="dropdown-ub4huf" aria-hidden="true" inert="">
+      
+        
+        
+        
+          
+
+
+  <a href="https://www.mozillafoundation.org/en/what-we-do/imagine/" class="nav-link primary-nav-ns__link">
+    
+      Imagine
+    
+  </a>
+
+        
+      
+        
+        
+        
+          
+
+
+  <a href="https://www.mozillafoundation.org/en/what-we-do/co-create/" class="nav-link primary-nav-ns__link">
+    
+      Co-create
+    
+  </a>
+
+        
+      
+        
+        
+        
+          
+
+
+  <a href="https://www.mozillafoundation.org/en/what-we-do/mobilize/" class="nav-link primary-nav-ns__link">
+    
+      Mobilize
+    
+  </a>
+
+        
+      
+    </div>
+  
+</div>
+              
+                
+
+
+
+
+
+<div class="primary-nav-ns__menu-item">
+  
+    
+
+
+  <a href="https://www.mozillafoundation.org/en/join-us/" class="nav-link primary-nav-ns__link">
+    
+      Join Us
+    
+  </a>
+
+  
+
+  
+</div>
+              
+                
+
+
+
+
+
+<div class="primary-nav-ns__menu-item">
+  
+    
+
+
+  <a href="https://www.mozillafoundation.org/en/nothing-personal/" class="nav-link primary-nav-ns__link">
+    
+      Magazine
+    
+  </a>
+
+  
+
+  
+</div>
+              
+            
+          </div>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__search-icon">
+          <a href="#" class="search-toggle" aria-label="Toggle search input">
+            <div class="search-toggle__inner">
+              <img class="search-toggle__open" src="https://assets.mofoprod.net/static/foundation_cms/_images/icons/search-black.f7d7d0e2d461.svg" alt="Search" width="24" height="24">
+              <img class="search-toggle__close" src="https://assets.mofoprod.net/static/foundation_cms/_images/icons/search-close.4d5f51997881.svg" alt="Close" width="24" height="24">
+            </div>
+          </a>
+        </div>
+
+        <div class="primary-nav-ns__grid-cell primary-nav-ns__donate">
+          
+          
+  
+    
+      <a href="?form=donate-header" class="btn-primary  btn-primary--heart">
+        <span class="btn-primary__roller">
+  <span class="btn-primary__rolltext">
+    <span class="btn-primary__text">Donate</span>
+    <span class="btn-primary__text btn-primary__text--roll-in">Donate</span>
+  </span>
+</span>
+
+      </a>
+    
+  
+
+
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="search-open-backdrop"></div><div class="search-input-container">
+    <div class="grid-container">
+      <div class="grid-x">
+        <div class="cell small-12 large-8 large-offset-2 search-input-container__inner">
+          
+<form action="/en/search/" method="get" class="search-input-container__form" role="search">
+  <input type="text" name="query" class="search-input-container__input" placeholder="Search">
+  
+  
+  
+    
+      <button type="submit" class="btn-primary  search-input-container__submit-button">
+        <span class="btn-primary__roller">
+  <span class="btn-primary__rolltext">
+    <span class="btn-primary__text">Search</span>
+    <span class="btn-primary__text btn-primary__text--roll-in">Search</span>
+  </span>
+</span>
+
+      </button>
+    
+  
+
+
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+        
+        
+        <div class="main-content-wrapper">
+            
+            
+            
+                
+
+            
+            
+            
+    <div class="general-page">
+        <div class="general-page__body">
+            
+                
+
+<div class="hero__wrapper hero__wrapper--top-to-bottom hero__wrapper--orange-200 ">
+
+  
+
+    <div class="hero">
+
+      <div class="hero__text">
+        <div class="grid-container">
+          <h1 class="hero__title">Make Good</h1>
+          
+            
+          
+          
+            <p class="hero__description lede-text">We champion alternative technology that puts people first.</p>
+          
+
+          
+            
+          
+        </div>
+      </div>
+
+      
+
+    </div>
+
+  
+
+</div>
+
+            
+            
+            <div class="container">
+                
+                    
+
+
+  <div class="streamfield-block-wrapper " data-block-type="spacer_block">
+    
+      <div class="grid-container">
+        <div class="grid-x">
+          
+            <div class="cell ">
+              <div class="spacer-block spacer-block--xlarge">
+</div>
+
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+  <div class="streamfield-block-wrapper  bg-white" data-block-type="two_column_container_block">
+    
+      <div class="grid-container">
+        <div class="grid-x">
+          
+            <div class="cell ">
+              
+
+<div class="two-column-container two-column-container--top">
+
+  <div class="two-column-container__column two-column-container__column--left">
+    
+      
+
+<div class="rich-text-block">
+  <p data-block-key="smg12"><span class="rich-text-large">We imagine, co-create and mobilize to build a better technology future that serves and is shaped by the people who use it.</span></p><p data-block-key="9se9b"><span class="rich-text-large">Our collaborative approach demands that technology and systems need to be built together with the people they impact. That’s why we build side by side with communities to build the digital future people hope for—and deserve.</span></p><p data-block-key="51bkt"><span class="rich-text-large">The next chapter of our open source legacy is to realize the Internet’s positive potential today and prove that mission-first technology can win! We do this work for you and with you — join us today.</span></p>
+</div>
+
+    
+  </div>
+
+  
+    <div class="two-column-container__column two-column-container__column--right">
+      
+        <div class="spacer-block spacer-block--medium">
+</div>
+
+      
+        
+<div class="quote-block">
+  <figure>
+    <blockquote>
+      <p class="quote-text-regular">“At Mozilla Foundation we are defiantly optimistic that the future of technology can be good—if we all roll up our sleeves to make it happen together.”</p>
+    </blockquote>
+    
+      <figcaption>Nabiha Syed</figcaption>
+    
+  </figure>
+</div>
+
+      
+    </div>
+  
+
+</div>
+
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+  <div class="streamfield-block-wrapper " data-block-type="spacer_block">
+    
+      <div class="grid-container">
+        <div class="grid-x">
+          
+            <div class="cell ">
+              <div class="spacer-block spacer-block--medium">
+</div>
+
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+  <div class="streamfield-block-wrapper " data-block-type="portrait_card_set_block">
+    
+      
+
+<div class="portrait-card-set is-carousel" tabindex="0">
+  <div class="grid-container medium-down-padding-0">
+    <div class="grid-x">
+      <div class="cell">
+        
+
+        <div class="portrait-card-set__card-container">
+          <div class="carousel-track" style="transition: none; transform: translateX(-2304px);"><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/" data-card-design="0">
+
+
+  <div class="portrait-card__image">
+    <img alt="" height="354" src="https://assets.mofoprod.net/network/images/DSC05551.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We back ethical alternatives
+  </h4>
+  <div class="portrait-card__cta">
+    Explore funding
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/imagine/" data-card-design="1">
+
+
+  <div class="portrait-card__image">
+    <img alt="Collage integrating people, tech and colorful shapes" height="354" src="https://assets.mofoprod.net/network/images/MF_ImagineIntel_Zine_Digital_v01_L.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We surface unexpected insights
+  </h4>
+  <div class="portrait-card__cta">
+    Imagine with us
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/mobilize/" data-card-design="2">
+
+
+  <div class="portrait-card__image">
+    <img alt="Person speaking infront of an audience" height="354" src="https://assets.mofoprod.net/network/images/Data-Pillar.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We mobilize community everywhere
+  </h4>
+  <div class="portrait-card__cta">
+    Get involved
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/festival/" target="_blank" data-card-design="3">
+
+
+  <div class="portrait-card__image">
+    <img alt="Ruha Benjamin on stage at Mozilla Festival 2025" height="354" src="https://assets.mofoprod.net/network/images/DB-20251107-3872-235715.3be34e6e.fill-354x354.png" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We convene thinkers and doers
+  </h4>
+  <div class="portrait-card__cta">
+    Explore Mozilla Festival
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/co-create/" data-card-design="0">
+
+
+  <div class="portrait-card__image">
+    <img alt="Person sitting with group of people " height="354" src="https://assets.mofoprod.net/network/images/53819599878_dcb902997d_o_1-1_RS1.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We co-create good technology
+  </h4>
+  <div class="portrait-card__cta">
+    See our work
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/nothing-personal/" target="_blank" data-card-design="1">
+
+
+  <div class="portrait-card__image">
+    <img alt="People wearing anti surveillance fashion in front of graffiti wall " height="354" src="https://assets.mofoprod.net/network/images/NOTHING_PERSONAL_X_LUCAS_TROADEC_3.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We spotlight the front lines of digital culture
+  </h4>
+  <div class="portrait-card__cta">
+    Read Nothing Personal
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/" data-card-design="0">
+
+
+  <div class="portrait-card__image">
+    <img alt="" height="354" src="https://assets.mofoprod.net/network/images/DSC05551.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We back ethical alternatives
+  </h4>
+  <div class="portrait-card__cta">
+    Explore funding
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/imagine/" data-card-design="1">
+
+
+  <div class="portrait-card__image">
+    <img alt="Collage integrating people, tech and colorful shapes" height="354" src="https://assets.mofoprod.net/network/images/MF_ImagineIntel_Zine_Digital_v01_L.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We surface unexpected insights
+  </h4>
+  <div class="portrait-card__cta">
+    Imagine with us
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/mobilize/" data-card-design="2">
+
+
+  <div class="portrait-card__image">
+    <img alt="Person speaking infront of an audience" height="354" src="https://assets.mofoprod.net/network/images/Data-Pillar.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We mobilize community everywhere
+  </h4>
+  <div class="portrait-card__cta">
+    Get involved
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/festival/" target="_blank" data-card-design="3">
+
+
+  <div class="portrait-card__image">
+    <img alt="Ruha Benjamin on stage at Mozilla Festival 2025" height="354" src="https://assets.mofoprod.net/network/images/DB-20251107-3872-235715.3be34e6e.fill-354x354.png" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We convene thinkers and doers
+  </h4>
+  <div class="portrait-card__cta">
+    Explore Mozilla Festival
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/co-create/" data-card-design="0">
+
+
+  <div class="portrait-card__image">
+    <img alt="Person sitting with group of people " height="354" src="https://assets.mofoprod.net/network/images/53819599878_dcb902997d_o_1-1_RS1.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We co-create good technology
+  </h4>
+  <div class="portrait-card__cta">
+    See our work
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/nothing-personal/" target="_blank" data-card-design="1">
+
+
+  <div class="portrait-card__image">
+    <img alt="People wearing anti surveillance fashion in front of graffiti wall " height="354" src="https://assets.mofoprod.net/network/images/NOTHING_PERSONAL_X_LUCAS_TROADEC_3.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We spotlight the front lines of digital culture
+  </h4>
+  <div class="portrait-card__cta">
+    Read Nothing Personal
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/" data-card-design="0">
+
+
+  <div class="portrait-card__image">
+    <img alt="" height="354" src="https://assets.mofoprod.net/network/images/DSC05551.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We back ethical alternatives
+  </h4>
+  <div class="portrait-card__cta">
+    Explore funding
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/imagine/" data-card-design="1">
+
+
+  <div class="portrait-card__image">
+    <img alt="Collage integrating people, tech and colorful shapes" height="354" src="https://assets.mofoprod.net/network/images/MF_ImagineIntel_Zine_Digital_v01_L.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We surface unexpected insights
+  </h4>
+  <div class="portrait-card__cta">
+    Imagine with us
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/mobilize/" data-card-design="2">
+
+
+  <div class="portrait-card__image">
+    <img alt="Person speaking infront of an audience" height="354" src="https://assets.mofoprod.net/network/images/Data-Pillar.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We mobilize community everywhere
+  </h4>
+  <div class="portrait-card__cta">
+    Get involved
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/festival/" target="_blank" data-card-design="3">
+
+
+  <div class="portrait-card__image">
+    <img alt="Ruha Benjamin on stage at Mozilla Festival 2025" height="354" src="https://assets.mofoprod.net/network/images/DB-20251107-3872-235715.3be34e6e.fill-354x354.png" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We convene thinkers and doers
+  </h4>
+  <div class="portrait-card__cta">
+    Explore Mozilla Festival
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/what-we-do/co-create/" data-card-design="0">
+
+
+  <div class="portrait-card__image">
+    <img alt="Person sitting with group of people " height="354" src="https://assets.mofoprod.net/network/images/53819599878_dcb902997d_o_1-1_RS1.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We co-create good technology
+  </h4>
+  <div class="portrait-card__cta">
+    See our work
+  </div>
+</div>
+
+  </a><a class="portrait-card" href="https://www.mozillafoundation.org/en/nothing-personal/" target="_blank" data-card-design="1">
+
+
+  <div class="portrait-card__image">
+    <img alt="People wearing anti surveillance fashion in front of graffiti wall " height="354" src="https://assets.mofoprod.net/network/images/NOTHING_PERSONAL_X_LUCAS_TROADEC_3.2e16d0ba.fill-354x354.jpg" width="354">
+  </div>
+
+
+<div class="portrait-card__text">
+  
+  <h4 class="portrait-card__headline">
+    We spotlight the front lines of digital culture
+  </h4>
+  <div class="portrait-card__cta">
+    Read Nothing Personal
+  </div>
+</div>
+
+  </a></div>
+        </div>
+
+        
+<div class="carousel-indicators hide-for-large">
+  <ul class="carousel-indicators__list">
+    
+      
+      <li class="carousel-indicators__item carousel-indicators__item--active" aria-label="Slide 1 of 6" aria-current="true"></li>
+    
+      
+      <li class="carousel-indicators__item" aria-label="Slide 2 of 6" aria-current="false"></li>
+    
+      
+      <li class="carousel-indicators__item" aria-label="Slide 3 of 6" aria-current="false"></li>
+    
+      
+      <li class="carousel-indicators__item" aria-label="Slide 4 of 6" aria-current="false"></li>
+    
+      
+      <li class="carousel-indicators__item" aria-label="Slide 5 of 6" aria-current="false"></li>
+    
+      
+      <li class="carousel-indicators__item" aria-label="Slide 6 of 6" aria-current="false"></li>
+    
+  </ul>
+</div>
+
+        <div class="portrait-card-set__controls">
+          
+
+
+<div class="pagination-controls" role="group" aria-label="Pagination controls">
+  <div class="pagination-controls__counter">
+    <span class="pagination-controls__current" data-active-index="">1</span>
+    <span class="pagination-controls__separator">/</span>
+    <span class="pagination-controls__total">6</span>
+  </div>
+  
+  <button type="button" class="button pagination-controls__prev" aria-label="Previous" data-direction="prev">
+    <img src="https://assets.mofoprod.net/static/foundation_cms/_images/icons/button-arrow-left-black.6c3967a91519.svg" alt="" width="20" height="20" aria-hidden="true">
+  </button>
+  
+  <button type="button" class="button pagination-controls__next" aria-label="Next" data-direction="next">
+    <img src="https://assets.mofoprod.net/static/foundation_cms/_images/icons/button-arrow-right-black.8a430a0ca9c0.svg" alt="" width="20" height="20" aria-hidden="true">
+  </button>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  </div>
+
+
+  <div class="streamfield-block-wrapper " data-block-type="spacer_block">
+    
+      <div class="grid-container">
+        <div class="grid-x">
+          
+            <div class="cell ">
+              <div class="spacer-block spacer-block--xlarge">
+</div>
+
+            </div>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+                
+            </div>
+        </div>
+    </div>
+
+            
+            
+            
+                
+                    
+
+
+    
+    
+        
+        
+
+<footer class="site-footer-ns">
+    <div class="grid-container">
+        <div class="site-footer-ns__grid">
+
+            <!-- Logo & Newsletter -->
+            <div class="site-footer-ns__grid-cell">
+                <div class="site-footer-ns__logo">
+                    <a href="/">
+                        <img src="https://assets.mofoprod.net/static/foundation_cms/_images/mf-wordmark.4a6d0825d98f.svg" alt="Mozilla Foundation Logo" width="440" height="92">
+                    </a>
+                </div>
+                <div class="site-footer-ns__newsletter-form">
+                    
+                        
+                            
+                                
+
+
+
+<div class="newsletter-signup newsletter-signup__container" data-signup-id="2" data-layout="expand_on_focus" data-current-language="en">
+
+  <div class="newsletter-signup__error-message newsletter-signup__error-message--hidden">
+    Something went wrong and your signup wasn't completed. Please try again later.
+  </div>
+
+  <form class="newsletter-signup__form" novalidate="">
+
+    <div class="newsletter-signup__cta-wrapper">
+      <p class="newsletter-signup__cta-header">Stay updated with our newsletter</p>
+      
+    </div>
+
+    <div class="newsletter-signup__form-grid">
+      <div class="newsletter-signup__fieldset">
+
+        <div class="newsletter-signup__field">
+          <input class="newsletter-signup__input" type="email" name="email" placeholder="Email" aria-label="Email" required="">
+          <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden email-error-message">
+            Please enter a valid email address.
+          </div>
+        </div>
+
+        <div class="newsletter-signup__field newsletter-signup__field--hidden">
+          <select class="newsletter-signup__input" name="country" aria-label="Country" required=""><option value="">Your Country</option><option value="AF">Afghanistan</option><option value="AX">Aland Islands</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AS">American Samoa</option><option value="AD">Andorra</option><option value="AO">Angola</option><option value="AI">Anguilla</option><option value="AQ">Antarctica</option><option value="AG">Antigua and Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AW">Aruba</option><option value="AU">Australia</option><option value="AT">Austria</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BM">Bermuda</option><option value="BT">Bhutan</option><option value="BO">Bolivia, Plurinational State of</option><option value="BQ">Bonaire, Sint Eustatius and Saba</option><option value="BA">Bosnia and Herzegovina</option><option value="BW">Botswana</option><option value="BV">Bouvet Island</option><option value="BR">Brazil</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei Darussalam</option><option value="BG">Bulgaria</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="KY">Cayman Islands</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="CL">Chile</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CC">Cocos (Keeling) Islands</option><option value="CO">Colombia</option><option value="KM">Comoros</option><option value="CG">Congo</option><option value="CD">Congo, the Democratic Republic of the</option><option value="CK">Cook Islands</option><option value="CR">Costa Rica</option><option value="CI">Cote d'Ivoire</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="CW">Curaçao</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="DJ">Djibouti</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EE">Estonia</option><option value="ET">Ethiopia</option><option value="FK">Falkland Islands (Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="GF">French Guiana</option><option value="PF">French Polynesia</option><option value="TF">French Southern Territories</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GU">Guam</option><option value="GT">Guatemala</option><option value="GG">Guernsey</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HT">Haiti</option><option value="HM">Heard Island and McDonald Islands</option><option value="VA">Holy See (Vatican City State)</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran, Islamic Republic of</option><option value="IQ">Iraq</option><option value="IE">Ireland</option><option value="IM">Isle of Man</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="JE">Jersey</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KI">Kiribati</option><option value="KP">Korea, Democratic People's Republic of</option><option value="KR">Korea, Republic of</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Lao People's Democratic Republic</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MO">Macao</option><option value="MK">Macedonia, the former Yugoslav Republic of</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="MH">Marshall Islands</option><option value="MQ">Martinique</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia</option><option value="MD">Moldova, Republic of</option><option value="MC">Monaco</option><option value="MN">Mongolia</option><option value="ME">Montenegro</option><option value="MS">Montserrat</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NR">Nauru</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="AN">Netherlands Antilles</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PW">Palau</option><option value="PS">Palestine</option><option value="PA">Panama</option><option value="PG">Papua New Guinea</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PN">Pitcairn</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="QA">Qatar</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RU">Russian Federation</option><option value="RW">Rwanda</option><option value="BL">Saint Barthélemy</option><option value="SH">Saint Helena, Ascension and Tristan da Cunha</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="MF">Saint Martin (French part)</option><option value="PM">Saint Pierre and Miquelon</option><option value="VC">Saint Vincent and the Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="ST">Sao Tome and Principe</option><option value="SA">Saudi Arabia</option><option value="SN">Senegal</option><option value="RS">Serbia</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SG">Singapore</option><option value="SX">Sint Maarten (Dutch part)</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="SB">Solomon Islands</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="GS">South Georgia and the South Sandwich Islands</option><option value="SS">South Sudan</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SD">Sudan</option><option value="SR">Suriname</option><option value="SJ">Svalbard and Jan Mayen</option><option value="SZ">Swaziland</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="SY">Syrian Arab Republic</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TZ">Tanzania, United Republic of</option><option value="TH">Thailand</option><option value="TL">Timor-Leste</option><option value="TG">Togo</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="TC">Turks and Caicos Islands</option><option value="TV">Tuvalu</option><option value="VI">U.S. Virgin Islands</option><option value="UG">Uganda</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="UM">United States Minor Outlying Islands</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VU">Vanuatu</option><option value="VE">Venezuela, Bolivarian Republic of</option><option value="VN">Viet Nam</option><option value="VG">Virgin Islands, British</option><option value="WF">Wallis and Futuna</option><option value="EH">Western Sahara</option><option value="YE">Yemen</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option></select>
+        </div>
+
+        <div class="newsletter-signup__field newsletter-signup__field--hidden">
+          <select class="newsletter-signup__input" name="language" aria-label="Language" required=""><option value="en">English</option><option value="de">Deutsch</option><option value="es">Español</option><option value="fr">Français</option><option value="pl">Polski</option><option value="pt-BR">Português</option></select>
+        </div>
+
+        <div class="newsletter-signup__field newsletter-signup__field--hidden">
+          <label>
+            <input type="checkbox" name="privacy">
+            <span>
+              I'm okay with Mozilla handling my info as explained in this <a href="https://www.mozilla.org/privacy/websites/" target="_blank" class="newsletter-signup__link">Privacy Notice</a>.
+            </span>
+          </label>
+          <div class="newsletter-signup__field-error newsletter-signup__field-error--hidden privacy-error-message">
+            Please check this box if you want to proceed.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="newsletter-signup__button-wrapper">
+        <!-- todo: Implement button component with button tag to use in forms -->
+        <button type="submit" class="newsletter-signup__button btn-primary">
+          <span class="btn-primary__roller">
+            <span class="loading-message">
+              Loading...
+            </span>
+            <span class="btn-primary__rolltext">
+              <span class="btn-primary__text">Sign Up</span>
+              <span class="btn-primary__text btn-primary__text--roll-in">Sign Up</span>
+            </span>
+          </span>
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+
+  <div class="newsletter-signup__success-message newsletter-signup__success-message--hidden">
+
+    <div class="newsletter-signup__success-content">
+      <h4 class="newsletter-signup__success-title">Thank you!</h4>
+      <div>
+        <p>
+          If you haven’t previously confirmed your opt-in to a Mozilla Foundation-related email subscription you may have to do so now. <strong>Please check your inbox or spam filter for an email from us to click and confirm your subscription</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div class="newsletter-signup__success-media">
+      <img src="https://assets.mofoprod.net/static/foundation_cms/_images/newsletter-signup-success.6d99125c1bf8.jpg" width="100%" height="100%" alt="Newsletter signup success image">
+    </div>
+
+  </div>
+
+</div>
+
+                            
+                        
+                    
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div class="site-footer-ns__grid-cell site-footer-ns__links body-text-regular">
+                <ul class="internal">
+                    
+                        <li><a href="/meet-mozilla/website-licensing/">Licensing</a></li>
+                    
+                        <li><a href="/meet-mozilla/annual-reports-and-financials/">Annual Reports &amp; Financials</a></li>
+                    
+                        <li><a href="/meet-mozilla/press-center/">Press Center</a></li>
+                    
+                        <li><a href="/nothing-personal/">Nothing Personal Magazine</a></li>
+                    
+                        <li><a href="/festival/">Mozilla Festival</a></li>
+                    
+                        <li><a href="/what-we-do/grantmaking/">Grants &amp; Funding</a></li>
+                    
+                </ul>
+                <ul class="external">
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/careers/listings/?team=Mozilla%20Foundation">
+                                Careers
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/">
+                                Privacy
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/privacy/websites/">
+                                Cookies
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/legal/terms/mozilla/">
+                                Legal
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.mozilla.org/about/governance/policies/participation/">
+                                Participation Guidelines
+                            </a>
+                        </li>
+                    
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="site-footer-ns__grid-cell site-footer-ns__cta">
+                
+                
+  
+    
+      <a href="?form=donate-footer" class="btn-primary  dark-mode">
+        <span class="btn-primary__roller">
+  <span class="btn-primary__rolltext">
+    <span class="btn-primary__text">Donate</span>
+    <span class="btn-primary__text btn-primary__text--roll-in">Donate</span>
+  </span>
+</span>
+
+      </a>
+    
+  
+
+
+                
+
+
+
+
+<form id="language-switcher-form" action="/i18n/setlang/" method="post">
+  <input type="hidden" name="next" id="language-next" value="">
+
+  <label for="language-switcher">Language</label>
+  <select name="language" id="language-switcher">
+    
+      
+        
+          
+        
+        <option value="ca" data-url="/ca/what-we-do/">
+          Català
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="de" data-url="/de/what-we-do/">
+          Deutsch
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="en" data-url="/en/what-we-do/" selected="">
+          English
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="es" data-url="/es/what-we-do/">
+          Español
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="fr" data-url="/fr/what-we-do/">
+          Français
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="fy-NL" data-url="/fy-NL/what-we-do/">
+          Frysk
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="sw" data-url="/sw/what-we-do/">
+          Kiswahili
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="nl" data-url="/nl/what-we-do/">
+          Nederlands
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="pl" data-url="/pl/what-we-do/">
+          Polski
+        </option>
+      
+    
+      
+        
+          
+        
+        <option value="pt-BR" data-url="/pt-BR/what-we-do/">
+          Português
+        </option>
+      
+    
+  </select>
+</form>
+
+<script nonce="">
+  const form = document.getElementById('language-switcher-form');
+  const selector = document.getElementById('language-switcher');
+  const nextInput = document.getElementById('language-next');
+
+  selector.addEventListener('change', () => {
+    const opt = selector.options[selector.selectedIndex];
+    nextInput.value = opt.dataset.url || "/";
+    form.submit();
+  });
+</script>
+            </div>
+
+        </div>
+
+        <!-- Legal & Social -->
+        <div class="site-footer-ns__legals body-text-xsmall">
+            <div class="site-footer-ns__grid-cell site-footer-ns__legal-text">
+                <p data-block-key="b0evx">Mozilla Foundation is a global non-profit and the philanthropic mission-holder of the <a href="https://www.mozilla.org/">Mozilla Project</a>. Most content available under a <a href="https://www.mozillafoundation.org/meet-mozilla/website-licensing/">Creative Commons license</a>.</p>
+            </div>
+            <div class="site-footer-ns__grid-cell">
+                <ul class="social-links">
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://bsky.app/profile/mozilla.org" class="site-footer-ns__social-link" aria-label="Bluesky">
+                                <i class="icon-bluesky"></i>
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/mozilla/" class="site-footer-ns__social-link" aria-label="Instagram">
+                                <i class="icon-instagram"></i>
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/mozilla-corporation/" class="site-footer-ns__social-link" aria-label="LinkedIn">
+                                <i class="icon-linkedin"></i>
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://open.spotify.com/show/0vT7LJMeVDxyQ2ZamHKu08" class="site-footer-ns__social-link" aria-label="Spotify">
+                                <i class="icon-spotify"></i>
+                            </a>
+                        </li>
+                    
+                        <li>
+                            <a target="_blank" rel="noopener noreferrer" href="https://www.tiktok.com/@mozilla" class="site-footer-ns__social-link" aria-label="TikTok">
+                                <i class="icon-tiktok"></i>
+                            </a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+    
+
+
+                
+            
+        </div>
+        <script src="/jsi18n/"></script>
+        <script src="https://assets.mofoprod.net/static/foundation_cms/_js/redesign_main.compiled.8e56ac8692f1.js"></script>
+        <script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js" type="text/javascript"></script>
+        <script src="https://assets.mofoprod.net/static/foundation_cms/_js/civic_cookie_control/init.compiled.fec4433cefbe.js"></script>
+        
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" nonce="" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;966b929b03924a87b363123db55a4fca&quot;}" crossorigin="anonymous"></script>
+
+
+
+</body><script type="text/javascript" charset="UTF-8" async="" src="https://static.fundraiseup.com/elementsApi.b85d74b1ad6c0e9a.js"></script><script type="text/javascript" charset="UTF-8" async="" src="https://static.fundraiseup.com/checkout.988be922044eb290.js"></script><script type="text/javascript" charset="UTF-8" async="" src="https://static.fundraiseup.com/checkout-vendors.b193665822f8a977.js"></script><script type="text/javascript" charset="UTF-8" async="" src="https://static.fundraiseup.com/checkout-styles.a68d92ed7ae54a7f.js"></script><script type="text/javascript" charset="UTF-8" async="" src="https://static.fundraiseup.com/checkout-sentry-vendor.b10a8cec397a2908.js"></script></html>

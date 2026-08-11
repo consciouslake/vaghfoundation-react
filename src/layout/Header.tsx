@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { nav } from '../content/nav'
-import { site } from '../content/site'
+import { Brand } from '../components/Brand'
+import { Doodle } from '../components/Doodle'
 import { MegaMenu } from './MegaMenu'
 
 export function Header() {
@@ -12,14 +13,12 @@ export function Header() {
     <>
       <header className="nav">
         <div className="nav-inner">
-          <Link to="/" className="brand" aria-label={`${site.brand} home`}>
-            <img src={site.logoDark} alt={site.brand} />
-          </Link>
+          <Brand />
 
           <nav aria-label="Primary navigation">
             <ul className="nav-links">
               {nav.primary.map((link) => (
-                <li key={link.href}>
+                <li key={link.href} className={link.cta ? 'nav-links__cta' : undefined}>
                   <NavLink
                     to={link.href}
                     end={link.href === '/'}
@@ -31,27 +30,34 @@ export function Header() {
                     }}
                   >
                     {link.label}
+                    {link.cta ? <Doodle name="heart" /> : null}
                   </NavLink>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <button
-              ref={toggleRef}
-              type="button"
-              className="nav-toggle"
-              aria-label="Menu"
-              aria-expanded={open}
-              aria-haspopup="true"
-              onClick={() => setOpen((v) => !v)}
-            >
-              <span />
-              <span />
-              <span />
-            </button>
-          </div>
+          <button
+            ref={toggleRef}
+            type="button"
+            className={`nav-toggle${open ? ' open' : ''}`}
+            aria-label="Menu"
+            aria-expanded={open}
+            aria-haspopup="true"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+
+        {/* Flat four-colour rule carrying the palette across the header */}
+        <div className="nav-stripe" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
         </div>
       </header>
 

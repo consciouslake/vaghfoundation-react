@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { whatWeDo } from '../content/what-we-do'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
+import { PageLead } from '../components/PageLead'
 import { Initiative } from '../components/Initiative'
 import { EmailSignup } from '../components/EmailSignup'
 
@@ -13,7 +14,8 @@ export default function WhatWeDo() {
         description="Our initiatives across nourishment, peace of mind, learning, environmental care, and community wellbeing. Turning compassion into meaningful action."
         path="/what-we-do"
       />
-      <PageHeader data={whatWeDo.header} />
+      <PageHeader data={whatWeDo.header} tone="blue" />
+      <PageLead image={whatWeDo.header.image} arch="tl" />
 
       <section className="section">
         <div className="wrap">
@@ -26,20 +28,13 @@ export default function WhatWeDo() {
       <EmailSignup
         titleWithEm={whatWeDo.emailSignup.titleWithEm}
         body={whatWeDo.emailSignup.body}
+        tone="yellow"
       >
-        <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to="/volunteer" className="btn btn--on-dark">
+        <div className="btn-row">
+          <Link to="/volunteer" className="btn btn--primary">
             Volunteer with us
           </Link>
-          <Link
-            to="/donate"
-            className="btn"
-            style={{
-              background: 'var(--white)',
-              color: 'var(--ink)',
-              borderColor: 'var(--white)',
-            }}
-          >
+          <Link to="/donate" className="btn btn--ghost">
             Make a donation
           </Link>
         </div>

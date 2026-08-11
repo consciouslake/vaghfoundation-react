@@ -1,7 +1,7 @@
 /**
  * A string that may contain inline <mark>...</mark> tags for the
- * italic-green editorial emphasis (Gates-style). Rendered safely via
- * the <Marked/> component.
+ * yellow highlight emphasis. Rendered safely via the <Marked/>
+ * component.
  */
 export type MarkedText = string
 
@@ -35,6 +35,9 @@ export interface Site {
   brand: string
   logoLight: Src
   logoDark: Src
+  /** Just the VAGH mark, no stacked wordmark — used in the header lockup. */
+  markLight: Src
+  markDark: Src
   contactEmail: string
   contactPhone: string
   contactAddress: string
@@ -99,6 +102,14 @@ export interface GateFeature {
   btnUrl: Href
 }
 
+/**
+ * Preferred name for the shape above, now that it renders as a
+ * Mozilla-style feature card (diagonal-clipped photo + colour fill)
+ * rather than a Gates gate-frame. Aliased rather than renamed so the
+ * existing content keys stay untouched.
+ */
+export type FeatureBlock = GateFeature
+
 export interface PageHeader {
   eyebrow: string
   h1Marked: MarkedText
@@ -148,6 +159,15 @@ export interface ImpactItem {
   body: MarkedText
 }
 
+export interface GalleryTile {
+  image: Src
+  /** Chip label above the caption — usually a pillar name. */
+  category: string
+  caption: string
+  /** Footprint in the mosaic. Omit for a plain 1×1 tile. */
+  span?: 'big' | 'wide' | 'tall'
+}
+
 export interface ContactItem {
   label: string
   value: string
@@ -161,7 +181,14 @@ export interface HomePage {
   hero: {
     slides: Slide[]
   }
+  /** Short pillar labels — used as the scrolling marquee band. */
   pills: string[]
+  gallery: {
+    eyebrow: string
+    heading: string
+    deck: MarkedText
+    tiles: GalleryTile[]
+  }
   mission: {
     eyebrow: string
     statementMarked: MarkedText

@@ -37,6 +37,47 @@ export const home: HomePage = {
     'Learning & growth',
     'Environmental care',
   ],
+  gallery: {
+    eyebrow: 'From the ground',
+    heading: 'Days in the communities we walk with',
+    deck: 'Every frame is a real day of work. New photographs are added after each drive.',
+    tiles: [
+      {
+        image: '/images/story-1-warm-meal.png',
+        category: 'Nourishment',
+        caption: 'A midday meal, shared',
+        span: 'big',
+      },
+      {
+        image: '/images/story-3-quiet-life.png',
+        category: 'Peace of mind',
+        caption: 'A quiet morning',
+      },
+      {
+        image: '/images/home-our-story.jpg',
+        category: 'Community',
+        caption: 'Listening first',
+      },
+      {
+        image: '/images/story-2-community-teach.png',
+        category: 'Learning',
+        caption: 'A class in the open',
+        span: 'tall',
+      },
+      {
+        image: '/images/home-our-work.jpg',
+        category: 'Volunteers',
+        caption: 'Hands in the soil',
+        span: 'tall',
+      },
+      {
+        image: '/images/wwd-planet.png',
+        category: 'Our planet',
+        caption: 'Planting day',
+        span: 'wide',
+      },
+    ],
+  },
   mission: {
     eyebrow: 'Our purpose',
     statementMarked: 'A quiet <mark>commitment</mark> to doing good, every <mark>day</mark>.',

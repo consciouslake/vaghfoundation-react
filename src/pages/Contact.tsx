@@ -1,6 +1,7 @@
 import { contact } from '../content/contact'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
+import { PageLead } from '../components/PageLead'
 import { SectionHead } from '../components/SectionHead'
 import { FAQAccordion } from '../components/FAQAccordion'
 import { ContactRows } from '../components/ContactRows'
@@ -16,29 +17,30 @@ export default function Contact() {
         description="Get in touch with Vagh Foundation. Whether you want to volunteer, contribute, collaborate, or simply learn more about our work."
         path="/contact"
       />
-      <PageHeader data={contact.header} />
+      <PageHeader data={contact.header} tone="blue-soft" />
+      <PageLead image={contact.header.image} arch="tr" />
 
       <section className="section">
         <div className="wrap">
           <div className="contact-grid">
             <Reveal>
               <span className="kicker">{contact.section.eyebrow}</span>
-              <h2 style={{ marginBottom: '2rem', maxWidth: '12ch' }}>
+              <h2 className="contact-heading">
                 <Marked>{contact.section.headingMarked}</Marked>
               </h2>
               <ContactRows items={contact.items} />
             </Reveal>
             <Reveal className="form-card">
-              <h3 style={{ marginBottom: '1.4rem' }}>Send us a message</h3>
+              <h3>Send us a message</h3>
               <ContactForm />
             </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="wrap-r">
-          <SectionHead eyebrow={contact.faq.eyebrow} heading={contact.faq.heading} />
+          <SectionHead eyebrow={contact.faq.eyebrow} heading={contact.faq.heading} rays />
           <Reveal>
             <FAQAccordion items={contact.faq.items} />
           </Reveal>

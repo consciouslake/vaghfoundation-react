@@ -1,0 +1,138 @@
+/* tokens.css
+ * Design tokens distilled from mozillafoundation.org (captured 2026-08-11).
+ * Drop-in starting point for the Vagh Foundation vibrant theme.
+ *
+ * Values are the real computed values from the live site — see design-system.md
+ * for provenance. Font families are deliberately set to open substitutes rather
+ * than Mozilla's own brand faces; see design-system.md §3.
+ */
+
+:root {
+  /* ---- Neutrals ---- */
+  --ink:            #000000;  /* all text, including on colour blocks */
+  --near-black:     #161616;  /* footer, dark buttons */
+  --paper:          #ffffff;
+  --off-white:      #f7f7f7;  /* text on dark, subtle bands */
+  --grey-500:       #767676;  /* meta, captions */
+  --grey-300:       #cccccc;  /* rules, input borders */
+
+  /* ---- Vibrant palette ---- */
+  --orange-600:     #d13109;  /* link hover, deep accent */
+  --orange-500:     #f06c13;  /* PRIMARY — hero + page-header bands */
+  --orange-400:     #f88539;  /* card fills, footer donate */
+  --orange-200:     #ff9e5f;  /* carousel arrows, soft fills */
+
+  --yellow-400:     #f7ec36;  /* statement highlight band */
+  --yellow-300:     #eed800;  /* card fills */
+  --yellow-100:     #ffff6c;  /* hover on dark buttons */
+
+  --blue-500:       #23a5e9;  /* PRIMARY — card fills, stat slabs */
+  --blue-300:       #50c9f0;
+
+  --green-500:      #20c376;
+  --green-300:      #53e17c;
+
+  /* Rotating fills for card rows — cycle in this order */
+  --card-fill-1:    var(--orange-400);
+  --card-fill-2:    var(--blue-300);
+  --card-fill-3:    var(--yellow-300);
+  --card-fill-4:    var(--green-300);
+
+  /* ---- Typography ----
+   * Substitutes for Mozilla Headline / Mozilla Text. Both hold up at the
+   * 0.9 leading the design depends on.
+   */
+  --font-display: "Bricolage Grotesque", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-text:    "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Type scale — size / line-height pairs as measured at 1440px */
+  --fs-hero:        6rem;     /* 96px */
+  --lh-hero:        0.9;
+
+  --fs-statement:   3.25rem;  /* 52px — section h2 */
+  --lh-statement:   0.9;      /* NEGATIVE LEADING — the signature move */
+
+  --fs-card-title:  2rem;     /* 32px — h3 */
+  --lh-card-title:  1;
+
+  --fs-subhead:     1.5rem;   /* 24px */
+  --lh-subhead:     1.1;
+
+  --fs-body-lg:     1.125rem; /* 18px */
+  --lh-body-lg:     1.5;
+
+  --fs-body:        1rem;     /* 16px — the workhorse */
+  --lh-body:        1.5;
+
+  --fs-caption:     0.75rem;  /* 12px */
+  --lh-caption:     1.3;
+
+  --fw-display:     600;
+  --fw-display-bold: 700;
+  --fw-stat:        900;
+  --fw-body:        400;
+  --fw-body-bold:   700;
+
+  /* letter-spacing is `normal` everywhere on the reference site — the tension
+     comes from leading, not tracking. Do not add tracking to headings. */
+
+  /* ---- Shape ----
+   * Corners are asymmetric arches, never uniform. Pick a pattern per element.
+   */
+  --card-radius:        1.5rem;   /* 24px — small cards */
+  --card-radius-lg:     5.75rem;  /* 92px — large cards / hero imagery */
+
+  --arch-bottom-left:   0 0 0 var(--card-radius-lg);
+  --arch-top-right:     0 var(--card-radius-lg) 0 0;
+  --arch-diagonal:      0 var(--card-radius) 0 var(--card-radius);
+  --arch-doorway:       var(--card-radius-lg) var(--card-radius-lg) 0 0;
+  --arch-card-top:      var(--card-radius) var(--card-radius) 0 0;
+
+  --card-rotation:      3deg;     /* apply to a minority of cards only */
+
+  /* No shadows, no gradients anywhere in this system. */
+  --shadow-none:        none;
+
+  /* ---- Spacing / rhythm ---- */
+  --space-xs:       0.5rem;   /* 8px */
+  --space-sm:       1rem;     /* 16px */
+  --space-md:       2rem;     /* 32px — standard card padding */
+  --space-lg:       3rem;     /* 48px */
+  --space-xl:       5rem;     /* 80px */
+  --space-2xl:      7.5rem;   /* 120px — section separation, page gutters */
+
+  --content-max:    75rem;    /* 1200px */
+  --gutter:         var(--space-2xl);
+
+  /* ---- Buttons ---- */
+  --btn-padding:    0.9rem 1.5rem;  /* 14.4px 24px */
+  --btn-radius:     0;              /* square — never a pill */
+  --btn-bg:         var(--near-black);
+  --btn-fg:         var(--off-white);
+  --btn-bg-hover:   var(--yellow-100);
+  --btn-fg-hover:   var(--ink);
+
+  /* ---- Motion ---- */
+  --duration:              600ms;
+  --kinetic-delay:         1000ms;  /* rotating headline dwell */
+  --carousel-transition:   transform 0.3s ease;
+  --reveal-stagger:        60ms;    /* newsletter items: 40/100/160/220ms */
+}
+
+/* Breakpoints, as declared on the reference site:
+ *   small     0em
+ *   medium   40em    640px
+ *   large    64em   1024px
+ *   xlarge   75em   1200px
+ *   xxlarge  90em   1440px
+ *   xxxlarge 120em  1920px
+ */
+
+@media (max-width: 64em) {
+  :root {
+    --fs-hero:      3.5rem;
+    --fs-statement: 2.25rem;
+    --fs-card-title: 1.5rem;
+    --gutter:       var(--space-sm);
+  }
+}

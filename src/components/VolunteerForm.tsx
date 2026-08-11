@@ -39,8 +39,7 @@ export function VolunteerForm() {
       </div>
       <button
         type="submit"
-        className="btn btn--primary"
-        style={{ width: '100%', justifyContent: 'center' }}
+        className="btn btn--primary btn--block"
         disabled={sent}
       >
         {sent ? 'Thank you ✓' : 'Submit application'}

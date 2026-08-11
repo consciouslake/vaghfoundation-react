@@ -8,43 +8,30 @@ interface InitiativeProps {
 }
 
 /**
- * Alternating split block used on the What We Do page — image on the
- * left for odd items, right for even items.
+ * Alternating split block used on the What We Do page — arch-cornered
+ * photo on the left for odd items, on the right for even ones. The
+ * flip is desktop-only so mobile keeps each image above its own copy.
  */
 export function Initiative({ data, index }: InitiativeProps) {
   const flip = (index + 1) % 2 === 0
   const ref = useReveal<HTMLDivElement>(index)
   return (
-    <div
-      ref={ref}
-      className="split reveal"
-      style={{ marginBottom: 'clamp(3rem, 6vw, 5rem)', alignItems: 'center' }}
-    >
-      <div className={flip ? 'initiative-media-flip' : undefined}>
-        <div className="split-image" style={{ aspectRatio: '5/4' }}>
+    <div ref={ref} className={`split reveal initiative${flip ? ' initiative--flip' : ''}`}>
+      <div className="initiative__col-media">
+        <div className="split-image initiative__media">
           <img src={data.image} alt="" />
         </div>
       </div>
       <div>
-        <div
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.78rem',
-            fontWeight: 600,
-            color: 'var(--accent)',
-            letterSpacing: '0.12em',
-            marginBottom: '0.8rem',
-            textTransform: 'uppercase',
-          }}
-        >
+        <div className="initiative__label">
           0{index + 1} · {data.label}
         </div>
-        <h2 style={{ marginBottom: '1.2rem', maxWidth: '18ch' }}>{data.h3}</h2>
-        <p style={{ color: 'var(--ink-2)', fontSize: '1.02rem', marginBottom: '1rem' }}>
+        <h2>{data.h3}</h2>
+        <p>
           <Marked>{data.para1}</Marked>
         </p>
         {data.para2 ? (
-          <p style={{ color: 'var(--ink-2)', fontSize: '1.02rem' }}>
+          <p>
             <Marked>{data.para2}</Marked>
           </p>
         ) : null}

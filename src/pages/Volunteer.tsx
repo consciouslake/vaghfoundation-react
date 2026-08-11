@@ -1,11 +1,19 @@
 import { volunteer } from '../content/volunteer'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
+import { PageLead } from '../components/PageLead'
 import { SectionHead } from '../components/SectionHead'
-import { FocusList } from '../components/FocusList'
+import { ColourCards, type ColourCard } from '../components/ColourCards'
 import { Reveal } from '../components/Reveal'
 import { Marked } from '../components/Marked'
 import { VolunteerForm } from '../components/VolunteerForm'
+
+const wayCards: ColourCard[] = volunteer.ways.map((w) => ({
+  title: w.title,
+  body: w.body,
+  href: w.btnHref,
+  linkText: w.btnText,
+}))
 
 export default function Volunteer() {
   return (
@@ -15,7 +23,8 @@ export default function Volunteer() {
         description="Your time is a gift that transforms lives. Sign up to help with food distribution, resource coordination, awareness, or skill-based work."
         path="/volunteer"
       />
-      <PageHeader data={volunteer.header} />
+      <PageHeader data={volunteer.header} tone="green" />
+      <PageLead image={volunteer.header.image} arch="tl" />
 
       <section className="section">
         <div className="wrap">
@@ -24,30 +33,28 @@ export default function Volunteer() {
             heading="Every helping hand strengthens our work"
             headingMarked={volunteer.section.headingMarked}
             intro={volunteer.section.body}
+            rays
           />
-          <FocusList items={volunteer.ways} />
         </div>
+        <ColourCards items={wayCards} label="Ways to help" />
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="wrap">
           <div className="split-narrow">
             <Reveal>
               <span className="kicker">{volunteer.form.eyebrow}</span>
-              <h2 style={{ marginBottom: '1.4rem', maxWidth: '16ch' }}>
+              <h2>
                 <Marked>{volunteer.form.headingMarked}</Marked>
               </h2>
-              <p style={{ color: 'var(--ink-2)', fontSize: '1rem', marginBottom: '1.8rem' }}>
+              <p className="lede volunteer-intro">
                 <Marked>{volunteer.form.body}</Marked>
               </p>
-              <div style={{ borderTop: '1px solid var(--line)', paddingTop: '1.4rem' }}>
+              <div className="check-list">
                 {volunteer.form.checks.map((c) => (
-                  <div
-                    key={c.title}
-                    style={{ padding: '1.1rem 0', borderBottom: '1px solid var(--line)' }}
-                  >
-                    <h4 style={{ marginBottom: '0.3rem' }}>{c.title}</h4>
-                    <p style={{ color: 'var(--ink-2)', fontSize: '0.92rem' }}>
+                  <div key={c.title} className="check-item">
+                    <h4>{c.title}</h4>
+                    <p>
                       <Marked>{c.body}</Marked>
                     </p>
                   </div>
@@ -55,7 +62,7 @@ export default function Volunteer() {
               </div>
             </Reveal>
             <Reveal className="form-card">
-              <h3 style={{ marginBottom: '1.4rem' }}>Sign up to volunteer</h3>
+              <h3>Sign up to volunteer</h3>
               <VolunteerForm />
             </Reveal>
           </div>

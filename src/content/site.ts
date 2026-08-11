@@ -4,6 +4,8 @@ export const site: Site = {
   brand: 'Vagh Foundation',
   logoLight: '/images/logo-full-white.png',
   logoDark: '/images/logo-color.png',
+  markLight: '/images/logo-mark-white.png',
+  markDark: '/images/logo-mark-color.png',
   contactEmail: 'info@vaghfoundation.org',
   contactPhone: '+91 84888 96555',
   contactAddress: 'A-609, Siddhivinayak Tower, Makarba, Ahmedabad - 380051',

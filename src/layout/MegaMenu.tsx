@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { nav } from '../content/nav'
-import { site } from '../content/site'
+import { Brand } from '../components/Brand'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useEscapeKey } from '../hooks/useEscapeKey'
 
@@ -65,14 +65,7 @@ export function MegaMenu({ open, onClose, returnFocusTo }: MegaMenuProps) {
       aria-modal="true"
     >
       <div className="mega-menu__header">
-        <Link
-          to="/"
-          className="brand"
-          aria-label={`${site.brand} home`}
-          onClick={onClose}
-        >
-          <img src={site.logoLight} alt={site.brand} style={{ height: 30 }} />
-        </Link>
+        <Brand onClick={onClose} />
         <button
           type="button"
           className="mega-menu__close"

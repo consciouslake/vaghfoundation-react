@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { donate } from '../content/donate'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
+import { PageLead } from '../components/PageLead'
+import { SlabRow } from '../components/SlabRow'
 import { EmailSignup } from '../components/EmailSignup'
 import { DonateForm } from '../components/DonateForm'
 import { Reveal } from '../components/Reveal'
@@ -15,83 +17,49 @@ export default function Donate() {
         description="Every contribution creates a ripple of hope. Support Vagh Foundation's work across nourishment, wellbeing, learning, and sustainability."
         path="/donate"
       />
-      <PageHeader data={donate.header} />
+      <PageHeader data={donate.header} tone="orange-soft" />
+      <PageLead image={donate.header.image} arch="tr" />
 
       <section className="section">
         <div className="wrap">
           <div className="split-narrow">
             <Reveal>
               <span className="kicker">{donate.section.eyebrow}</span>
-              <h2 style={{ marginBottom: '1.4rem', maxWidth: '18ch' }}>
+              <h2>
                 <Marked>{donate.section.headingMarked}</Marked>
               </h2>
-              <p style={{ color: 'var(--ink-2)', fontSize: '1.02rem', marginBottom: '2.4rem' }}>
+              <p className="lede donate-intro">
                 <Marked>{donate.section.body}</Marked>
               </p>
-              <div style={{ borderTop: '1px solid var(--line)' }}>
-                {donate.impact.map((item, i) => (
-                  <div
-                    key={item.title}
-                    style={{
-                      display: 'grid',
-                      gridTemplateColumns: '40px 1fr',
-                      gap: '1.5rem',
-                      padding: '1.3rem 0',
-                      borderBottom: '1px solid var(--line)',
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: '0.8rem',
-                        color: 'var(--accent)',
-                        letterSpacing: '0.12em',
-                        fontWeight: 600,
-                      }}
-                    >
-                      0{i + 1}
-                    </div>
-                    <div>
-                      <h4 style={{ marginBottom: '0.3rem' }}>{item.title}</h4>
-                      <p style={{ color: 'var(--ink-2)', fontSize: '0.95rem' }}>
-                        <Marked>{item.body}</Marked>
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div
-                style={{
-                  marginTop: '2.5rem',
-                  padding: '1.5rem',
-                  border: '1px solid var(--line)',
-                  borderRadius: 'var(--gate)',
-                  background: 'var(--paper)',
-                }}
-              >
-                <h4 style={{ marginBottom: '0.5rem' }}>{donate.trust.title}</h4>
-                <p style={{ color: 'var(--ink-2)', fontSize: '0.92rem' }}>
+              <div className="trust-note band band--yellow">
+                <h4>{donate.trust.title}</h4>
+                <p>
                   <Marked>{donate.trust.body}</Marked>
                 </p>
               </div>
             </Reveal>
             <Reveal className="form-card">
-              <h3 style={{ marginBottom: '1.4rem' }}>Make a donation</h3>
-              <DonateForm
-                amountChips={donate.amountChips}
-                defaultChip={donate.defaultChip}
-              />
+              <h3>Make a donation</h3>
+              <DonateForm amountChips={donate.amountChips} defaultChip={donate.defaultChip} />
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* Impact slabs run the full content width — they need the room */}
+      <section className="section--tight">
+        <div className="wrap">
+          <SlabRow items={donate.impact} />
         </div>
       </section>
 
       <EmailSignup
         titleWithEm={donate.volunteerCta.titleWithEm}
         body={donate.volunteerCta.body}
+        tone="green"
       >
-        <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Link to={donate.volunteerCta.btnHref} className="btn btn--on-dark">
+        <div className="btn-row">
+          <Link to={donate.volunteerCta.btnHref} className="btn btn--primary">
             {donate.volunteerCta.btnText}
           </Link>
         </div>

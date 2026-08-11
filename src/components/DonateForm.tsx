@@ -44,19 +44,7 @@ export function DonateForm({ amountChips, defaultChip }: DonateFormProps) {
           Monthly
         </button>
       </div>
-      <label
-        style={{
-          display: 'block',
-          fontSize: '0.76rem',
-          fontWeight: 600,
-          color: 'var(--ink-3)',
-          marginBottom: '0.5rem',
-          letterSpacing: '0.05em',
-          textTransform: 'uppercase',
-        }}
-      >
-        Choose an amount
-      </label>
+      <span className="field-legend">Choose an amount</span>
       <div className="amount-grid">
         {amountChips.map((a) => (
           <div
@@ -115,8 +103,7 @@ export function DonateForm({ amountChips, defaultChip }: DonateFormProps) {
       </div>
       <button
         type="submit"
-        className="btn btn--primary"
-        style={{ width: '100%', justifyContent: 'center' }}
+        className="btn btn--primary btn--block"
         disabled={sent}
       >
         {sent ? 'Thank you ✓' : 'Continue to give'}

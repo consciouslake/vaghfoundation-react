@@ -1,22 +1,24 @@
 import { Link } from 'react-router-dom'
 import type { HomePage } from '../content/types'
 import { Marked } from './Marked'
+import { Doodle } from './Doodle'
 
 export function CTATogether({ data }: { data: HomePage['cta'] }) {
   return (
-    <section className="cta-together">
+    <section className="cta-band band band--orange">
       <div className="wrap">
-        <h2 className="cta-together__title">
+        <Doodle name="rays" />
+        <h2 className="cta-band__title">
           <Marked>{data.headingMarked}</Marked>
         </h2>
-        <p className="cta-together__body">
+        <p className="cta-band__body">
           <Marked>{data.body}</Marked>
         </p>
-        <div className="cta-together__buttons">
-          <Link to={data.btn1Href} className="btn btn--yellow">
+        <div className="btn-row">
+          <Link to={data.btn1Href} className="btn btn--primary">
             {data.btn1Text}
           </Link>
-          <Link to={data.btn2Href} className="btn btn--on-dark">
+          <Link to={data.btn2Href} className="btn btn--ghost">
             {data.btn2Text}
           </Link>
         </div>

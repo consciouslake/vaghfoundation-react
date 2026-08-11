@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { Href, MarkedText } from '../content/types'
 import { Marked } from './Marked'
 import { Reveal } from './Reveal'
+import { Doodle } from './Doodle'
 
 interface MissionStatementProps {
   eyebrow?: string
@@ -19,19 +20,20 @@ export function MissionStatement({
   btnUrl,
 }: MissionStatementProps) {
   return (
-    <section className="mission-statement">
+    <section className="mission">
       <div className="wrap">
-        {eyebrow ? <span className="mission-statement__kicker">{eyebrow}</span> : null}
-        <Reveal className="mission-statement__text">
+        <Doodle name="rule" />
+        {eyebrow ? <span className="kicker">{eyebrow}</span> : null}
+        <Reveal as="h2" className="mission__text">
           <Marked>{statementMarked}</Marked>
         </Reveal>
         {body ? (
-          <p className="mission-statement__body">
+          <p className="mission__body">
             <Marked>{body}</Marked>
           </p>
         ) : null}
         {btnText && btnUrl ? (
-          <Link to={btnUrl} className="btn btn--ghost mission-statement__link">
+          <Link to={btnUrl} className="btn btn--ghost">
             {btnText}
           </Link>
         ) : null}

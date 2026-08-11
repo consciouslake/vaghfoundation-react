@@ -2,8 +2,8 @@ import { Fragment, type ReactNode } from 'react'
 
 /**
  * Renders a string that may contain inline <mark>...</mark> or
- * <em>...</em> tags — used everywhere in the design for Gates-style
- * italic-green emphasis and email-signup title accents. Any other
+ * <em>...</em> tags. <mark> paints the yellow highlight behind a
+ * phrase; <em> carries the email-signup title accents. Any other
  * markup passes through as plain text (no dangerouslySetInnerHTML).
  */
 export function Marked({ children }: { children: string }) {
