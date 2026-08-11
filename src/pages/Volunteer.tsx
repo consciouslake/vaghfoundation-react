@@ -33,7 +33,6 @@ export default function Volunteer() {
             heading="Every helping hand strengthens our work"
             headingMarked={volunteer.section.headingMarked}
             intro={volunteer.section.body}
-            rays
           />
         </div>
         <ColourCards items={wayCards} label="Ways to help" />

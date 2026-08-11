@@ -1,28 +1,39 @@
 import { Link } from 'react-router-dom'
+import { Soup, HeartHandshake, BookOpen, Sprout, ArrowRight, type LucideIcon } from 'lucide-react'
 import type { HomePage, Pillar } from '../content/types'
 import { Marked } from './Marked'
-import { ArrowRight } from './ArrowRight'
 import { useReveal } from '../hooks/useReveal'
 
 interface CausesMosaicProps {
   data: HomePage['pillars']
 }
 
+/** One icon per cause, in the order the pillars are authored. */
+const ICONS: LucideIcon[] = [Soup, HeartHandshake, BookOpen, Sprout]
+
 function CauseCard({ pillar, index, href }: { pillar: Pillar; index: number; href: string }) {
   const ref = useReveal<HTMLAnchorElement>(index)
+  const Icon = ICONS[index % ICONS.length]
   return (
     <Link ref={ref} to={href} className={`cause cause--${index + 1} reveal`}>
-      <div className="cause__media">
-        <img src={pillar.image} alt="" />
-      </div>
+      <span className="cause__glow" aria-hidden="true" />
+      <span className="cause__arch" aria-hidden="true">
+        <Icon size={30} strokeWidth={1.7} />
+      </span>
+      {/* The tall card has room for the cause's own photograph, framed
+          in the same arch as its icon niche. */}
+      {index === 0 ? (
+        <div className="cause__photo">
+          <img src={pillar.image} alt="" />
+        </div>
+      ) : null}
       <div className="cause__body">
-        <div className="cause__no">0{index + 1}</div>
         <h3 className="cause__title">{pillar.title}</h3>
         <p className="cause__desc">
           <Marked>{pillar.body}</Marked>
         </p>
-        <span className="link">
-          Learn more <ArrowRight />
+        <span className="cause__go">
+          Learn more <ArrowRight size={17} aria-hidden="true" />
         </span>
       </div>
     </Link>
@@ -30,9 +41,8 @@ function CauseCard({ pillar, index, href }: { pillar: Pillar; index: number; hre
 }
 
 /**
- * The four causes, laid out as an uneven mosaic rather than a row of
- * equal cards: one tall, two small, one wide. This is the centre of
- * the homepage, so it gets the most graphic treatment on the page.
+ * The four causes as an uneven mosaic — one tall, two small, one wide.
+ * This is the centre of the homepage, so it takes the boldest fills.
  */
 export function CausesMosaic({ data }: CausesMosaicProps) {
   return (

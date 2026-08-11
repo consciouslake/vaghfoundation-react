@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { nav } from '../content/nav'
 import { Brand } from '../components/Brand'
 import { Doodle } from '../components/Doodle'
+import { ScrollProgress } from '../components/ScrollProgress'
 import { MegaMenu } from './MegaMenu'
 
 export function Header() {
@@ -52,13 +53,15 @@ export function Header() {
           </button>
         </div>
 
-        {/* Flat four-colour rule carrying the palette across the header */}
+        {/* Flat four-colour rule carrying the palette across the header,
+            with the reading-progress fill riding on top of it */}
         <div className="nav-stripe" aria-hidden="true">
           <span />
           <span />
           <span />
           <span />
         </div>
+        <ScrollProgress />
       </header>
 
       <MegaMenu open={open} onClose={() => setOpen(false)} returnFocusTo={toggleRef.current} />

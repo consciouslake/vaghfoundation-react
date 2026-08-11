@@ -35,6 +35,29 @@
   --green-500:    #20c376;
   --green-300:    #53e17c;
 
+  /* ---- Warm brand set ----
+     The Mozilla palette above stays the structural system (full-bleed
+     blocks, bands, chips). This set carries the brand's own teal→blue→
+     green identity plus the warm accents the home page runs on. */
+  --coral:        #ff6b4a;
+  --amber:        #ffb627;
+  --plum:         #7a4eab;
+  --teal:         #04a799;
+  --blue-deep:    #0172b4;
+  --green-deep:   #01a756;
+
+  --cream:        #fbf6ee;
+  --paper-warm:   #fffdf9;
+  --sand:         #f3ede2;
+  --ink-warm:     #141210;
+  --slate:        #6b655c;
+  --line-warm:    #e4dccf;
+
+  /* Two text/rule washes. Used only on type and 4px rules, never as a
+     surface fill — big blocks stay flat. */
+  --brand-sweep:  linear-gradient(90deg, var(--teal), var(--blue-deep), var(--green-deep));
+  --rainbow:      linear-gradient(90deg, var(--green-deep), var(--teal), var(--blue-deep), var(--plum), var(--coral), var(--amber));
+
   /* Rotating card fills — cycled by index */
   --card-fill-1:  var(--orange-400);
   --card-fill-2:  var(--blue-300);
@@ -46,8 +69,10 @@
      brand faces — same wide-grotesque personality, and both hold at
      0.9 leading. Bricolage tops out at 800, so stat figures use 800
      rather than the 900 measured on the reference site. */
-  --font-display: "Bricolage Grotesque", "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --font-text:    "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-text:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  /* Emphasis only — single words inside display headings, never body */
+  --font-accent:  "Fraunces", Georgia, serif;
 
   --fs-hero:       clamp(2.25rem, 4.7vw, 4.25rem);
   --fs-statement:  clamp(2.1rem, 4.6vw, 3.25rem);
@@ -58,9 +83,10 @@
   --fs-body:       1rem;
   --fs-caption:    0.75rem;
 
-  --lh-display:    0.9;      /* NEGATIVE LEADING — the signature move */
-  --lh-title:      1;
-  --lh-body:       1.5;
+  --lh-display:    0.94;     /* near-negative leading — the signature move */
+  --lh-title:      1.05;
+  --lh-body:       1.6;
+  --tracking-display: -0.03em;
 
   --fw-display:      600;
   --fw-display-bold: 700;
@@ -147,13 +173,13 @@ button { font-family: inherit; }
    ============================================================ */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: var(--fw-display);
+  font-weight: 800;
   line-height: var(--lh-display);
-  letter-spacing: normal;
-  color: var(--ink);
+  letter-spacing: var(--tracking-display);
+  color: var(--ink-warm);
   text-wrap: balance;
 }
-h1 { font-size: var(--fs-h1); font-weight: var(--fw-display-bold); }
+h1 { font-size: var(--fs-h1); }
 h2 { font-size: var(--fs-statement); }
 h3 { font-size: var(--fs-card-title); line-height: var(--lh-title); }
 h4 {
@@ -181,20 +207,52 @@ mark {
 /* On dark, the highlight stays yellow but the text must go black. */
 .band--dark mark, .footer mark { background: var(--yellow-400); color: var(--ink); }
 
-/* Inside display headings a filled highlight cannot be used: at 0.9
-   leading its box is taller than the line box, so it paints over the
-   descenders of the line above. The reference site underlines instead
-   ("Be a force for good technology.") — same emphasis, no collision. */
-:is(h1, h2, h3, .statement-band__text, .mission__text, .hero__title) mark {
-  background: transparent;
-  color: inherit;
+/* Emphasis inside a display heading is the wordmark's own move: the
+   teal→blue→green sweep clipped into the glyphs, exactly as the VAGH
+   letters are filled. Nothing is underlined, nothing changes face —
+   the brand's gradient is the emphasis, and it belongs to Vagh alone. */
+:is(h1, h2, h3, .statement-band__text, .mission__text, .hero__title) :is(mark, em) {
+  background-image: var(--brand-sweep);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-style: normal;
   padding: 0;
-  text-decoration: underline;
-  text-decoration-thickness: 0.07em;
-  text-underline-offset: 0.12em;
+  animation: sweepShift 11s ease-in-out infinite;
+}
+@keyframes sweepShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* The sweep is mid-tone, so it disappears on a saturated block. There
+   the emphasis is simply solid ink, or paper on dark ground. */
+.band :is(h1, h2, h3) :is(mark, em),
+.statement-band__text :is(mark, em) {
+  background-image: none;
+  color: var(--ink-warm);
+  animation: none;
+}
+.band--dark :is(h1, h2, h3) :is(mark, em),
+.spotlight :is(h1, h2, h3) :is(mark, em) {
+  background-image: none;
+  color: var(--amber);
+  animation: none;
 }
 
 em { font-style: italic; }
+
+/* ---- Rules and washes ---- */
+.rule-sm {
+  width: 52px; height: 4px; border-radius: 999px;
+  background: var(--brand-sweep);
+  margin-bottom: 1.1rem;
+}
+.rule-rainbow {
+  height: 5px; border-radius: 999px;
+  background: var(--rainbow);
+}
 
 /* Eyebrow / kicker — caps meta label, 12px */
 .kicker {
@@ -271,10 +329,24 @@ em { font-style: italic; }
 /* On the near-black footer / dark bands */
 .btn--invert { background: var(--off-white); color: var(--ink); border-color: var(--off-white); }
 .btn--invert:hover { background: var(--yellow-100); border-color: var(--yellow-100); }
-.btn--donate { background: var(--orange-400); color: var(--ink); border-color: var(--orange-400); }
-.btn--donate:hover { background: var(--yellow-100); border-color: var(--yellow-100); }
+.btn--donate { background: var(--coral); color: var(--paper-warm); border-color: var(--coral); }
+.btn--donate:hover { background: var(--amber); border-color: var(--amber); color: var(--ink-warm); }
 .btn--on-dark { background: transparent; color: var(--off-white); border-color: var(--off-white); }
 .btn--on-dark:hover { background: var(--off-white); color: var(--ink); }
+
+/* Pill variant — used across the home page's warm surfaces */
+.btn--pill { border-radius: 999px; padding: 1rem 1.75rem; font-size: 1.0625rem; }
+.btn--pill svg { transition: transform .22s cubic-bezier(.2,.8,.2,1); }
+.btn--pill:hover svg { transform: translateX(5px); }
+.btn--pill:hover { translate: 0 -2px; }
+.btn--sweep {
+  background-image: var(--brand-sweep);
+  border-color: transparent;
+  color: var(--paper);
+}
+.btn--sweep:hover { background-image: none; background-color: var(--ink-warm); color: var(--paper); }
+.btn--coral { background: var(--coral); border-color: var(--coral); color: var(--paper); }
+.btn--coral:hover { background: var(--ink-warm); border-color: var(--ink-warm); }
 
 .btn--block { width: 100%; justify-content: center; }
 .btn:disabled { cursor: default; opacity: 0.75; }
@@ -408,9 +480,19 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 /* Once it's an X the two bars have to read as one shape */
 .nav-toggle.open span { background: var(--ink); }
 
-/* Flat four-colour rule under the header — solid blocks, not a gradient */
+/* Flat four-colour rule under the header — solid blocks, not a gradient.
+   It doubles as the track for the reading-progress fill below. */
 .nav-stripe { display: flex; height: 4px; }
-.nav-stripe span { flex: 1; }
+.nav-stripe span { flex: 1; opacity: 0.45; }
+
+/* Reading progress, painted straight onto the header's own stripe */
+.scroll-progress {
+  position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 4px; z-index: 2;
+  transform-origin: 0 50%;
+  background: var(--rainbow);
+  pointer-events: none;
+}
 .nav-stripe span:nth-child(1) { background: var(--orange-500); }
 .nav-stripe span:nth-child(2) { background: var(--blue-500); }
 .nav-stripe span:nth-child(3) { background: var(--yellow-400); }
@@ -488,108 +570,173 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 
 /* ============================================================
-   HOME HERO — headline rising word by word on the left, an
-   overlapping collage of rotated arch-cornered photos on the right
+   THE ARCH
+   Lifted from the "A" in the wordmark, where an arch shelters a
+   small form. It is the site's one repeated shape: hero imagery,
+   cause-card icon niches, gallery frames.
    ============================================================ */
-.hero { padding-block: clamp(1rem, 1.8vw, 1.75rem) clamp(1.5rem, 3vw, 2.5rem); }
+.arch__frame,
+.gal-arch {
+  border-radius: 999px 999px 14px 14px;
+  overflow: hidden;
+  background: var(--sand);
+}
+
+/* ============================================================
+   HOME HERO — statement on the left, a colonnade of three arches
+   on the right, staggered so the row gathers rather than lines up
+   ============================================================ */
+.hero { padding-block: clamp(2rem, 4vw, 3.75rem) clamp(2.5rem, 5vw, 4.5rem); }
+/* The statement keeps a fixed measure at the page gutter; the
+   colonnade takes every pixel to the right of it and runs off the
+   edge, so the arches are architecture rather than thumbnails. */
 .hero__grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 36rem) 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
+  padding-left: max(var(--pad), calc((100vw - var(--maxw)) / 2 + var(--pad)));
 }
-.hero__title {
+
+.hero__eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
   font-family: var(--font-display);
+  font-size: 0.8125rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 1.35rem;
+}
+.hero__dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--brand-sweep) var(--teal);
+  animation: heroPulse 2.4s ease-in-out infinite;
+}
+@keyframes heroPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.5); opacity: 0.5; }
+}
+
+.hero__title {
   font-size: var(--fs-hero);
-  font-weight: 800;
-  line-height: var(--lh-display);
-  letter-spacing: normal;
-  margin-bottom: 1.5rem;
+  line-height: 0.98;
+  margin-bottom: 1.6rem;
   text-wrap: initial;
 }
 .hero__title .w {
   display: inline-block;
   opacity: 0;
-  transform: translateY(0.55em);
-  animation: riseIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-.hero__title .w--mark {
-  text-decoration: underline;
-  text-decoration-thickness: 0.07em;
-  text-underline-offset: 0.12em;
+  transform: translateY(0.5em);
+  animation: riseIn 0.75s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
 }
 @keyframes riseIn {
   to { opacity: 1; transform: none; }
 }
+
 .hero__lede {
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  line-height: 1.5;
-  max-width: 46ch;
-  margin-bottom: 1.75rem;
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  max-width: 34rem;
+  margin-bottom: 2rem;
 }
 
-/* Collage — no shadows. The photos separate by a thick paper border,
-   a small rotation and a single arch corner each. */
-.hero__collage { position: relative; aspect-ratio: 4 / 5; }
-.hero__photo {
-  position: absolute;
-  border: 0.75rem solid var(--paper);
-  overflow: hidden;
-  background: var(--grey-300);
+/* ---- The colonnade ---- */
+.hero__arches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.6rem, 1.2vw, 1rem);
+  align-items: end;
 }
-.hero__photo img { width: 100%; height: 100%; object-fit: cover; }
-.hero__photo--1 {
-  width: 74%; aspect-ratio: 4 / 5;
-  top: 2%; right: 0;
-  rotate: 3deg; z-index: 1;
-  border-radius: 0 var(--card-radius-lg) 0 0;
+.arch {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  animation: archRise 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
 }
-.hero__photo--2 {
-  width: 58%; aspect-ratio: 1 / 1;
-  bottom: 4%; left: 0;
-  rotate: -5deg; z-index: 3;
-  border-radius: 0 0 0 var(--card-radius-lg);
+@keyframes archRise {
+  to { opacity: 1; transform: none; }
 }
-.hero__photo--3 {
-  width: 42%; aspect-ratio: 3 / 4;
-  bottom: 10%; right: 2%;
-  rotate: 7deg; z-index: 2;
-  border-radius: var(--card-radius-lg) 0 0 0;
+.arch__frame {
+  position: relative;
+  transition: translate .4s cubic-bezier(.2,.8,.2,1);
 }
-.hero__rays { position: absolute; top: -3%; left: -1%; z-index: 4; }
+.arch__frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: scale .6s cubic-bezier(.2,.8,.2,1);
+}
+.arch:hover .arch__frame { translate: 0 -8px; }
+.arch:hover .arch__frame img { scale: 1.06; }
+
+/* Staggered heights — the middle arch leads */
+.arch--1 .arch__frame { aspect-ratio: 3 / 4.3; }
+.arch--2 .arch__frame { aspect-ratio: 3 / 5.4; }
+.arch--3 .arch__frame { aspect-ratio: 3 / 3.7; }
+
+.arch figcaption {
+  margin-top: 0.8rem;
+  padding-top: 0.65rem;
+  border-top: 3px solid transparent;
+  border-image: var(--brand-sweep) 1;
+  font-family: var(--font-display);
+  font-size: 0.8125rem; font-weight: 700;
+  line-height: 1.25;
+  color: var(--slate);
+}
 
 @media (max-width: 64em) {
-  .hero__grid { grid-template-columns: 1fr; gap: 2rem; }
-  /* Keep the 4:5 frame — the photo sizes are tuned to it, and flipping
-     it landscape pushed the portrait photo out through the bottom. */
-  .hero__collage { max-width: 26rem; margin-inline: auto; }
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-inline: var(--pad);
+  }
+}
+@media (max-width: 30em) {
+  .hero__arches { gap: 0.5rem; }
+  .arch--1 .arch__frame { aspect-ratio: 3 / 4; }
+  .arch--2 .arch__frame { aspect-ratio: 3 / 4.8; }
+  .arch--3 .arch__frame { aspect-ratio: 3 / 3.4; }
+  .arch figcaption { font-size: 0.6875rem; }
 }
 
+
+
 /* ============================================================
-   MARQUEE — scrolling dark band carrying the four causes
+   CAUSE BAND — four panels of one whole. At rest they are equal;
+   the panel you point at takes room from its neighbours.
    ============================================================ */
-.marquee {
-  background: var(--near-black); color: var(--off-white);
-  overflow: hidden;
-  padding-block: 0.9rem;
+.causeband {
+  display: flex;
+  min-height: clamp(6rem, 9vw, 8.5rem);
 }
-.marquee__track {
-  display: flex; width: max-content;
-  animation: marqueeScroll 34s linear infinite;
+.causeband__panel {
+  flex: 1;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 0.75rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  color: var(--paper-warm);
+  background: var(--panel);
+  transition: flex-grow .45s cubic-bezier(.2,.8,.2,1), background .25s;
 }
-.marquee__run { display: flex; }
-.marquee__item {
-  display: flex; align-items: center; gap: 1.5rem;
-  padding-inline: 0.75rem 1.5rem;
+.causeband__panel:nth-child(4n+1) { --panel: var(--amber); color: var(--ink-warm); }
+.causeband__panel:nth-child(4n+2) { --panel: var(--teal); }
+.causeband__panel:nth-child(4n+3) { --panel: var(--blue-deep); }
+.causeband__panel:nth-child(4n+4) { --panel: var(--green-deep); }
+.causeband__panel:hover,
+.causeband__panel:focus-within { flex-grow: 2.1; }
+
+.causeband__icon { transition: rotate .4s cubic-bezier(.2,.8,.2,1), scale .4s; }
+.causeband__panel:hover .causeband__icon { rotate: -10deg; scale: 1.15; }
+.causeband__label {
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
-  font-weight: var(--fw-display);
-  white-space: nowrap;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 }
-.marquee__star { width: 0.7em; height: 0.7em; flex: 0 0 auto; color: var(--yellow-400); }
-@keyframes marqueeScroll {
-  to { transform: translateX(-50%); }
+
+@media (max-width: 48em) {
+  .causeband { flex-wrap: wrap; }
+  .causeband__panel { flex: 1 1 50%; min-height: 6.5rem; }
+  .causeband__panel:hover, .causeband__panel:focus-within { flex-grow: 1; }
 }
+
+
 
 /* ============================================================
    PAGE HEADER — full-bleed solid colour band, oversized black h1
@@ -617,19 +764,34 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 .statement-band {
   position: relative;
-  background: var(--yellow-400);
-  padding: var(--space-md) clamp(2rem, 5vw, 3rem);
-  clip-path: polygon(0 0, calc(100% - 3rem) 0, calc(100% - 3rem) 58%, 100% 58%, 100% 100%, 0 100%);
+  background: var(--amber);
+  border-radius: 26px;
+  padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 3.25rem);
+  overflow: hidden;
+}
+/* A slow drifting light so the slab is not a dead rectangle */
+.statement-band::before {
+  content: ""; position: absolute; inset: -60% -20% auto -20%; height: 140%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.5), transparent);
+  animation: slabDrift 14s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes slabDrift {
+  0%, 100% { translate: -12% 0; }
+  50%      { translate: 12% 8%; }
 }
 .statement-band__text {
+  position: relative;
   font-family: var(--font-display);
   font-size: var(--fs-statement);
-  font-weight: var(--fw-display);
-  line-height: var(--lh-display);
-  color: var(--ink);
-  max-width: 32ch;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
+  color: var(--ink-warm);
+  max-width: 26ch;
 }
-.statement-section .doodle--rays { margin-bottom: -0.5rem; }
+.statement-band__text mark { color: var(--ink-warm); text-decoration-color: var(--ink-warm); }
+.statement-section .doodle--rays { margin-bottom: -0.5rem; color: var(--ink-warm); }
 
 /* ============================================================
    COLOUR CARDS — full-bleed row, arch-cornered image inset,
@@ -816,172 +978,221 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 /* ============================================================
    MISSION STATEMENT — big display block, yellow-highlight accents
    ============================================================ */
-.mission { padding-block: var(--sec-y); }
+.mission { padding-block: clamp(4rem, 8vw, 7.5rem); scroll-margin-top: 6rem; }
 .mission__text {
   font-family: var(--font-display);
-  font-size: var(--fs-statement);
-  font-weight: var(--fw-display);
-  line-height: var(--lh-display);
-  color: var(--ink);
-  max-width: 20ch;
-  margin-bottom: 1.6rem;
+  font-size: clamp(2.25rem, 5.2vw, 4.5rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: var(--tracking-display);
+  color: var(--ink-warm);
+  max-width: 16ch;
+  margin-bottom: 1.75rem;
 }
-.mission__body { font-size: var(--fs-body-lg); max-width: 52ch; margin-bottom: 1.8rem; }
+.mission__body {
+  font-size: clamp(1.1875rem, 1.8vw, 1.5rem);
+  line-height: 1.5;
+  max-width: 52ch;
+  margin-bottom: 2rem;
+}
+.mission__rule { width: 120px; margin-top: 2.25rem; }
 
 /* ============================================================
-   CTA BAND
+   CTA BAND — closing call, centred on the warm ground
    ============================================================ */
-.cta-band { padding-block: clamp(3rem, 6vw, 5rem); }
-.cta-band__title { max-width: 18ch; margin-bottom: 0.9rem; }
-.cta-band__body { font-size: var(--fs-body-lg); max-width: 48ch; margin-bottom: 1.8rem; }
+.cta-band { padding-block: clamp(4rem, 8vw, 7.5rem); }
+.cta-band__inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
+.cta-band__rays { margin-bottom: 1rem; color: var(--ink-warm); }
+.cta-band__title {
+  font-size: clamp(2.25rem, 5.6vw, 4.75rem);
+  max-width: 15ch;
+  margin-bottom: 1rem;
+}
+.cta-band__body {
+  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  max-width: 44ch; margin-bottom: 2rem;
+}
+.cta-band__buttons { justify-content: center; }
 
 /* ============================================================
-   EDITORIAL SECTION HEAD — big ordinal, heading, deck
+   EDITORIAL SECTION HEAD — accent-italic ordinal, sweep rule, deck
    ============================================================ */
 .shead {
   display: grid;
-  grid-template-columns: 6rem 1fr 17rem;
-  gap: clamp(1.25rem, 2.5vw, 2rem);
+  grid-template-columns: 1fr 18rem;
+  gap: clamp(1.5rem, 3vw, 3rem);
   align-items: end;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
   max-width: none;
 }
-.shead__idx {
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 5vw, 4.25rem);
-  font-weight: var(--fw-stat);
-  line-height: 0.72;
-  color: var(--grey-300);
-}
-.shead h2 { max-width: 18ch; }
-.shead .kicker { margin-bottom: 0.6rem; }
-.shead__deck { font-size: 0.95rem; padding-bottom: 0.35rem; max-width: 34ch; }
+.shead h2 { max-width: 16ch; }
+.shead .kicker { margin-bottom: 0.7rem; }
+.shead__deck { font-size: 1rem; padding-bottom: 0.4rem; max-width: 34ch; }
+.section-head .rule-sm, .shead .rule-sm { display: block; }
 
 @media (max-width: 64em) {
-  .shead { grid-template-columns: 1fr; gap: 0.75rem; align-items: start; }
-  .shead__idx { font-size: 2.75rem; }
+  .shead { grid-template-columns: 1fr; gap: 1rem; align-items: start; }
 }
 
 /* ============================================================
-   CAUSES MOSAIC — the four pillars, uneven by design:
-   one tall, two small, one wide. The centre of the homepage.
+   CAUSES MOSAIC — the four causes, uneven by design: one tall,
+   two small, one wide. Rounded, saturated, and the loudest thing
+   on the page.
    ============================================================ */
 .causes {
   display: grid;
   grid-template-columns: 1.05fr 1fr 1fr;
-  /* auto-max so a two-line title plus a three-line body can't overflow
-     the row and get clipped by the card's overflow:hidden */
-  grid-auto-rows: minmax(16rem, auto);
-  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  grid-auto-rows: minmax(15rem, auto);
+  gap: clamp(0.85rem, 1.5vw, 1.375rem);
 }
 .cause {
   position: relative;
-  display: flex; flex-direction: column; justify-content: flex-end;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: 1.5rem;
   overflow: hidden;
-  background: var(--cause-fill, var(--orange-400));
-  color: var(--ink);
-  transition: translate .25s;
+  padding: clamp(1.5rem, 2.4vw, 2.125rem);
+  border-radius: 26px;
+  background: var(--cause-fill);
+  color: var(--paper-warm);
+  isolation: isolate;
+  transition: translate .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
 }
-.cause--1 { --cause-fill: var(--card-fill-1); grid-row: span 2; }
-.cause--2 { --cause-fill: var(--card-fill-2); grid-column: 2; }
-.cause--3 { --cause-fill: var(--card-fill-3); grid-column: 3; }
-.cause--4 { --cause-fill: var(--card-fill-4); grid-column: 2 / span 2; }
-.cause:hover { translate: 0 -6px; }
+/* Fills come from the wordmark's own teal→blue→green, with amber as
+   the warm fourth for nourishment. */
+.cause--1 { --cause-fill: var(--amber); grid-row: span 2; color: var(--ink-warm); }
+.cause--2 { --cause-fill: var(--teal); grid-column: 2; }
+.cause--3 { --cause-fill: var(--blue-deep); grid-column: 3; }
+.cause--4 { --cause-fill: var(--green-deep); grid-column: 2 / span 2; }
+.cause:hover { translate: 0 -8px; box-shadow: 0 26px 44px -22px rgba(20, 18, 16, 0.5); }
 
-.cause__media { position: absolute; inset: 0; opacity: 0.24; }
-.cause__media img { width: 100%; height: 100%; object-fit: cover; }
-.cause__body { position: relative; z-index: 1; padding: clamp(1.25rem, 2vw, 1.75rem); }
-.cause__no {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: var(--fw-stat);
-  line-height: 0.8;
-  margin-bottom: 0.5rem;
+/* A soft light that follows the card into its hover state */
+.cause__glow {
+  position: absolute; inset: -40% -10% auto -10%; height: 80%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0; transition: opacity .35s, translate .35s;
+  z-index: -1;
 }
+.cause:hover .cause__glow { opacity: 1; translate: 0 12%; }
+
+/* The icon sits in a small arch niche — the wordmark shape again, at
+   the scale of a doorway rather than a picture frame. */
+.cause__arch {
+  display: grid; place-items: center;
+  width: 3.5rem; height: 4rem;
+  border-radius: 999px 999px 8px 8px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: translate .35s cubic-bezier(.2,.8,.2,1), background .35s;
+}
+.cause--1 .cause__arch { background: rgba(20, 18, 16, 0.14); }
+.cause:hover .cause__arch { translate: 0 -5px; background: rgba(255, 255, 255, 0.34); }
+.cause--1:hover .cause__arch { background: rgba(20, 18, 16, 0.22); }
+
 .cause__title {
-  font-family: var(--font-display);
-  font-size: var(--fs-card-title);
-  font-weight: var(--fw-display);
-  line-height: var(--lh-title);
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  color: inherit;
   margin-bottom: 0.5rem;
 }
-.cause__desc { font-size: 0.95rem; max-width: 36ch; margin-bottom: 0.9rem; }
-
-/* The tall card leads — it gets the room, so it gets the scale */
-.cause--1 .cause__media { opacity: 0.3; }
-.cause--1 .cause__no { font-size: clamp(2.5rem, 4.5vw, 3.75rem); }
-.cause--1 .cause__title { font-size: clamp(1.6rem, 2.8vw, 2.25rem); }
-
-/* The wide card lays its number beside the copy, with the link pinned
-   to the right rather than squeezed into a flex column of its own. */
-.cause--4 .cause__body {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: clamp(1.25rem, 3vw, 2.5rem);
+.cause__desc { font-size: 1rem; max-width: 36ch; margin-bottom: 1rem; opacity: 0.95; }
+.cause__go {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.9375rem;
+  padding-bottom: 3px;
+  border-bottom: 2px solid currentColor;
+  transition: gap .22s;
 }
-.cause--4 .cause__no {
-  grid-column: 1; grid-row: 1 / span 2;
-  margin-bottom: 0; font-size: clamp(2.5rem, 4.5vw, 3.75rem);
-}
-.cause--4 .cause__title { grid-column: 2; grid-row: 1; margin-bottom: 0.35rem; }
-.cause--4 .cause__desc { grid-column: 2; grid-row: 2; margin-bottom: 0; max-width: 52ch; }
-.cause--4 .link { grid-column: 3; grid-row: 1 / span 2; white-space: nowrap; }
+.cause:hover .cause__go { gap: 0.8rem; }
 
-.causes__cta { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+/* The tall card leads, so it takes the bigger title and a photograph */
+.cause--1 .cause__title { font-size: clamp(1.6rem, 2.6vw, 2.125rem); }
+.cause--1 .cause__arch { width: 4.25rem; height: 5rem; }
+.cause__photo {
+  flex: 1;
+  min-height: 8rem;
+  border-radius: 999px 999px 12px 12px;
+  overflow: hidden;
+  background: rgba(20, 18, 16, 0.1);
+}
+.cause__photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: scale .5s cubic-bezier(.2,.8,.2,1);
+}
+.cause--1:hover .cause__photo img { scale: 1.06; }
+@media (max-width: 64em) { .cause__photo { display: none; } }
+
+/* The wide card runs its niche beside the copy */
+.cause--4 { flex-direction: row; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
+.cause--4 .cause__arch { flex: 0 0 auto; }
+.cause--4 .cause__body { flex: 1; }
+.cause--4 .cause__desc { max-width: 46ch; }
+
+.causes__cta { margin-top: clamp(1.75rem, 3.5vw, 3rem); }
 
 @media (max-width: 64em) {
   .causes { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .cause, .cause--1, .cause--2, .cause--3, .cause--4 {
-    grid-column: auto; grid-row: auto; min-height: 15rem;
+    grid-column: auto; grid-row: auto; min-height: 14rem; flex-direction: column;
   }
-  .cause--4 .cause__body { display: block; }
-  .cause--4 .cause__no { margin-bottom: 0.5rem; }
 }
 
 /* ============================================================
-   GALLERY — photo mosaic with uneven spans and category chips
+   GALLERY — photo mosaic, scrim, pill category chips
    ============================================================ */
-.gallery-sec { background: var(--off-white); }
+.gallery-sec { background: var(--paper-warm); }
 .gal-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 13rem;
   grid-auto-flow: dense;
-  gap: clamp(0.6rem, 1.2vw, 1rem);
+  gap: clamp(0.65rem, 1.2vw, 1rem);
 }
 .tile {
   position: relative;
   overflow: hidden;
-  background: var(--grey-300);
-  border-radius: 0 var(--card-radius) 0 var(--card-radius);
+  background: var(--sand);
+  /* the arch, softened to work at any aspect */
+  border-radius: 34px 34px 14px 14px;
+  transition: translate .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
 }
+/* the portrait frame takes the full arch */
+.tile--tall { border-radius: 999px 999px 14px 14px; }
+.tile:hover { translate: 0 -5px; box-shadow: 0 22px 40px -20px rgba(20, 18, 16, 0.45); }
 .tile--big  { grid-column: span 2; grid-row: span 2; }
 .tile--wide { grid-column: span 2; }
 .tile--tall { grid-row: span 2; }
-.tile img { width: 100%; height: 100%; object-fit: cover; transition: scale .5s ease; }
-.tile:hover img { scale: 1.05; }
-.tile__meta {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 0.9rem;
-  background: var(--paper);
+.tile img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: scale .55s cubic-bezier(.2,.8,.2,1);
 }
+.tile:hover img { scale: 1.06; }
+.tile::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 62%;
+  background: linear-gradient(to top, rgba(15, 13, 11, 0.88), rgba(15, 13, 11, 0.35) 45%, transparent);
+  pointer-events: none;
+}
+.tile__meta { position: absolute; left: 0.9rem; right: 0.9rem; bottom: 0.9rem; z-index: 1; }
 .tile__cat {
-  display: block;
-  font-size: var(--fs-caption); font-weight: var(--fw-body-bold);
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.625rem; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
-  margin-bottom: 0.15rem;
+  color: var(--paper-warm);
+  background: var(--chip, var(--coral));
+  padding: 4px 10px; border-radius: 999px;
+  margin-bottom: 0.45rem;
 }
-.tile:nth-child(5n+1) .tile__cat { color: var(--orange-600); }
-.tile:nth-child(5n+2) .tile__cat { color: var(--blue-500); }
-.tile:nth-child(5n+3) .tile__cat { color: var(--green-500); }
-.tile:nth-child(5n+4) .tile__cat { color: var(--orange-500); }
-.tile:nth-child(5n+5) .tile__cat { color: var(--blue-500); }
+.tile:nth-child(6n+1) { --chip: var(--amber); }
+.tile:nth-child(6n+1) .tile__cat { color: var(--ink-warm); }
+.tile:nth-child(6n+2) { --chip: var(--teal); }
+.tile:nth-child(6n+3) { --chip: var(--blue-deep); }
+.tile:nth-child(6n+4) { --chip: var(--green-deep); }
+.tile:nth-child(6n+5) { --chip: var(--teal); }
+.tile:nth-child(6n+6) { --chip: var(--blue-deep); }
 .tile__cap {
   display: block;
   font-family: var(--font-display);
-  font-size: 1rem; font-weight: var(--fw-display);
-  line-height: var(--lh-title);
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--paper-warm);
 }
 
 @media (max-width: 64em) {
@@ -989,6 +1200,72 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 @media (max-width: 30em) {
   .gal-grid { grid-auto-rows: 8.5rem; }
+}
+
+/* ============================================================
+   FOUNDER SPOTLIGHT — dark editorial band with an accent-italic
+   pull quote and the four causes as chips
+   ============================================================ */
+.spotlight {
+  background: var(--ink-warm); color: var(--paper-warm);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.spotlight__inner {
+  display: grid; grid-template-columns: minmax(0, 20rem) 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+  max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad);
+}
+.spotlight__portrait {
+  position: relative;
+  aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: 26px;
+  background: var(--sand);
+}
+.spotlight__portrait img { width: 100%; height: 100%; object-fit: cover; }
+.spotlight__portrait::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 5px;
+  background: var(--rainbow);
+}
+.spotlight .kicker { color: var(--amber); }
+.spotlight__mark { color: var(--coral); margin-bottom: 0.6rem; }
+.spotlight__quote {
+  font-family: var(--font-accent);
+  font-style: italic; font-weight: 500;
+  font-size: clamp(1.4rem, 2.6vw, 2.125rem);
+  line-height: 1.24; letter-spacing: -0.015em;
+  color: var(--paper-warm);
+  max-width: 30ch;
+  margin-bottom: 1.75rem;
+}
+.spotlight__attr strong {
+  display: block; font-family: var(--font-display);
+  font-size: 1.125rem; font-weight: 700;
+}
+.spotlight__attr span {
+  font-family: var(--font-display);
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--slate);
+}
+.spotlight__chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+.spotlight__chip {
+  font-family: var(--font-display);
+  font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.45rem 0.9rem; border-radius: 999px;
+  border: 1.5px solid currentColor;
+  transition: background .2s, color .2s;
+}
+.spotlight__chip:nth-child(4n+1) { color: var(--coral); }
+.spotlight__chip:nth-child(4n+2) { color: var(--teal); }
+.spotlight__chip:nth-child(4n+3) { color: var(--amber); }
+.spotlight__chip:nth-child(4n+4) { color: var(--green-deep); }
+.spotlight__chip:hover { background: currentColor; }
+.spotlight__chip:hover span { color: var(--ink-warm); }
+
+@media (max-width: 64em) {
+  .spotlight__inner { grid-template-columns: 1fr; }
+  .spotlight__portrait { max-width: 17rem; }
 }
 
 
@@ -1291,6 +1568,27 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 .split h2, .split-narrow h2 { margin-bottom: 1.2rem; }
 .split-narrow .lede { max-width: 46ch; }
 
+/* ============================================================
+   HOME — warm cream ground with a fine dot texture. Scoped to the
+   page wrapper so the inner pages keep the white system.
+   ============================================================ */
+.home {
+  background-color: var(--cream);
+  background-image: radial-gradient(rgba(20, 18, 16, 0.05) 1px, transparent 1px);
+  background-size: 26px 26px;
+  color: var(--ink-warm);
+}
+.home .kicker { color: var(--slate); }
+/* Body copy on the warm ground reads at slate, not full ink — but
+   anything sitting on a colour block must keep its own colour, or the
+   slate wins on specificity and greys out half a headline. */
+.home p { color: var(--slate); }
+.home :is(.band, .cause, .spotlight, .causeband) p { color: inherit; }
+.home .statement-band__text { color: var(--ink-warm); }
+/* Gallery captions sit on the scrim and stay light regardless */
+.home .tile__cap { color: var(--paper-warm); }
+
+
 /* ── Reveal ──────────────────────────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: none; }
@@ -1325,5 +1623,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
      resting state explicitly. */
   .reveal { opacity: 1; transform: none; }
   .hero__title .w { opacity: 1; transform: none; }
-  .marquee__track { transform: none; }
+  .arch { opacity: 1; transform: none; }
+  .statement-band::before, .cause__glow { display: none; }
+  :is(h1, h2, h3) em { background-position: 0 50%; }
 }

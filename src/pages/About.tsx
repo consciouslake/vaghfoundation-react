@@ -66,7 +66,6 @@ export default function About() {
             heading="Milestones along the way"
             headingMarked={about.timeline.headingMarked}
             intro={about.timeline.intro}
-            rays
           />
         </div>
         <ColourCards items={journeyCards} label="Our journey" />

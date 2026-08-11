@@ -2,6 +2,9 @@ import type { HomePage } from './types'
 
 export const home: HomePage = {
   hero: {
+    eyebrow: 'Compassion in action',
+    title: 'Small acts of <mark>kindness</mark>, gathered into <em>extraordinary</em> change.',
+    captions: ['Children we walk with', 'A meal, shared', 'Families we serve'],
     slides: [
       {
         image: '/images/hero-slide-1.png',

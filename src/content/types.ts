@@ -179,6 +179,11 @@ export interface ContactItem {
 
 export interface HomePage {
   hero: {
+    eyebrow: string
+    /** <mark> renders coral + wavy rule, <em> renders the accent sweep. */
+    title: MarkedText
+    /** One per slide image, in order — shown on the collage frames. */
+    captions: string[]
     slides: Slide[]
   }
   /** Short pillar labels — used as the scrolling marquee band. */

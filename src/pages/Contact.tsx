@@ -40,7 +40,7 @@ export default function Contact() {
 
       <section className="section">
         <div className="wrap-r">
-          <SectionHead eyebrow={contact.faq.eyebrow} heading={contact.faq.heading} rays />
+          <SectionHead eyebrow={contact.faq.eyebrow} heading={contact.faq.heading} />
           <Reveal>
             <FAQAccordion items={contact.faq.items} />
           </Reveal>

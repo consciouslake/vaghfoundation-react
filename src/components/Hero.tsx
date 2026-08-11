@@ -1,81 +1,99 @@
+import { Fragment, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import type { HomePage } from '../content/types'
-import { Doodle } from './Doodle'
 
 interface HeroProps {
   data: HomePage
 }
 
-/**
- * Splits a MarkedText headline into words so each can rise into place,
- * remembering which words sat inside a <mark> so they keep the
- * underline emphasis.
- */
-function riseWords(text: string) {
-  const words: { word: string; marked: boolean }[] = []
-  const push = (chunk: string, marked: boolean) => {
+type Piece = { text: string; tag: 'plain' | 'accent' }
+
+/** Splits a MarkedText headline into words, keeping the emphasis flag. */
+function toWords(text: string): Piece[] {
+  const out: Piece[] = []
+  const push = (chunk: string, tag: Piece['tag']) => {
     chunk
       .split(/\s+/)
       .filter(Boolean)
-      .forEach((word) => words.push({ word, marked }))
+      .forEach((w) => out.push({ text: w, tag }))
   }
-  const re = /<mark>([\s\S]*?)<\/mark>/g
+  const re = /<(mark|em)>([\s\S]*?)<\/\1>/g
   let last = 0
   let m: RegExpExecArray | null
   while ((m = re.exec(text)) !== null) {
-    if (m.index > last) push(text.slice(last, m.index), false)
-    push(m[1], true)
+    if (m.index > last) push(text.slice(last, m.index), 'plain')
+    push(m[2], 'accent')
     last = m.index + m[0].length
   }
-  if (last < text.length) push(text.slice(last), false)
-  return words
+  if (last < text.length) push(text.slice(last), 'plain')
+  return out
+}
+
+function wrap(piece: Piece, node: ReactNode) {
+  return piece.tag === 'accent' ? <mark>{node}</mark> : node
 }
 
 /**
- * Homepage hero — an oversized headline that rises in word by word on
- * the left, and an overlapping collage of three rotated, arch-cornered
- * photographs on the right.
+ * Homepage hero.
+ *
+ * The right side is a colonnade of three arches — the shape carried
+ * out of the "A" in the wordmark, where an arch shelters a small form.
+ * Staggered heights so the row reads as a gathering rather than a grid.
  */
 export function Hero({ data }: HeroProps) {
   const lead = data.hero.slides[0]
-  const words = riseWords(data.gateFeature.titleMarked)
+  const words = toWords(data.hero.title)
 
   return (
     <section className="hero">
-      <div className="wrap hero__grid">
+      <div className="hero__grid">
         <div className="hero__left">
-          <span className="kicker">{data.gateFeature.kicker}</span>
+          <span className="hero__eyebrow">
+            <span className="hero__dot" aria-hidden="true" />
+            {data.hero.eyebrow}
+          </span>
+
           <h1 className="hero__title">
             {words.map((w, i) => (
-              <span key={i}>
-                <span
-                  className={w.marked ? 'w w--mark' : 'w'}
-                  style={{ animationDelay: `${60 + i * 55}ms` }}
-                >
-                  {w.word}
-                </span>{' '}
-              </span>
+              <Fragment key={i}>
+                {/* No space before punctuation — the tags split the
+                    string there, so a comma arrives as its own token. */}
+                {i > 0 && !/^[,.;:!?)\]]/.test(w.text) ? ' ' : null}
+                <span className="w" style={{ animationDelay: `${90 + i * 50}ms` }}>
+                  {wrap(w, w.text)}
+                </span>
+              </Fragment>
             ))}
           </h1>
+
           <p className="hero__lede">{lead.lede}</p>
+
           <div className="btn-row hero__cta">
-            <Link to={lead.btnUrl} className="btn btn--primary">
+            <Link to={lead.btnUrl} className="btn btn--primary btn--pill">
               {lead.btnText}
+              <ArrowRight size={18} aria-hidden="true" />
             </Link>
             {lead.btn2Text && lead.btn2Url ? (
-              <Link to={lead.btn2Url} className="btn btn--ghost">
+              <Link to={lead.btn2Url} className="btn btn--ghost btn--pill">
                 {lead.btn2Text}
               </Link>
             ) : null}
           </div>
         </div>
 
-        <div className="hero__collage" aria-hidden="true">
-          <Doodle name="rays" className="hero__rays" />
+        <div className="hero__arches">
           {data.hero.slides.slice(0, 3).map((s, i) => (
-            <div key={s.image} className={`hero__photo hero__photo--${i + 1}`}>
-              <img src={s.image} alt="" />
-            </div>
+            <figure
+              key={s.image}
+              className={`arch arch--${i + 1}`}
+              style={{ animationDelay: `${240 + i * 130}ms` }}
+            >
+              <div className="arch__frame">
+                <img src={s.image} alt="" />
+              </div>
+              <figcaption>{data.hero.captions[i]}</figcaption>
+            </figure>
           ))}
         </div>
       </div>

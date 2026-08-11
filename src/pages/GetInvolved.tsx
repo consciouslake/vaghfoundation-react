@@ -34,7 +34,6 @@ export default function GetInvolved() {
             eyebrow={getInvolved.section.eyebrow}
             heading="Find your way to give"
             headingMarked={getInvolved.section.headingMarked}
-            rays
           />
         </div>
         <ColourCards items={wayCards} label="Ways to contribute" />
