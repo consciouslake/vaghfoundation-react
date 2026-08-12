@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import { nav } from '../content/nav'
 import { Brand } from '../components/Brand'
 import { Doodle } from '../components/Doodle'
-import { ScrollProgress } from '../components/ScrollProgress'
 import { MegaMenu } from './MegaMenu'
 
 export function Header() {
@@ -61,7 +60,6 @@ export function Header() {
           <span />
           <span />
         </div>
-        <ScrollProgress />
       </header>
 
       <MegaMenu open={open} onClose={() => setOpen(false)} returnFocusTo={toggleRef.current} />

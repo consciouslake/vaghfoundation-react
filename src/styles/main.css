@@ -55,7 +55,14 @@
 
   /* Two text/rule washes. Used only on type and 4px rules, never as a
      surface fill — big blocks stay flat. */
-  --brand-sweep:  linear-gradient(90deg, var(--teal), var(--blue-deep), var(--green-deep));
+  /* The three brand stops, ordered orange→green→blue rather than
+     orange→blue→green: orange and blue are near-complementary, so
+     crossing them directly runs the middle of every emphasised word
+     through a muddy grey. Going by way of green keeps adjacent hues
+     close and the whole sweep saturated. Oklab interpolation holds
+     the chroma up further; the sRGB line is the fallback. */
+  --brand-sweep:  linear-gradient(90deg, var(--orange-500), var(--green-500), var(--blue-500));
+  --brand-sweep:  linear-gradient(90deg in oklab, var(--orange-500), var(--green-500), var(--blue-500));
   --rainbow:      linear-gradient(90deg, var(--green-deep), var(--teal), var(--blue-deep), var(--plum), var(--coral), var(--amber));
 
   /* Rotating card fills — cycled by index */
@@ -212,18 +219,19 @@ mark {
    letters are filled. Nothing is underlined, nothing changes face —
    the brand's gradient is the emphasis, and it belongs to Vagh alone. */
 :is(h1, h2, h3, .statement-band__text, .mission__text, .hero__title) :is(mark, em) {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   background-image: var(--brand-sweep);
-  background-size: 220% 100%;
+  /* Exactly one pass across the word. Oversizing it and animating the
+     position parks some words on the orange→blue midpoint, which is a
+     muddy grey — this way every emphasis reads orange to green. */
+  background-size: 100% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-style: normal;
   padding: 0;
-  animation: sweepShift 11s ease-in-out infinite;
-}
-@keyframes sweepShift {
-  0%, 100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
 }
 
 /* The sweep is mid-tone, so it disappears on a saturated block. There
@@ -231,6 +239,7 @@ mark {
 .band :is(h1, h2, h3) :is(mark, em),
 .statement-band__text :is(mark, em) {
   background-image: none;
+  -webkit-text-fill-color: var(--ink-warm);
   color: var(--ink-warm);
   animation: none;
 }
@@ -483,16 +492,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 /* Flat four-colour rule under the header — solid blocks, not a gradient.
    It doubles as the track for the reading-progress fill below. */
 .nav-stripe { display: flex; height: 4px; }
-.nav-stripe span { flex: 1; opacity: 0.45; }
-
-/* Reading progress, painted straight onto the header's own stripe */
-.scroll-progress {
-  position: absolute; left: 0; bottom: 0;
-  width: 100%; height: 4px; z-index: 2;
-  transform-origin: 0 50%;
-  background: var(--rainbow);
-  pointer-events: none;
-}
+.nav-stripe span { flex: 1; }
 .nav-stripe span:nth-child(1) { background: var(--orange-500); }
 .nav-stripe span:nth-child(2) { background: var(--blue-500); }
 .nav-stripe span:nth-child(3) { background: var(--yellow-400); }
@@ -570,56 +570,41 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 
 /* ============================================================
-   THE ARCH
-   Lifted from the "A" in the wordmark, where an arch shelters a
-   small form. It is the site's one repeated shape: hero imagery,
-   cause-card icon niches, gallery frames.
+   HOME HERO — statement on the left, the construction on the right
    ============================================================ */
-.arch__frame,
-.gal-arch {
-  border-radius: 999px 999px 14px 14px;
-  overflow: hidden;
-  background: var(--sand);
-}
-
-/* ============================================================
-   HOME HERO — statement on the left, a colonnade of three arches
-   on the right, staggered so the row gathers rather than lines up
-   ============================================================ */
-.hero { padding-block: clamp(2rem, 4vw, 3.75rem) clamp(2.5rem, 5vw, 4.5rem); }
-/* The statement keeps a fixed measure at the page gutter; the
-   colonnade takes every pixel to the right of it and runs off the
-   edge, so the arches are architecture rather than thumbnails. */
+.hero { padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3.5rem, 6vw, 6rem); }
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 36rem) 1fr;
+  grid-template-columns: minmax(0, 30rem) 1fr;
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
-  padding-left: max(var(--pad), calc((100vw - var(--maxw)) / 2 + var(--pad)));
+  max-width: 82.5rem;
+  margin-inline: auto;
+  padding-inline: var(--pad);
 }
 
 .hero__eyebrow {
   display: inline-flex; align-items: center; gap: 0.6rem;
   font-family: var(--font-display);
   font-size: 0.8125rem; font-weight: 700;
-  letter-spacing: 0.16em; text-transform: uppercase;
+  letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 1.35rem;
+  margin-bottom: 1.25rem;
 }
 .hero__dot {
   width: 9px; height: 9px; border-radius: 50%;
-  background: var(--brand-sweep) var(--teal);
-  animation: heroPulse 2.4s ease-in-out infinite;
+  background: var(--orange-500);
+  animation: heroPulse 2.2s ease-in-out infinite;
 }
 @keyframes heroPulse {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50%      { transform: scale(1.5); opacity: 0.5; }
+  50%      { transform: scale(1.6); opacity: 0.5; }
 }
 
 .hero__title {
-  font-size: var(--fs-hero);
+  font-size: clamp(2.25rem, 4.4vw, 3.8rem);
   line-height: 0.98;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.5rem;
   text-wrap: initial;
 }
 .hero__title .w {
@@ -632,108 +617,251 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
   to { opacity: 1; transform: none; }
 }
 
-.hero__lede {
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
-  max-width: 34rem;
-  margin-bottom: 2rem;
-}
-
-/* ---- The colonnade ---- */
-.hero__arches {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(0.6rem, 1.2vw, 1rem);
-  align-items: end;
-}
-.arch {
-  opacity: 0;
-  transform: translateY(1.5rem);
-  animation: archRise 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
-}
-@keyframes archRise {
-  to { opacity: 1; transform: none; }
-}
-.arch__frame {
-  position: relative;
-  transition: translate .4s cubic-bezier(.2,.8,.2,1);
-}
-.arch__frame img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: scale .6s cubic-bezier(.2,.8,.2,1);
-}
-.arch:hover .arch__frame { translate: 0 -8px; }
-.arch:hover .arch__frame img { scale: 1.06; }
-
-/* Staggered heights — the middle arch leads */
-.arch--1 .arch__frame { aspect-ratio: 3 / 4.3; }
-.arch--2 .arch__frame { aspect-ratio: 3 / 5.4; }
-.arch--3 .arch__frame { aspect-ratio: 3 / 3.7; }
-
-.arch figcaption {
-  margin-top: 0.8rem;
-  padding-top: 0.65rem;
-  border-top: 3px solid transparent;
-  border-image: var(--brand-sweep) 1;
-  font-family: var(--font-display);
-  font-size: 0.8125rem; font-weight: 700;
-  line-height: 1.25;
-  color: var(--slate);
-}
-
-@media (max-width: 64em) {
-  .hero__grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding-inline: var(--pad);
-  }
-}
-@media (max-width: 30em) {
-  .hero__arches { gap: 0.5rem; }
-  .arch--1 .arch__frame { aspect-ratio: 3 / 4; }
-  .arch--2 .arch__frame { aspect-ratio: 3 / 4.8; }
-  .arch--3 .arch__frame { aspect-ratio: 3 / 3.4; }
-  .arch figcaption { font-size: 0.6875rem; }
-}
-
-
+.hero__lede { font-size: 1.1875rem; max-width: 30rem; margin-bottom: 1.9rem; }
 
 /* ============================================================
-   CAUSE BAND — four panels of one whole. At rest they are equal;
-   the panel you point at takes room from its neighbours.
+   THE CONSTRUCTION
+   A square inscribed with a circle, the four causes marked off at
+   the cardinal points, a photograph held at the centre. The
+   argument is proportion: four causes as one balanced whole.
    ============================================================ */
-.causeband {
-  display: flex;
-  min-height: clamp(6rem, 9vw, 8.5rem);
+/* Sized to fill its column so the construction carries the same
+   visual weight as the statement beside it, rather than floating
+   small in the middle of the right-hand half. */
+.vitruv {
+  position: relative;
+  width: 100%; max-width: 34rem;
+  aspect-ratio: 1;
+  margin: 0.6rem auto 3.5rem;
 }
-.causeband__panel {
-  flex: 1;
-  display: flex; flex-direction: column; justify-content: flex-end; gap: 0.75rem;
-  padding: clamp(1rem, 2vw, 1.5rem);
-  color: var(--paper-warm);
-  background: var(--panel);
-  transition: flex-grow .45s cubic-bezier(.2,.8,.2,1), background .25s;
+.vitruv__square {
+  position: absolute; inset: 22%;
+  border: 4px solid var(--blue-500);
+  animation: constructIn 1s cubic-bezier(.2,.8,.2,1) 0.15s both;
 }
-.causeband__panel:nth-child(4n+1) { --panel: var(--amber); color: var(--ink-warm); }
-.causeband__panel:nth-child(4n+2) { --panel: var(--teal); }
-.causeband__panel:nth-child(4n+3) { --panel: var(--blue-deep); }
-.causeband__panel:nth-child(4n+4) { --panel: var(--green-deep); }
-.causeband__panel:hover,
-.causeband__panel:focus-within { flex-grow: 2.1; }
+/* A faint outer ring, drawn like a compass sweep */
+.vitruv__ring {
+  position: absolute; inset: 6%;
+  border: 1.5px dashed rgba(20, 18, 16, 0.18);
+  border-radius: 50%;
+  animation: ringSpin 60s linear infinite;
+}
+/* Rim graduations, like the edge of a protractor */
+.vitruv__grads {
+  position: absolute; inset: 6%;
+  color: rgba(20, 18, 16, 0.3);
+  stroke: currentColor;
+  pointer-events: none;
+}
 
-.causeband__icon { transition: rotate .4s cubic-bezier(.2,.8,.2,1), scale .4s; }
-.causeband__panel:hover .causeband__icon { rotate: -10deg; scale: 1.15; }
-.causeband__label {
+/* The compass arm — swings clockwise to whichever cause is selected */
+/* Stops just at the side markers rather than running through their
+   labels; the circle masks the inner half, so what shows is a radius
+   reaching out to the selected cause. */
+.vitruv__arm {
+  position: absolute; left: 50%; top: 50%;
+  width: 34%; height: 2px;
+  transform-origin: 0 50%;
+  background: currentColor;
+  color: var(--orange-500);
+  z-index: 1;
+  transition: rotate 0.9s cubic-bezier(.65,0,.35,1), color .5s;
+  pointer-events: none;
+}
+.vitruv__arm--orange { color: var(--orange-500); }
+.vitruv__arm--amber  { color: var(--amber); }
+.vitruv__arm--blue   { color: var(--blue-deep); }
+.vitruv__arm--green  { color: var(--green-deep); }
+
+.vitruv__circle {
+  position: absolute; left: 50%; top: 50%;
+  translate: -50% -50%;
+  width: 46%; aspect-ratio: 1;
+  border-radius: 50%;
+  border: 4px solid var(--orange-500);
+  display: grid; place-items: center;
+  background: var(--paper);
+  z-index: 2;
+  transition: border-color .5s;
+  animation: constructIn 1s cubic-bezier(.2,.8,.2,1) 0.35s both;
+}
+.vitruv__circle--orange { border-color: var(--orange-500); }
+.vitruv__circle--amber  { border-color: var(--amber); }
+.vitruv__circle--blue   { border-color: var(--blue-deep); }
+.vitruv__circle--green  { border-color: var(--green-deep); }
+
+.vitruv__photo {
+  position: relative;
+  width: 82%; height: 82%;
+  border-radius: 50%; overflow: hidden;
+}
+.vitruv__photo img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; scale: 1.06;
+  transition: opacity .6s ease, scale .9s cubic-bezier(.2,.8,.2,1);
+}
+.vitruv__photo img.is-on { opacity: 1; scale: 1; }
+@keyframes constructIn {
+  from { opacity: 0; scale: 0.9; }
+  to   { opacity: 1; scale: 1; }
+}
+@keyframes ringSpin { to { rotate: 360deg; } }
+
+.vitruv__mark {
+  position: absolute;
+  display: flex; align-items: center; gap: 0.4rem;
+  background: none; border: 0; padding: 0.35rem; cursor: pointer;
+  z-index: 3;
+  animation: markIn 0.6s ease both;
+}
+.vitruv__mark--top    { top: 1%; left: 50%; translate: -50% 0; flex-direction: column; animation-delay: 0.7s; }
+.vitruv__mark--bottom { bottom: 1%; left: 50%; translate: -50% 0; flex-direction: column-reverse; animation-delay: 0.9s; }
+.vitruv__mark--left   { left: 0; top: 50%; translate: 0 -50%; flex-direction: row-reverse; animation-delay: 1s; }
+.vitruv__mark--right  { right: 0; top: 50%; translate: 0 -50%; animation-delay: 0.8s; }
+@keyframes markIn { from { opacity: 0; } to { opacity: 1; } }
+
+.vitruv__dot {
+  width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto;
+  transition: scale .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+}
+.vitruv__mark:hover .vitruv__dot { scale: 1.3; }
+.vitruv__mark.is-active .vitruv__dot { scale: 1.5; }
+.vitruv__mark.is-active .vitruv__label { color: var(--ink-warm); }
+.vitruv__label { transition: color .3s, opacity .3s; opacity: 0.55; }
+.vitruv__mark.is-active .vitruv__label,
+.vitruv__mark:hover .vitruv__label { opacity: 1; }
+.vitruv__dot--orange { background: var(--orange-500); }
+.vitruv__dot--amber  { background: var(--amber); }
+.vitruv__dot--blue   { background: var(--blue-deep); }
+.vitruv__dot--green  { background: var(--green-deep); }
+
+/* The tick that joins each label to the geometry */
+.vitruv__tick { background: var(--ink-warm); flex: 0 0 auto; }
+.vitruv__mark--top .vitruv__tick,
+.vitruv__mark--bottom .vitruv__tick { width: 2px; height: 26px; }
+.vitruv__mark--left .vitruv__tick,
+.vitruv__mark--right .vitruv__tick { width: 26px; height: 2px; }
+
+.vitruv__label {
   font-family: var(--font-display);
-  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
+  font-size: 0.8125rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--ink-warm);
+  white-space: nowrap;
+}
+.vitruv__caption {
+  position: absolute; bottom: -2.5rem; left: 50%;
+  translate: -50% 0;
+  font-family: var(--font-accent);
+  font-style: italic; font-size: 0.9375rem;
+  color: var(--slate);
+  white-space: nowrap;
+  transition: color .3s;
+}
+.vitruv:hover .vitruv__caption, .vitruv:focus-within .vitruv__caption { color: var(--ink-warm); }
+
+@media (max-width: 64em) {
+  .hero__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .vitruv { max-width: 21rem; }
+}
+@media (max-width: 30em) {
+  .vitruv { max-width: 17.5rem; }
+  .vitruv__label { font-size: 0.6875rem; }
+  .vitruv__mark--top .vitruv__tick,
+  .vitruv__mark--bottom .vitruv__tick { height: 16px; }
+  .vitruv__mark--left .vitruv__tick,
+  .vitruv__mark--right .vitruv__tick { width: 16px; }
+}
+
+/* ============================================================
+   MARQUEE — ink band, rainbow edges, pauses when pointed at
+   ============================================================ */
+.marquee {
+  background: var(--near-black); color: var(--off-white);
+  overflow: hidden;
+  padding-block: 1rem;
+  border-block: 4px solid transparent;
+  border-image: var(--rainbow) 1;
+}
+.marquee__track {
+  display: flex; width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__run { display: flex; }
+.marquee__item {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding-inline: 0.6rem 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.7vw, 1.375rem);
+  font-weight: 800;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.marquee__star { color: var(--orange-500); font-size: 0.85em; }
+@keyframes marqueeScroll { to { transform: translateX(-50%); } }
+
+/* ============================================================
+   THE MECHANISM — how a contribution travels, drawn as four
+   geared stages. Numbers here are sequence, not decoration.
+   ============================================================ */
+.mechanism {
+  background: var(--near-black); color: var(--off-white);
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+.mechanism__inner { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--pad); }
+
+.stages {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+.stage {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  position: relative;
+}
+/* The drive arrow between stages */
+.stage + .stage::before {
+  content: "";
+  position: absolute; top: 3.5rem;
+  left: calc(-50% - clamp(0.5rem, 1.25vw, 1rem));
+  width: 100%; height: 2px;
+  background: rgba(247, 247, 247, 0.28);
+}
+.stage__disc {
+  display: grid; place-items: center;
+  width: clamp(5.5rem, 8vw, 7.25rem); aspect-ratio: 1;
+  border-radius: 50%;
+  border: 4px solid var(--paper);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.625rem); font-weight: 800;
+  position: relative; z-index: 1;
+  transition: rotate .5s cubic-bezier(.2,.8,.2,1), scale .35s;
+}
+.stage:hover .stage__disc { rotate: 12deg; scale: 1.05; }
+.stage__disc--1 { background: var(--orange-500); color: var(--paper); }
+.stage__disc--2 { background: var(--blue-500); color: var(--paper); }
+.stage__disc--3 { background: var(--yellow-400); color: var(--ink); }
+.stage__disc--4 { background: var(--green-500); color: var(--paper); }
+.stage__label {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem); font-weight: 800;
+  margin-top: 1.1rem;
+}
+.stage__body {
+  font-size: 0.875rem;
+  color: rgba(247, 247, 247, 0.62);
+  margin-top: 0.35rem;
+  max-width: 16ch;
 }
 
 @media (max-width: 48em) {
-  .causeband { flex-wrap: wrap; }
-  .causeband__panel { flex: 1 1 50%; min-height: 6.5rem; }
-  .causeband__panel:hover, .causeband__panel:focus-within { flex-grow: 1; }
+  .stages { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; }
+  .stage:nth-child(3)::before { display: none; }
 }
 
 
@@ -764,7 +892,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 .statement-band {
   position: relative;
-  background: var(--amber);
+  background: var(--yellow-400);
   border-radius: 26px;
   padding: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 3.25rem);
   overflow: hidden;
@@ -1001,11 +1129,15 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
    CTA BAND — closing call, centred on the warm ground
    ============================================================ */
 .cta-band { padding-block: clamp(4rem, 8vw, 7.5rem); }
-.cta-band__inner { text-align: center; display: flex; flex-direction: column; align-items: center; }
-.cta-band__rays { margin-bottom: 1rem; color: var(--ink-warm); }
+.cta-band__inner {
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center;
+  max-width: 62.5rem; margin-inline: auto; padding-inline: var(--pad);
+}
 .cta-band__title {
-  font-size: clamp(2.25rem, 5.6vw, 4.75rem);
-  max-width: 15ch;
+  font-size: clamp(2.25rem, 5.6vw, 4rem);
+  line-height: 1.03;
+  max-width: 18ch;
   margin-bottom: 1rem;
 }
 .cta-band__body {
@@ -1017,22 +1149,20 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 /* ============================================================
    EDITORIAL SECTION HEAD — accent-italic ordinal, sweep rule, deck
    ============================================================ */
-.shead {
-  display: grid;
-  grid-template-columns: 1fr 18rem;
-  gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: end;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-  max-width: none;
+/* Plate-style head — kicker, title, deck, centred over the plate */
+.shead--center {
+  max-width: 40rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
+  text-align: center;
 }
-.shead h2 { max-width: 16ch; }
-.shead .kicker { margin-bottom: 0.7rem; }
-.shead__deck { font-size: 1rem; padding-bottom: 0.4rem; max-width: 34ch; }
-.section-head .rule-sm, .shead .rule-sm { display: block; }
-
-@media (max-width: 64em) {
-  .shead { grid-template-columns: 1fr; gap: 1rem; align-items: start; }
-}
+.shead--center .kicker { margin-bottom: 0.875rem; }
+.shead--center h2 { max-width: 16ch; margin: 0 auto 0.75rem; }
+.shead--center .shead__deck { font-size: 1rem; margin-inline: auto; }
+.shead--dark { color: var(--off-white); }
+.shead--dark .kicker { color: var(--amber); }
+.shead--dark h2 { color: var(--paper); }
+.shead--dark .shead__deck { color: rgba(247, 247, 247, 0.65); }
+.section-head .rule-sm { display: block; }
 
 /* ============================================================
    CAUSES MOSAIC — the four causes, uneven by design: one tall,
@@ -1102,22 +1232,45 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 .cause:hover .cause__go { gap: 0.8rem; }
 
-/* The tall card leads, so it takes the bigger title and a photograph */
+/* Plate number, set as an engraving would letter it */
+.cause__plate {
+  position: absolute; top: 1.25rem; right: 1.25rem;
+  display: grid; place-items: center;
+  width: 2.125rem; height: 2.125rem;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: rgba(255, 255, 255, 0.18);
+  font-family: var(--font-display);
+  font-style: italic; font-weight: 800; font-size: 0.9375rem;
+  letter-spacing: 0;
+}
+.cause--1 .cause__plate { background: rgba(20, 18, 16, 0.12); }
+
+/* The lead plate leads: bigger title, and a pinned print of its subject */
 .cause--1 .cause__title { font-size: clamp(1.6rem, 2.6vw, 2.125rem); }
 .cause--1 .cause__arch { width: 4.25rem; height: 5rem; }
-.cause__photo {
+.cause__print {
   flex: 1;
   min-height: 8rem;
   border-radius: 999px 999px 12px 12px;
   overflow: hidden;
   background: rgba(20, 18, 16, 0.1);
 }
-.cause__photo img {
+.cause__print img {
   width: 100%; height: 100%; object-fit: cover;
   transition: scale .5s cubic-bezier(.2,.8,.2,1);
 }
-.cause--1:hover .cause__photo img { scale: 1.06; }
-@media (max-width: 64em) { .cause__photo { display: none; } }
+.cause--1:hover .cause__print img { scale: 1.06; }
+@media (max-width: 64em) { .cause__print { display: none; } }
+
+.plate-foot {
+  text-align: center;
+  font-family: var(--font-accent);
+  font-style: italic; font-size: 1rem;
+  color: var(--slate);
+  margin: clamp(1.75rem, 3vw, 2.25rem) auto 0;
+  max-width: none;
+}
 
 /* The wide card runs its niche beside the copy */
 .cause--4 { flex-direction: row; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
@@ -1168,6 +1321,13 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
   content: ""; position: absolute; inset: auto 0 0 0; height: 62%;
   background: linear-gradient(to top, rgba(15, 13, 11, 0.88), rgba(15, 13, 11, 0.35) 45%, transparent);
   pointer-events: none;
+}
+/* Printer's registration mark, in the plate's own ink */
+.tile__reg {
+  position: absolute; top: 0.85rem; left: 0.85rem;
+  width: 18px; height: 18px; z-index: 2;
+  border-top: 3px solid var(--chip, var(--orange-500));
+  border-left: 3px solid var(--chip, var(--orange-500));
 }
 .tile__meta { position: absolute; left: 0.9rem; right: 0.9rem; bottom: 0.9rem; z-index: 1; }
 .tile__cat {
@@ -1572,10 +1732,9 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
    HOME — warm cream ground with a fine dot texture. Scoped to the
    page wrapper so the inner pages keep the white system.
    ============================================================ */
+/* White plate ground — the drawing does the work, not the paper. */
 .home {
-  background-color: var(--cream);
-  background-image: radial-gradient(rgba(20, 18, 16, 0.05) 1px, transparent 1px);
-  background-size: 26px 26px;
+  background: var(--paper);
   color: var(--ink-warm);
 }
 .home .kicker { color: var(--slate); }
@@ -1623,7 +1782,10 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
      resting state explicitly. */
   .reveal { opacity: 1; transform: none; }
   .hero__title .w { opacity: 1; transform: none; }
-  .arch { opacity: 1; transform: none; }
+  .vitruv__square, .vitruv__circle, .vitruv__mark { opacity: 1; scale: 1; }
+  /* The dial stops advancing in JS; make sure the selected photograph
+     still lands in its resting state rather than mid-fade. */
+  .vitruv__photo img.is-on { opacity: 1; scale: 1; }
   .statement-band::before, .cause__glow { display: none; }
   :is(h1, h2, h3) em { background-position: 0 50%; }
 }

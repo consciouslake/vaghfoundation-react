@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import type { HomePage } from '../content/types'
+import { VitruvianDial } from './VitruvianDial'
 
 interface HeroProps {
   data: HomePage
@@ -31,16 +31,9 @@ function toWords(text: string): Piece[] {
 }
 
 function wrap(piece: Piece, node: ReactNode) {
-  return piece.tag === 'accent' ? <mark>{node}</mark> : node
+  return piece.tag === 'accent' ? <em>{node}</em> : node
 }
 
-/**
- * Homepage hero.
- *
- * The right side is a colonnade of three arches — the shape carried
- * out of the "A" in the wordmark, where an arch shelters a small form.
- * Staggered heights so the row reads as a gathering rather than a grid.
- */
 export function Hero({ data }: HeroProps) {
   const lead = data.hero.slides[0]
   const words = toWords(data.hero.title)
@@ -70,32 +63,18 @@ export function Hero({ data }: HeroProps) {
           <p className="hero__lede">{lead.lede}</p>
 
           <div className="btn-row hero__cta">
-            <Link to={lead.btnUrl} className="btn btn--primary btn--pill">
+            <Link to={lead.btnUrl} className="btn btn--primary">
               {lead.btnText}
-              <ArrowRight size={18} aria-hidden="true" />
             </Link>
             {lead.btn2Text && lead.btn2Url ? (
-              <Link to={lead.btn2Url} className="btn btn--ghost btn--pill">
+              <Link to={lead.btn2Url} className="btn btn--ghost">
                 {lead.btn2Text}
               </Link>
             ) : null}
           </div>
         </div>
 
-        <div className="hero__arches">
-          {data.hero.slides.slice(0, 3).map((s, i) => (
-            <figure
-              key={s.image}
-              className={`arch arch--${i + 1}`}
-              style={{ animationDelay: `${240 + i * 130}ms` }}
-            >
-              <div className="arch__frame">
-                <img src={s.image} alt="" />
-              </div>
-              <figcaption>{data.hero.captions[i]}</figcaption>
-            </figure>
-          ))}
-        </div>
+        <VitruvianDial dial={data.hero.dial} caption={data.hero.dialCaption} />
       </div>
     </section>
   )

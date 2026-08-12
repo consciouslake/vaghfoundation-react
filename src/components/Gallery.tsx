@@ -6,6 +6,8 @@ function Tile({ tile, index }: { tile: GalleryTile; index: number }) {
   return (
     <figure ref={ref} className={`tile reveal${tile.span ? ` tile--${tile.span}` : ''}`}>
       <img src={tile.image} alt={tile.caption} />
+      {/* Printer's registration mark, in the plate's own ink */}
+      <span className="tile__reg" aria-hidden="true" />
       <figcaption className="tile__meta">
         <span className="tile__cat">{tile.category}</span>
         <span className="tile__cap">{tile.caption}</span>

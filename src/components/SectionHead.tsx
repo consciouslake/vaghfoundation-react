@@ -7,31 +7,23 @@ interface SectionHeadProps {
   heading: string
   headingMarked?: MarkedText
   intro?: MarkedText
-  /**
-   * Editorial two-column variant: heading on the left, deck set small
-   * on the right. Used for the major sections on the homepage.
-   */
-  split?: boolean
+  /** Centred plate-style head — kicker, title, deck stacked. */
+  center?: boolean
 }
 
-export function SectionHead({ eyebrow, heading, headingMarked, intro, split }: SectionHeadProps) {
+export function SectionHead({ eyebrow, heading, headingMarked, intro, center }: SectionHeadProps) {
   const title = headingMarked ? <Marked>{headingMarked}</Marked> : heading
 
-  if (split) {
+  if (center) {
     return (
-      <Reveal className="shead">
-        <div>
-          <span className="rule-sm" aria-hidden="true" />
-          {eyebrow ? <span className="kicker">{eyebrow}</span> : null}
-          <h2>{title}</h2>
-        </div>
+      <Reveal className="shead shead--center">
+        {eyebrow ? <span className="kicker">{eyebrow}</span> : null}
+        <h2>{title}</h2>
         {intro ? (
           <p className="shead__deck">
             <Marked>{intro}</Marked>
           </p>
-        ) : (
-          <span />
-        )}
+        ) : null}
       </Reveal>
     )
   }

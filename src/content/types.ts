@@ -180,11 +180,27 @@ export interface ContactItem {
 export interface HomePage {
   hero: {
     eyebrow: string
-    /** <mark> renders coral + wavy rule, <em> renders the accent sweep. */
+    /** <mark> and <em> both render as the accent-italic brand sweep. */
     title: MarkedText
-    /** One per slide image, in order — shown on the collage frames. */
+    /** One per slide image, in order. */
     captions: string[]
+    /**
+     * The four causes as marked off round the hero construction,
+     * clockwise from top. Each carries the photograph shown at the
+     * centre while it is the selected one.
+     */
+    dial: { label: string; tone: 'orange' | 'amber' | 'blue' | 'green'; image: Src; title: string }[]
+    /** Caption set under the construction. */
+    dialCaption: string
     slides: Slide[]
+  }
+  /** Short uppercase phrases for the scrolling band. */
+  marquee: string[]
+  mechanism: {
+    eyebrow: string
+    heading: string
+    deck: MarkedText
+    stages: { label: string; body: string }[]
   }
   /** Short pillar labels — used as the scrolling marquee band. */
   pills: string[]

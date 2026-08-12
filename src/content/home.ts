@@ -2,9 +2,16 @@ import type { HomePage } from './types'
 
 export const home: HomePage = {
   hero: {
-    eyebrow: 'Compassion in action',
-    title: 'Small acts of <mark>kindness</mark>, gathered into <em>extraordinary</em> change.',
+    eyebrow: 'Compassion, by design',
+    title: 'Small acts of kindness, gathered into <em>extraordinary</em> change.',
     captions: ['Children we walk with', 'A meal, shared', 'Families we serve'],
+    dial: [
+      { label: 'Meals', tone: 'orange', image: '/images/pillar-1-nourishment.png', title: 'Nourishment for all' },
+      { label: 'Learn', tone: 'amber', image: '/images/pillar-3-learning.png', title: 'Empowering through learning' },
+      { label: 'Calm', tone: 'blue', image: '/images/pillar-2-peace.png', title: 'Peace of mind' },
+      { label: 'Earth', tone: 'green', image: '/images/pillar-4-planet.png', title: 'Caring for our planet' },
+    ],
+    dialCaption: 'the four causes, in proportion',
     slides: [
       {
         image: '/images/hero-slide-1.png',
@@ -40,8 +47,25 @@ export const home: HomePage = {
     'Learning & growth',
     'Environmental care',
   ],
+  marquee: [
+    'Meals shared',
+    'Minds eased',
+    'Doors opened',
+    'Earth tended',
+  ],
+  mechanism: {
+    eyebrow: 'The mechanism',
+    heading: 'How compassion moves.',
+    deck: 'A contribution is not an endpoint. It is a machine with four moving parts, each one turning the next.',
+    stages: [
+      { label: 'Give', body: 'A meal, a rupee, an hour' },
+      { label: 'Prepare', body: 'Volunteers turn it into care' },
+      { label: 'Deliver', body: 'Straight to the community' },
+      { label: 'Thrive', body: 'A family, steadier than before' },
+    ],
+  },
   gallery: {
-    eyebrow: 'From the ground',
+    eyebrow: 'Field notes',
     heading: 'Days in the communities we walk with',
     deck: 'Every frame is a real day of work. New photographs are added after each drive.',
     tiles: [
@@ -108,7 +132,7 @@ export const home: HomePage = {
     quote: 'Compassion, when practiced with consistency, becomes a quiet force. It doesn’t demand attention. It simply shows up, day after day, wherever it is needed most. Vagh Foundation was born from this belief, and grows with every act of service.',
   },
   pillars: {
-    eyebrow: 'The causes we champion',
+    eyebrow: 'Plate I–IV',
     headingMarked: 'Four <mark>pillars</mark>, one shared belief',
     sub: 'That wellbeing is holistic, and that everyone deserves the chance to thrive.',
     items: [
@@ -174,7 +198,7 @@ export const home: HomePage = {
     btnUrl: '/what-we-do',
   },
   cta: {
-    headingMarked: 'Together, we can do more',
+    headingMarked: 'Together, we can do <em>more</em>',
     body: 'Change is a collective effort. There’s a place for everyone in ours.',
     btn1Text: 'Volunteer with us',
     btn1Href: '/volunteer',
