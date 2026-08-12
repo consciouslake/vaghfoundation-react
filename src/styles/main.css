@@ -777,32 +777,44 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 
 /* ============================================================
-   MARQUEE — ink band, rainbow edges, pauses when pointed at
+   CAUSE BAND — four panels of one whole. At rest they are equal;
+   the panel you point at takes room from its neighbours.
    ============================================================ */
-.marquee {
-  background: var(--near-black); color: var(--off-white);
-  overflow: hidden;
-  padding-block: 1rem;
-  border-block: 4px solid transparent;
-  border-image: var(--rainbow) 1;
+.causeband {
+  display: flex;
+  min-height: clamp(6rem, 9vw, 8.5rem);
 }
-.marquee__track {
-  display: flex; width: max-content;
-  animation: marqueeScroll 28s linear infinite;
+.causeband__panel {
+  flex: 1;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 0.75rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  color: var(--paper-warm);
+  background: var(--panel);
+  text-decoration: none;
+  transition: flex-grow .45s cubic-bezier(.2,.8,.2,1), background .25s;
 }
-.marquee:hover .marquee__track { animation-play-state: paused; }
-.marquee__run { display: flex; }
-.marquee__item {
-  display: flex; align-items: center; gap: 1.25rem;
-  padding-inline: 0.6rem 1.25rem;
+.causeband__panel:nth-child(4n+1) { --panel: var(--amber); color: var(--ink-warm); }
+.causeband__panel:nth-child(4n+2) { --panel: var(--teal); }
+.causeband__panel:nth-child(4n+3) { --panel: var(--blue-deep); }
+.causeband__panel:nth-child(4n+4) { --panel: var(--green-deep); }
+.causeband__panel:hover,
+.causeband__panel:focus-within { flex-grow: 2.1; }
+
+.causeband__icon { transition: rotate .4s cubic-bezier(.2,.8,.2,1), scale .4s; }
+.causeband__panel:hover .causeband__icon { rotate: -10deg; scale: 1.15; }
+.causeband__label {
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 1.7vw, 1.375rem);
-  font-weight: 800;
-  letter-spacing: 0.02em; text-transform: uppercase;
-  white-space: nowrap;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
 }
-.marquee__star { color: var(--orange-500); font-size: 0.85em; }
-@keyframes marqueeScroll { to { transform: translateX(-50%); } }
+
+@media (max-width: 48em) {
+  .causeband { flex-wrap: wrap; }
+  .causeband__panel { flex: 1 1 50%; min-height: 6.5rem; }
+  .causeband__panel:hover, .causeband__panel:focus-within { flex-grow: 1; }
+}
 
 /* ============================================================
    THE MECHANISM — how a contribution travels, drawn as four

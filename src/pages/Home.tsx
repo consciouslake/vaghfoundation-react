@@ -3,7 +3,7 @@ import { home } from '../content/home'
 import { SEO } from '../components/SEO'
 import { OrganizationJsonLd } from '../components/OrganizationJsonLd'
 import { Hero } from '../components/Hero'
-import { Marquee } from '../components/Marquee'
+import { CauseBand } from '../components/CauseBand'
 import { Mechanism } from '../components/Mechanism'
 import { StatementQuote } from '../components/StatementQuote'
 import { SectionHead } from '../components/SectionHead'
@@ -23,7 +23,7 @@ export default function Home() {
       <OrganizationJsonLd />
 
       <Hero data={home} />
-      <Marquee items={home.marquee} />
+      <CauseBand items={home.pills} href={home.pillars.btnHref} />
       <Mechanism data={home.mechanism} />
       <StatementQuote text={home.statement} />
 
