@@ -390,6 +390,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
    ============================================================ */
 .doodle { display: block; color: var(--ink); pointer-events: none; }
 .doodle path, .doodle line { vector-effect: non-scaling-stroke; }
+.btn--donate .doodle, .nav-cta .doodle { color: inherit; }
 .doodle--rays  { width: clamp(60px, 8vw, 96px); height: auto; }
 .doodle--rule  { width: 100%; height: auto; }
 .doodle--mark  { width: clamp(56px, 7vw, 88px); height: auto; }
@@ -461,18 +462,19 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 }
 
 .nav-cta {
-  background: var(--near-black);
-  color: var(--off-white) !important;
+  background: var(--coral);
+  color: var(--paper-warm) !important;
   padding: 0.85rem 1.4rem !important;
   font-weight: var(--fw-body-bold);
   display: inline-flex; align-items: center; gap: 0.5rem;
   text-decoration: none !important;
-  transition: background .18s, color .18s;
+  border-color: var(--coral);
+  transition: background .18s, color .18s, border-color .18s;
 }
-.nav-cta svg { width: 15px; height: 15px; }
-.nav-cta:hover { background: var(--yellow-100); color: var(--ink) !important; }
-.nav-cta.active { color: var(--off-white) !important; }
-.nav-cta.active:hover { color: var(--ink) !important; }
+.nav-cta svg { width: 15px; height: 15px; color: inherit; }
+.nav-cta:hover { background: var(--amber); border-color: var(--amber); color: var(--ink-warm) !important; }
+.nav-cta.active { color: var(--paper-warm) !important; }
+.nav-cta.active:hover { color: var(--ink-warm) !important; }
 
 .nav-toggle {
   display: none; background: none; border: none; cursor: pointer;

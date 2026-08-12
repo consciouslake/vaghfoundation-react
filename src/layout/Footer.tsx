@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { site } from '../content/site'
 import { SocialIcon } from '../components/SocialIcon'
-import { ArrowRight } from '../components/ArrowRight'
 import { Doodle } from '../components/Doodle'
 
 const phoneTelHref = 'tel:' + site.contactPhone.replace(/[^0-9+]/g, '')
@@ -15,7 +14,7 @@ export function Footer() {
             <img src={site.logoLight} alt={site.brand} className="f-logo" />
             <p className="f-tagline">{site.footerTagline}</p>
             <Link to="/donate" className="btn btn--donate footer-donate">
-              Donate <ArrowRight />
+              Donate <Doodle name="heart" />
             </Link>
             <div className="footer-social">
               {site.socials.map((s) => (

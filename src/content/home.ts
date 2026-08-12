@@ -8,7 +8,7 @@ export const home: HomePage = {
     dial: [
       { label: 'Meals', tone: 'orange', image: '/images/pillar-1-nourishment.png', title: 'Nourishment for all' },
       { label: 'Learn', tone: 'amber', image: '/images/pillar-3-learning.png', title: 'Empowering through learning' },
-      { label: 'Calm', tone: 'blue', image: '/images/pillar-2-peace.png', title: 'Peace of mind' },
+      { label: 'Peace', tone: 'blue', image: '/images/pillar-2-peace.png', title: 'Peace of mind' },
       { label: 'Earth', tone: 'green', image: '/images/pillar-4-planet.png', title: 'Caring for our planet' },
     ],
     dialCaption: 'the four causes, in proportion',
