@@ -52,14 +52,6 @@ export function Header() {
           </button>
         </div>
 
-        {/* Flat four-colour rule carrying the palette across the header,
-            with the reading-progress fill riding on top of it */}
-        <div className="nav-stripe" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
       </header>
 
       <MegaMenu open={open} onClose={() => setOpen(false)} returnFocusTo={toggleRef.current} />

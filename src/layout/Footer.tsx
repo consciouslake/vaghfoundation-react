@@ -58,7 +58,6 @@ export function Footer() {
           </div>
         </div>
 
-        <Doodle name="separator" className="footer-sep" />
 
         <div className="footer-base">
           <span>{site.footerCopyright}</span>

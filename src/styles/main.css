@@ -402,6 +402,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 .nav {
   position: sticky; top: 0; z-index: 100;
   background: var(--paper);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 /* Same column as .wrap — the logo has to sit on the page's left edge,
    flush with the hero wordmark and the footer logo below it. */
@@ -492,13 +493,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 .nav-toggle.open span { background: var(--ink); }
 
 /* Flat four-colour rule under the header — solid blocks, not a gradient.
-   It doubles as the track for the reading-progress fill below. */
-.nav-stripe { display: flex; height: 4px; }
-.nav-stripe span { flex: 1; }
-.nav-stripe span:nth-child(1) { background: var(--orange-500); }
-.nav-stripe span:nth-child(2) { background: var(--blue-500); }
-.nav-stripe span:nth-child(3) { background: var(--yellow-400); }
-.nav-stripe span:nth-child(4) { background: var(--green-500); }
+
 
 /* ============================================================
    MENU SHEET — full-screen orange, black type
@@ -574,7 +569,7 @@ p a:not(.link):not(.btn):hover { color: var(--orange-600); }
 /* ============================================================
    HOME HERO — statement on the left, the construction on the right
    ============================================================ */
-.hero { padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(3.5rem, 6vw, 6rem); }
+.hero { padding-block: clamp(0.75rem, 1.5vw, 1.25rem) clamp(2.5rem, 5vw, 4.5rem); }
 .hero__grid {
   display: grid;
   grid-template-columns: minmax(0, 30rem) 1fr;

@@ -42,10 +42,7 @@ export function Hero({ data }: HeroProps) {
     <section className="hero">
       <div className="hero__grid">
         <div className="hero__left">
-          <span className="hero__eyebrow">
-            <span className="hero__dot" aria-hidden="true" />
-            {data.hero.eyebrow}
-          </span>
+
 
           <h1 className="hero__title">
             {words.map((w, i) => (

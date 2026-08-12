@@ -32,13 +32,12 @@ export default function Home() {
         <div className="wrap">
           <SectionHead
             center
-            eyebrow={home.pillars.eyebrow}
             heading="Four causes, one shared belief"
             headingMarked={home.pillars.headingMarked}
             intro={home.pillars.sub}
           />
           <CausesMosaic data={home.pillars} />
-          <p className="plate-foot">I · II · III · IV — four measures of one whole</p>
+
           <div className="causes__cta">
             <Link to={home.pillars.btnHref} className="btn btn--primary">
               {home.pillars.btnText}
@@ -60,7 +59,7 @@ export default function Home() {
         </div>
       </section>
 
-      <FounderSpotlight data={home.founder} chips={home.pills} chipsHref={home.pillars.btnHref} />
+      <FounderSpotlight data={home.founder} />
       <CTATogether data={home.cta} />
     </div>
   )
