@@ -2,16 +2,9 @@ import type { HomePage } from './types'
 
 export const home: HomePage = {
   hero: {
-    eyebrow: 'Compassion, by design',
-    title: 'Small acts of kindness, gathered into <em>extraordinary</em> change.',
+    eyebrow: 'Compassion in action',
+    title: 'Small acts of <mark>kindness,</mark> gathered into <em>extraordinary</em> change.',
     captions: ['Children we walk with', 'A meal, shared', 'Families we serve'],
-    dial: [
-      { label: 'Meals', tone: 'orange', image: '/images/pillar-1-nourishment.png', title: 'Nourishment for all' },
-      { label: 'Learn', tone: 'amber', image: '/images/pillar-3-learning.png', title: 'Empowering through learning' },
-      { label: 'Peace', tone: 'blue', image: '/images/pillar-2-peace.png', title: 'Peace of mind' },
-      { label: 'Earth', tone: 'green', image: '/images/pillar-4-planet.png', title: 'Caring for our planet' },
-    ],
-    dialCaption: 'the four causes, in proportion',
     slides: [
       {
         image: '/images/hero-slide-1.png',
@@ -53,17 +46,6 @@ export const home: HomePage = {
     'Doors opened',
     'Earth tended',
   ],
-  mechanism: {
-    eyebrow: 'The mechanism',
-    heading: 'How compassion moves.',
-    deck: 'A contribution is not an endpoint. It is a machine with four moving parts, each one turning the next.',
-    stages: [
-      { label: 'Give', body: 'A meal, a rupee, an hour' },
-      { label: 'Prepare', body: 'Volunteers turn it into care' },
-      { label: 'Deliver', body: 'Straight to the community' },
-      { label: 'Thrive', body: 'A family, steadier than before' },
-    ],
-  },
   gallery: {
     eyebrow: 'Field notes',
     heading: 'Days in the communities we walk with',
@@ -74,34 +56,64 @@ export const home: HomePage = {
         category: 'Nourishment',
         caption: 'A midday meal, shared',
         span: 'big',
+        slides: [
+          { image: '/images/story-1-warm-meal.png', caption: 'A midday meal, shared' },
+          { image: '/images/pillar-1-nourishment.png', caption: 'Food for every child' },
+          { image: '/images/wwd-nourishment.png', caption: 'Reaching the last mile' },
+        ],
       },
       {
         image: '/images/story-3-quiet-life.png',
         category: 'Peace of mind',
         caption: 'A quiet morning',
+        slides: [
+          { image: '/images/story-3-quiet-life.png', caption: 'A quiet morning' },
+          { image: '/images/pillar-2-peace.png', caption: 'Finding stillness together' },
+          { image: '/images/wwd-peace.png', caption: 'Spaces for inner renewal' },
+        ],
       },
       {
         image: '/images/home-our-story.jpg',
         category: 'Community',
         caption: 'Listening first',
+        slides: [
+          { image: '/images/home-our-story.jpg', caption: 'Listening first' },
+          { image: '/images/about-mission.png', caption: 'Building trust, together' },
+          { image: '/images/about-hero.png', caption: 'Rooted in community' },
+        ],
       },
       {
         image: '/images/story-2-community-teach.png',
         category: 'Learning',
         caption: 'A class in the open',
         span: 'tall',
+        slides: [
+          { image: '/images/story-2-community-teach.png', caption: 'A class in the open' },
+          { image: '/images/pillar-3-learning.png', caption: 'Knowledge as a right' },
+          { image: '/images/wwd-learning.png', caption: 'Every child, every lesson' },
+        ],
       },
       {
         image: '/images/home-our-work.jpg',
         category: 'Volunteers',
         caption: 'Hands in the soil',
         span: 'tall',
+        slides: [
+          { image: '/images/home-our-work.jpg', caption: 'Hands in the soil' },
+          { image: '/images/volunteer-hero.png', caption: 'Showing up, every drive' },
+          { image: '/images/gi-hero.png', caption: 'A movement of quiet service' },
+        ],
       },
       {
         image: '/images/wwd-planet.png',
         category: 'Our planet',
         caption: 'Planting day',
         span: 'wide',
+        slides: [
+          { image: '/images/wwd-planet.png', caption: 'Planting day' },
+          { image: '/images/pillar-4-planet.png', caption: 'Care for the earth we share' },
+          { image: '/images/home-compassion-in-action.png', caption: 'Growing something green' },
+        ],
       },
     ],
   },

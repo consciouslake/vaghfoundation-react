@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Soup, HeartHandshake, BookOpen, Sprout, ArrowRight, type LucideIcon } from 'lucide-react'
 import type { HomePage, Pillar } from '../content/types'
+import { CAUSE_SLUGS } from '../content/causes'
 import { Marked } from './Marked'
 import { useReveal } from '../hooks/useReveal'
 
@@ -16,8 +17,12 @@ const PLATES = ['I', 'II', 'III', 'IV']
 function CauseCard({ pillar, index, href }: { pillar: Pillar; index: number; href: string }) {
   const ref = useReveal<HTMLAnchorElement>(index)
   const Icon = ICONS[index % ICONS.length]
+  // Deep-links to this cause's own section on What We Do, falling back
+  // to the plain page link if the mosaic ever grows past the four
+  // causes CAUSE_SLUGS knows about.
+  const to = CAUSE_SLUGS[index] ? `${href}#${CAUSE_SLUGS[index]}` : href
   return (
-    <Link ref={ref} to={href} className={`cause cause--${index + 1} reveal`}>
+    <Link ref={ref} to={to} className={`cause cause--${index + 1} reveal`}>
       <span className="cause__glow" aria-hidden="true" />
       <span className="cause__plate" aria-hidden="true">
         {PLATES[index] ?? index + 1}

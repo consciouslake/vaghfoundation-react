@@ -19,7 +19,7 @@ interface EmailSignupProps {
 export function EmailSignup({
   titleWithEm,
   body,
-  tone = 'orange-soft',
+  tone = 'amber',
   children,
 }: PropsWithChildren<EmailSignupProps>) {
   return (

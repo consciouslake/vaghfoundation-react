@@ -4,6 +4,7 @@ import type { Href, MarkedText, Src } from '../content/types'
 import { Marked } from './Marked'
 import { ArrowRight } from './ArrowRight'
 import { Doodle } from './Doodle'
+import { ShareMenu } from './ShareMenu'
 
 export interface ColourCard {
   /** Caps meta label above the title. */
@@ -14,6 +15,8 @@ export interface ColourCard {
   href?: Href
   linkText?: string
   doodle?: 'squiggle-arrow' | 'steps' | 'rays'
+  /** Swaps the footer link for a social-share picker instead of navigating. */
+  share?: boolean
 }
 
 interface ColourCardsProps {
@@ -38,7 +41,9 @@ function CardInner({ card }: { card: ColourCard }) {
       <p className="ccard__desc">
         <Marked>{card.body}</Marked>
       </p>
-      {card.href ? (
+      {card.share ? (
+        <ShareMenu />
+      ) : card.href ? (
         <span className="link">
           {card.linkText ?? 'Find out more'} <ArrowRight />
         </span>

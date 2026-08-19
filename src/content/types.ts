@@ -131,7 +131,14 @@ export interface ValueItem {
 export interface TeamMember {
   name: string
   role: string
-  photo: Src
+  /** Omit for a placeholder card — renders a generic avatar mark instead. */
+  photo?: Src
+}
+
+/** One tab's worth of people, for a tabbed team grid like Leadership. */
+export interface TeamTab {
+  label: string
+  members: TeamMember[]
 }
 
 export interface FAQItem {
@@ -159,6 +166,23 @@ export interface ImpactItem {
   body: MarkedText
 }
 
+/**
+ * The mechanism — how a contribution travels, drawn as numbered
+ * stages rather than described in a paragraph. Lives on the Donate
+ * page, just past the form.
+ */
+export interface MechanismData {
+  eyebrow: string
+  heading: string
+  deck: MarkedText
+  stages: { label: string; body: string }[]
+}
+
+export interface GallerySlide {
+  image: Src
+  caption: string
+}
+
 export interface GalleryTile {
   image: Src
   /** Chip label above the caption — usually a pillar name. */
@@ -166,6 +190,8 @@ export interface GalleryTile {
   caption: string
   /** Footprint in the mosaic. Omit for a plain 1×1 tile. */
   span?: 'big' | 'wide' | 'tall'
+  /** Up to 3 slides shown in the lightbox when this tile is clicked. */
+  slides?: GallerySlide[]
 }
 
 export interface ContactItem {
@@ -180,28 +206,14 @@ export interface ContactItem {
 export interface HomePage {
   hero: {
     eyebrow: string
-    /** <mark> and <em> both render as the accent-italic brand sweep. */
+    /** <mark> is circled in ink, <em> takes the highlighter stroke. */
     title: MarkedText
     /** One per slide image, in order. */
     captions: string[]
-    /**
-     * The four causes as marked off round the hero construction,
-     * clockwise from top. Each carries the photograph shown at the
-     * centre while it is the selected one.
-     */
-    dial: { label: string; tone: 'orange' | 'amber' | 'blue' | 'green'; image: Src; title: string }[]
-    /** Caption set under the construction. */
-    dialCaption: string
     slides: Slide[]
   }
   /** Short uppercase phrases for the scrolling band. */
   marquee: string[]
-  mechanism: {
-    eyebrow: string
-    heading: string
-    deck: MarkedText
-    stages: { label: string; body: string }[]
-  }
   /** Short pillar labels — used as the scrolling marquee band. */
   pills: string[]
   gallery: {
@@ -250,8 +262,6 @@ export interface HomePage {
 
 export interface AboutPage {
   header: PageHeader
-  missionStatementMarked: MarkedText
-  missionCta: { label: string; href: Href }
   gateMission: GateFeature
   story: {
     eyebrow: string
@@ -274,7 +284,7 @@ export interface AboutPage {
     eyebrow: string
     headingMarked: MarkedText
     intro: MarkedText
-    members: TeamMember[]
+    tabs: TeamTab[]
   }
   faq: {
     eyebrow: string
@@ -341,6 +351,7 @@ export interface ContactPage {
 
 export interface DonatePage {
   header: PageHeader
+  mechanism: MechanismData
   section: {
     eyebrow: string
     headingMarked: MarkedText

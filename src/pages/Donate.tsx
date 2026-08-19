@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 import { donate } from '../content/donate'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
-import { PageLead } from '../components/PageLead'
-import { SlabRow } from '../components/SlabRow'
+import { Mechanism } from '../components/Mechanism'
 import { EmailSignup } from '../components/EmailSignup'
 import { DonateForm } from '../components/DonateForm'
 import { Reveal } from '../components/Reveal'
@@ -17,8 +16,7 @@ export default function Donate() {
         description="Every contribution creates a ripple of hope. Support Vagh Foundation's work across nourishment, wellbeing, learning, and sustainability."
         path="/donate"
       />
-      <PageHeader data={donate.header} tone="orange-soft" />
-      <PageLead image={donate.header.image} arch="tr" />
+      <PageHeader data={donate.header} tone="coral" />
 
       <section className="section">
         <div className="wrap">
@@ -31,7 +29,7 @@ export default function Donate() {
               <p className="lede donate-intro">
                 <Marked>{donate.section.body}</Marked>
               </p>
-              <div className="trust-note band band--yellow">
+              <div className="trust-note band band--amber">
                 <h4>{donate.trust.title}</h4>
                 <p>
                   <Marked>{donate.trust.body}</Marked>
@@ -46,12 +44,10 @@ export default function Donate() {
         </div>
       </section>
 
-      {/* Impact slabs run the full content width — they need the room */}
-      <section className="section--tight">
-        <div className="wrap">
-          <SlabRow items={donate.impact} />
-        </div>
-      </section>
+
+
+      {/* What happens after you give — Give, Prepare, Deliver, Thrive */}
+      <Mechanism data={donate.mechanism} />
 
       <EmailSignup
         titleWithEm={donate.volunteerCta.titleWithEm}

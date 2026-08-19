@@ -1,4 +1,4 @@
-import type { HomePage } from '../content/types'
+import type { MechanismData } from '../content/types'
 import { Marked } from './Marked'
 import { Reveal } from './Reveal'
 
@@ -8,7 +8,7 @@ import { Reveal } from './Reveal'
  * are steps in sequence, which is the one place a number carries
  * meaning rather than decoration.
  */
-export function Mechanism({ data }: { data: HomePage['mechanism'] }) {
+export function Mechanism({ data }: { data: MechanismData }) {
   return (
     <section className="mechanism">
       <div className="mechanism__inner">

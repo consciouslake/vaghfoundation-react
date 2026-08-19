@@ -1,7 +1,6 @@
 import { volunteer } from '../content/volunteer'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
-import { PageLead } from '../components/PageLead'
 import { SectionHead } from '../components/SectionHead'
 import { ColourCards, type ColourCard } from '../components/ColourCards'
 import { Reveal } from '../components/Reveal'
@@ -24,7 +23,6 @@ export default function Volunteer() {
         path="/volunteer"
       />
       <PageHeader data={volunteer.header} tone="green" />
-      <PageLead image={volunteer.header.image} arch="tl" />
 
       <section className="section">
         <div className="wrap">

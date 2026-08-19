@@ -51,7 +51,6 @@ export function Header() {
             <span />
           </button>
         </div>
-
       </header>
 
       <MegaMenu open={open} onClose={() => setOpen(false)} returnFocusTo={toggleRef.current} />

@@ -7,6 +7,17 @@ export const donate: DonatePage = {
     lede: 'When you give to Vagh Foundation, you become a partner in compassion, and a force for extraordinary change.',
     image: '/images/donate-hero.png',
   },
+  mechanism: {
+    eyebrow: 'The mechanism',
+    heading: 'How compassion moves.',
+    deck: 'A contribution is not an endpoint. It is a machine with four moving parts, each one turning the next.',
+    stages: [
+      { label: 'Give', body: 'A meal, a rupee, an hour' },
+      { label: 'Prepare', body: 'Volunteers turn it into care' },
+      { label: 'Deliver', body: 'Straight to the community' },
+      { label: 'Thrive', body: 'A family, steadier than before' },
+    ],
+  },
   section: {
     eyebrow: 'Where your support goes',
     headingMarked: 'Kindness, directed where it’s <mark>needed most</mark>',

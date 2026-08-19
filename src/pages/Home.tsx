@@ -3,13 +3,10 @@ import { home } from '../content/home'
 import { SEO } from '../components/SEO'
 import { OrganizationJsonLd } from '../components/OrganizationJsonLd'
 import { Hero } from '../components/Hero'
-import { CauseBand } from '../components/CauseBand'
-import { Mechanism } from '../components/Mechanism'
 import { StatementQuote } from '../components/StatementQuote'
 import { SectionHead } from '../components/SectionHead'
 import { CausesMosaic } from '../components/CausesMosaic'
 import { Gallery } from '../components/Gallery'
-import { FounderSpotlight } from '../components/FounderSpotlight'
 import { CTATogether } from '../components/CTATogether'
 
 export default function Home() {
@@ -23,8 +20,7 @@ export default function Home() {
       <OrganizationJsonLd />
 
       <Hero data={home} />
-      <CauseBand items={home.pills} href={home.pillars.btnHref} />
-      <Mechanism data={home.mechanism} />
+      {/* <CauseBand items={home.pills} href={home.pillars.btnHref} /> */}
       <StatementQuote text={home.statement} />
 
       {/* The four causes, drawn as plates */}
@@ -59,7 +55,6 @@ export default function Home() {
         </div>
       </section>
 
-      <FounderSpotlight data={home.founder} />
       <CTATogether data={home.cta} />
     </div>
   )

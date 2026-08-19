@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { getInvolved } from '../content/get-involved'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
-import { PageLead } from '../components/PageLead'
 import { SectionHead } from '../components/SectionHead'
 import { ColourCards, type ColourCard } from '../components/ColourCards'
 import { EmailSignup } from '../components/EmailSignup'
@@ -15,6 +14,7 @@ const wayCards: ColourCard[] = getInvolved.ways.map((w, i) => ({
   href: w.btnHref,
   linkText: w.btnText,
   doodle: DOODLES[i % DOODLES.length],
+  share: w.title === 'Spread the word',
 }))
 
 export default function GetInvolved() {
@@ -25,8 +25,7 @@ export default function GetInvolved() {
         description="Four ways to join the Vagh Foundation movement: volunteer your time, support the cause, spread the word, or partner with us."
         path="/get-involved"
       />
-      <PageHeader data={getInvolved.header} tone="yellow" />
-      <PageLead image={getInvolved.header.image} arch="tr" />
+      <PageHeader data={getInvolved.header} tone="amber" />
 
       <section className="section">
         <div className="wrap">
@@ -42,7 +41,7 @@ export default function GetInvolved() {
       <EmailSignup
         titleWithEm={getInvolved.emailSignup.titleWithEm}
         body={getInvolved.emailSignup.body}
-        tone="blue-soft"
+        tone="teal"
       >
         <div className="btn-row">
           <Link to="/volunteer" className="btn btn--primary">

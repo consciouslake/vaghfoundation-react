@@ -2,13 +2,11 @@ import type { AboutPage } from './types'
 
 export const about: AboutPage = {
   header: {
-    eyebrow: 'About Vagh Foundation',
-    h1Marked: 'About the <mark>Vagh Foundation</mark>',
+    eyebrow: 'About Us',
+    h1Marked: 'Who we are',
     lede: 'We walk quietly alongside those we serve, offering nourishment, supporting peace of mind, encouraging learning, and caring for the world we all share.',
     image: '/images/about-hero.png',
   },
-  missionStatementMarked: 'Our mission is to nurture <mark>lives</mark> with dignity and to nourish <mark>communities</mark> with lasting care.',
-  missionCta: { label: 'Read our story', href: '#our-story' },
   gateMission: {
     image: '/images/about-mission.png',
     kicker: 'Our mission',
@@ -53,11 +51,24 @@ export const about: AboutPage = {
     eyebrow: 'Who we are',
     headingMarked: 'The <mark>people</mark> behind the work',
     intro: 'A small group of trustees, advisors and long-time volunteers who guide the direction of the foundation.',
-    members: [
-      { name: 'A. Kumar',  role: 'Founder & Chair', photo: '/images/team-a-kumar.png' },
-      { name: 'R. Sharma', role: 'Trustee',         photo: '/images/team-r-sharma.png' },
-      { name: 'P. Iyer',   role: 'Trustee',         photo: '/images/team-p-iyer.png' },
-      { name: 'S. Patel',  role: 'Advisor',         photo: '/images/team-s-patel.png' },
+    tabs: [
+      {
+        label: 'Volunteers',
+        // Placeholder cards — no named volunteer roster yet, so no
+        // photos or real names here. Swap in real people as they're
+        // ready; the card renders a generic mark when photo is omitted.
+        members: Array.from({ length: 10 }, (_, i) => ({
+          name: `Volunteer ${String(i + 1).padStart(2, '0')}`,
+          role: 'Community volunteer',
+        })),
+      },
+      {
+        label: 'Leadership',
+        members: [
+          { name: 'A. Kumar',  role: 'Founder & Chair', photo: '/images/team-a-kumar.png' },
+          { name: 'R. Sharma', role: 'Trustee',         photo: '/images/team-r-sharma.png' },
+        ],
+      },
     ],
   },
   faq: {

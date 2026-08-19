@@ -11,18 +11,21 @@ export const getInvolved: GetInvolvedPage = {
     eyebrow: 'Ways to contribute',
     headingMarked: 'Find your <mark>way</mark> to give',
   },
+  // Ordered so the warm accent (amber, card 2) sits between the three
+  // cool ones — with 3 cards visible at a time in the carousel, that
+  // keeps every scroll position from showing an all-cool trio.
   ways: [
-    {
-      title: 'Volunteer your time',
-      body: 'Lend your hands and heart to our initiatives. From food distribution drives to community support efforts, your presence makes a tangible difference.',
-      btnText: 'Volunteer today',
-      btnHref: '/volunteer',
-    },
     {
       title: 'Support our cause',
       body: 'Your generosity fuels our work. Every contribution, big or small, helps us extend nourishment, peace, learning, and care to more lives.',
       btnText: 'Donate now',
       btnHref: '/donate',
+    },
+    {
+      title: 'Volunteer your time',
+      body: 'Lend your hands and heart to our initiatives. From food distribution drives to community support efforts, your presence makes a tangible difference.',
+      btnText: 'Volunteer today',
+      btnHref: '/volunteer',
     },
     {
       title: 'Spread the word',

@@ -1,7 +1,6 @@
 import { contact } from '../content/contact'
 import { SEO } from '../components/SEO'
 import { PageHeader } from '../components/PageHeader'
-import { PageLead } from '../components/PageLead'
 import { SectionHead } from '../components/SectionHead'
 import { FAQAccordion } from '../components/FAQAccordion'
 import { ContactRows } from '../components/ContactRows'
@@ -17,8 +16,7 @@ export default function Contact() {
         description="Get in touch with Vagh Foundation. Whether you want to volunteer, contribute, collaborate, or simply learn more about our work."
         path="/contact"
       />
-      <PageHeader data={contact.header} tone="blue-soft" />
-      <PageLead image={contact.header.image} arch="tr" />
+      <PageHeader data={contact.header} tone="teal" />
 
       <section className="section">
         <div className="wrap">
