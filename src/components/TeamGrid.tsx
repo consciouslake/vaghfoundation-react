@@ -2,8 +2,10 @@ import { User } from 'lucide-react'
 import type { TeamMember } from '../content/types'
 import { Reveal } from './Reveal'
 
-/** Cycles through the brand palette for placeholder-avatar cards. */
-const TONES = ['amber', 'coral', 'teal', 'blue', 'green', 'plum'] as const
+/* Cycles through the brand palette for placeholder-avatar cards. Blue
+   is left out deliberately — this grid only ever sits on the blue
+   leadership band, and a blue placeholder disappears into it. */
+const TONES = ['amber', 'coral', 'teal', 'green', 'plum'] as const
 
 /**
  * Leadership / volunteer grid — square photo, name, role. A member

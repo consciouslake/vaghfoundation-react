@@ -9,6 +9,10 @@ interface LightboxProps {
   onClose: () => void
 }
 
+/** How long each slide stays up before the lightbox auto-advances —
+    also the duration the timer bar under the active dot fills over. */
+const LB_STEP_MS = 4500
+
 function Lightbox({ tile, onClose }: LightboxProps) {
   const slides: GallerySlide[] = tile.slides?.length
     ? tile.slides
@@ -52,6 +56,15 @@ function Lightbox({ tile, onClose }: LightboxProps) {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
+
+  /* auto-advance — restarts fresh from whichever slide is current,
+     whether it got there by timer or by the visitor clicking around */
+  useEffect(() => {
+    if (slides.length < 2) return
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const id = window.setTimeout(() => go((current + 1) % slides.length), LB_STEP_MS)
+    return () => window.clearTimeout(id)
+  }, [current, go, slides.length])
 
   const slideClass = animating
     ? `lb-slide lb-slide--exit-${direction}`
@@ -122,7 +135,15 @@ function Lightbox({ tile, onClose }: LightboxProps) {
                 aria-label={`Go to slide ${i + 1}`}
                 className={`lb-dot${i === current ? ' lb-dot--active' : ''}`}
                 onClick={() => go(i)}
-              />
+              >
+                {i === current ? (
+                  <span
+                    key={current}
+                    className="lb-dot__timer"
+                    style={{ animationDuration: `${LB_STEP_MS}ms` }}
+                  />
+                ) : null}
+              </button>
             ))}
           </div>
         )}
@@ -152,13 +173,22 @@ function Lightbox({ tile, onClose }: LightboxProps) {
 function Tile({
   tile,
   index,
+  activeSlide,
   onOpen,
 }: {
   tile: GalleryTile
   index: number
+  /** Which of this tile's slides to show. Only the one live tile in
+      the rotation sequence ever gets a value other than 0. */
+  activeSlide: number
   onOpen: () => void
 }) {
   const ref = useReveal<HTMLElement>(index)
+  const slides: GallerySlide[] = tile.slides?.length
+    ? tile.slides
+    : [{ image: tile.image, caption: tile.caption }]
+  const active = activeSlide % slides.length
+
   return (
     <figure
       ref={ref}
@@ -170,7 +200,16 @@ function Tile({
       aria-label={`Open ${tile.category} gallery`}
       style={{ cursor: 'pointer' }}
     >
-      <img src={tile.image} alt={tile.caption} />
+      <div className="tile__stage">
+        {slides.map((s, i) => (
+          <img
+            key={s.image}
+            src={s.image}
+            alt={i === 0 ? tile.caption : ''}
+            className={`tile__frame${i === active ? ' is-active' : ''}`}
+          />
+        ))}
+      </div>
       {/* Printer's registration mark, in the plate's own ink */}
       <span className="tile__reg" aria-hidden="true" />
       {/* expand icon */}
@@ -181,7 +220,7 @@ function Tile({
       </span>
       <figcaption className="tile__meta">
         <span className="tile__cat">{tile.category}</span>
-        <span className="tile__cap">{tile.caption}</span>
+        <span className="tile__cap">{slides[active].caption}</span>
       </figcaption>
     </figure>
   )
@@ -189,9 +228,43 @@ function Tile({
 
 /* ── Gallery ─────────────────────────────────────────────────────── */
 
-/** Photo mosaic — uneven spans, arch corners, category chip per frame. */
+/** How long each individual photo stays up before the live tile steps
+    to its next one. */
+const STEP_MS = 4500
+
+/** Which tile is "live" at a time, and in what order — the visual
+    clockwise sweep of the mosaic (see gal-grid's layout): big tile
+    top-left, across the top, down the right side, back along the
+    bottom to bottom-left, then loops. Index refers to `tiles`. */
+const ROTATION_ORDER = [0, 1, 2, 4, 3, 5]
+
+/** Photo mosaic — uneven spans, arch corners, category chip per frame.
+    Only one tile animates at a time: it steps through its own photos,
+    then hands off to the next tile in the clockwise sequence, so the
+    whole grid never flips at once. */
 export function Gallery({ tiles }: { tiles: GalleryTile[] }) {
   const [activeTile, setActiveTile] = useState<GalleryTile | null>(null)
+  const [pointer, setPointer] = useState({ seq: 0, slide: 0 })
+
+  useEffect(() => {
+    const order = ROTATION_ORDER.filter((i) => i < tiles.length)
+    if (order.length < 2) return
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const id = window.setInterval(() => {
+      setPointer((p) => {
+        const liveTile = tiles[order[p.seq]]
+        const slideCount = liveTile.slides?.length || 1
+        const nextSlide = p.slide + 1
+        return nextSlide < slideCount
+          ? { seq: p.seq, slide: nextSlide }
+          : { seq: (p.seq + 1) % order.length, slide: 0 }
+      })
+    }, STEP_MS)
+    return () => window.clearInterval(id)
+  }, [tiles])
+
+  const order = ROTATION_ORDER.filter((i) => i < tiles.length)
+  const liveTileIndex = order[pointer.seq]
 
   return (
     <>
@@ -201,6 +274,7 @@ export function Gallery({ tiles }: { tiles: GalleryTile[] }) {
             key={tile.image}
             tile={tile}
             index={i}
+            activeSlide={i === liveTileIndex ? pointer.slide : 0}
             onOpen={() => setActiveTile(tile)}
           />
         ))}

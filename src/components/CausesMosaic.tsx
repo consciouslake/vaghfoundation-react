@@ -11,8 +11,6 @@ interface CausesMosaicProps {
 
 /** One icon per cause, in the order the pillars are authored. */
 const ICONS: LucideIcon[] = [Soup, HeartHandshake, BookOpen, Sprout]
-/** Plate numbers, engraving-style. */
-const PLATES = ['I', 'II', 'III', 'IV']
 
 function CauseCard({ pillar, index, href }: { pillar: Pillar; index: number; href: string }) {
   const ref = useReveal<HTMLAnchorElement>(index)
@@ -24,9 +22,6 @@ function CauseCard({ pillar, index, href }: { pillar: Pillar; index: number; hre
   return (
     <Link ref={ref} to={to} className={`cause cause--${index + 1} reveal`}>
       <span className="cause__glow" aria-hidden="true" />
-      <span className="cause__plate" aria-hidden="true">
-        {PLATES[index] ?? index + 1}
-      </span>
       <span className="cause__arch" aria-hidden="true">
         <Icon size={30} strokeWidth={1.7} />
       </span>

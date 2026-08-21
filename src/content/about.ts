@@ -22,6 +22,7 @@ export const about: AboutPage = {
       'Vagh Foundation was born from a simple yet powerful belief: that meaningful change is created not through grand gestures alone, but through consistent, heartfelt acts of service.',
       'Our work is guided not by recognition, but by the genuine difference we can make in everyday lives: quietly, patiently, and with lasting care.',
     ],
+    image: '/images/home-our-story.jpg',
   },
   timeline: {
     eyebrow: 'Our journey',

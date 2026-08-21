@@ -97,11 +97,20 @@
   --maxw:   75rem;             /* 1200px */
   --maxw-r: 48rem;
   --pad:    clamp(1.25rem, 5vw, 7.5rem);
-  --sec-y:       clamp(4rem, 7vw, 6rem);   /* 64px→96px — standard section rhythm, used site-wide */
-  --sec-y-tight: clamp(2.5rem, 5vw, 4rem); /* 40px→64px — compact variant, same rhythm halved */
+  /* The one vertical rhythm used between every section on every page.
+     Two sections back to back always add up to the same gap, because
+     every section contributes the same padding — no "tight" variant
+     competing with it and producing a different-sized gap depending
+     on which two sections happen to be neighbours. (This used to be a
+     larger clamp(4rem,7vw,6rem) with a separate, smaller "tight" tier
+     for denser pages — merging the two here, at the smaller size, is
+     what actually fixes an oversized gap: two full-size sections back
+     to back used to add up to as much as 192px before this.) */
+  --sec-y: clamp(2.5rem, 5vw, 4rem);   /* 40px→64px */
 
-  /* Buttons — square, never a pill */
+  /* Buttons — square-ish (a slight corner round, never a full pill) */
   --btn-padding: 0.9rem 1.5rem;
+  --btn-radius:  0.5rem;
 
   /* Motion */
   --duration: 600ms;
@@ -257,7 +266,10 @@ em { font-style: italic; }
 .wrap   { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
 .wrap-r { max-width: calc(var(--maxw-r) + 2 * var(--pad)); margin: 0 auto; padding-inline: var(--pad); }
 .section { padding-block: var(--sec-y); }
-.section--tight { padding-block: var(--sec-y-tight); }
+/* Kept as a separate class for JSX readability (marks a section as
+   "denser" content), but shares .section's padding so the gap it
+   produces between neighbours is never a special case. */
+.section--tight { padding-block: var(--sec-y); }
 
 /* Solid colour bands — text on colour is ALWAYS black */
 .band { background: var(--band-fill, var(--amber)); color: var(--ink); }
@@ -290,7 +302,7 @@ em { font-style: italic; }
 .arch-tl      { border-radius: var(--card-radius-lg) 0 0 0; overflow: hidden; }
 
 /* ============================================================
-   BUTTONS — square. No pills, no shadows, no gradients.
+   BUTTONS — square-ish. No pills, no shadows, no gradients.
    ============================================================ */
 .btn {
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -298,7 +310,7 @@ em { font-style: italic; }
   font-family: var(--font-text);
   font-size: var(--fs-body); font-weight: var(--fw-body-bold);
   line-height: 1.4;
-  border: 2px solid transparent; border-radius: 0;
+  border: 2px solid transparent; border-radius: var(--btn-radius);
   cursor: pointer;
   transition: background .18s, color .18s, border-color .18s;
 }
@@ -311,23 +323,26 @@ em { font-style: italic; }
 .btn--primary:hover { background: var(--amber); color: var(--ink); border-color: var(--amber); }
 
 /* On amber/coral bands the amber hover matches the background — override to teal so it stays visible */
-.band--amber .btn--primary:hover,
-.cta-band .btn--primary:hover {
+.band--amber .btn--primary:hover {
   background: var(--teal); color: var(--paper); border-color: var(--teal);
 }
 /* Ghost button on amber band: start solid black (matches primary), hover teal */
-.band--amber .btn--ghost,
-.cta-band .btn--ghost {
+.band--amber .btn--ghost {
   background: var(--near-black); color: var(--off-white); border-color: var(--near-black);
 }
-.band--amber .btn--ghost:hover,
-.cta-band .btn--ghost:hover {
+.band--amber .btn--ghost:hover {
   background: var(--teal); color: var(--paper); border-color: var(--teal);
 }
 
 /* Outlined black — secondary, on white or on colour */
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn--ghost:hover { background: var(--ink); color: var(--paper); }
+
+/* In the hero, ghost sits right next to primary with nothing but
+   plain cream behind either of them — so ghost's hover should read
+   as the same brand accent primary's does, not a second, contradictory
+   treatment (plain-to-black next to plain-to-amber looked broken). */
+.hero__cta .btn--ghost:hover { background: var(--amber); color: var(--ink); border-color: var(--amber); }
 
 /* On the near-black footer / dark bands */
 .btn--invert { background: var(--off-white); color: var(--ink); border-color: var(--off-white); }
@@ -396,7 +411,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    ============================================================ */
 .doodle { display: block; color: var(--ink); pointer-events: none; }
 .doodle path, .doodle line { vector-effect: non-scaling-stroke; }
-.btn--donate .doodle, .nav-cta .doodle { color: inherit; }
+.btn--donate .doodle, .nav-cta .doodle, .mobile-donate-fab .doodle { color: inherit; }
 .doodle--rays  { width: clamp(60px, 8vw, 96px); height: auto; }
 .doodle--rule  { width: 100%; height: auto; }
 .doodle--mark  { width: clamp(56px, 7vw, 88px); height: auto; }
@@ -457,7 +472,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    so hovering (or landing on) a page never shows a mismatched accent —
    Contact's link underlines teal because Contact's hero is teal, etc. */
 .nav-links a[href="/"]             { --nav-accent: var(--amber); }
-.nav-links a[href="/about"]        { --nav-accent: var(--amber); }
+.nav-links a[href="/about"]        { --nav-accent: var(--plum); }
 .nav-links a[href="/what-we-do"]   { --nav-accent: var(--blue-deep); }
 .nav-links a[href="/get-involved"] { --nav-accent: var(--amber); }
 .nav-links a[href="/contact"]      { --nav-accent: var(--teal); }
@@ -476,6 +491,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   display: inline-flex; align-items: center; gap: 0.5rem;
   text-decoration: none !important;
   border-color: var(--coral);
+  border-radius: var(--btn-radius);
   transition: background .18s, color .18s, border-color .18s;
 }
 .nav-cta svg { width: 15px; height: 15px; color: inherit; }
@@ -580,7 +596,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   background: var(--cream);
   background-image: radial-gradient(rgba(20, 18, 16, 0.045) 1px, transparent 1px);
   background-size: 26px 26px;
-  padding-block: clamp(1.5rem, 3.5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  padding-block: var(--sec-y);
 }
 .hero__grid {
   display: grid;
@@ -655,7 +671,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .collage { position: relative; height: 35rem; margin-top: 0.4rem; }
 .print {
   position: absolute;
-  background: var(--paper-warm);
+  background: var(--print-fill, var(--paper-warm));
   padding: 0.75rem 0.75rem 2.875rem;
   border-radius: 8px;
   box-shadow: 0 24px 50px rgba(20, 18, 16, 0.15);
@@ -670,20 +686,23 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   text-align: center;
   font-family: var(--font-display);
   font-size: 0.8125rem; font-weight: 700;
-  color: var(--slate);
+  color: var(--ink);
 }
 .print:hover { rotate: 0deg; scale: 1.04; z-index: 5; }
 
-.print--1 { width: 18rem; height: 20.125rem; top: 0; right: 0.75rem; rotate: 4deg; z-index: 1; }
+/* Each polaroid frame carries its own brand colour instead of the
+   same plain off-white, same rotating-palette treatment as every
+   other card grid on the site. */
+.print--1 { --print-fill: var(--amber); width: 18rem; height: 20.125rem; top: 0; right: 0.75rem; rotate: 4deg; z-index: 1; }
 .print--1 .print__slot { height: 14.75rem; }
-.print--2 { width: 13.375rem; height: 15.625rem; bottom: 1.5rem; left: -1.875rem; rotate: -6deg; z-index: 3; animation-delay: -2s; }
+.print--2 { --print-fill: var(--teal); width: 13.375rem; height: 15.625rem; bottom: 1.5rem; left: -1.875rem; rotate: -6deg; z-index: 3; animation-delay: -2s; }
 .print--2 .print__slot { height: 10.375rem; }
 /* Anchored from the top, not the bottom: print--1's caption sits
    at a fixed offset from ITS OWN top, so a top-anchored print--3
    clears it consistently regardless of how tall .collage is at a
    given breakpoint — a bottom anchor would close that gap back up
    as the container shrinks on tablet. */
-.print--3 { width: 10.75rem; height: 12.625rem; top: 20.5rem; right: -0.875rem; rotate: 8deg; z-index: 2; animation-delay: -4s; }
+.print--3 { --print-fill: var(--coral); width: 10.75rem; height: 12.625rem; top: 20.5rem; right: -0.875rem; rotate: 8deg; z-index: 2; animation-delay: -4s; }
 .print--3 .print__slot { height: 7.75rem; }
 
 @keyframes printFloat {
@@ -693,21 +712,75 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 
 @media (max-width: 64em) {
   .hero__grid { grid-template-columns: 1fr; gap: 0.5rem; }
-  /* width:100% is load-bearing — auto margins make a grid item
-     shrink-to-fit, and every print is absolutely positioned, so the
-     collage would otherwise measure zero and drag them off-canvas. */
-  .collage { height: 34rem; width: 100%; max-width: 30rem; margin: 1.25rem auto 0; }
-  .print--2 { left: 0; }
-  .print--3 { right: 0; }
+  /* Centred CTA-style layout on mobile: heading, lede and buttons all
+     line up on a centre axis instead of the desktop's left column. */
+  .hero__left { text-align: center; }
+  .hero__lede { margin-inline: auto; }
+  .hero__cta { justify-content: center; }
+
+  /* Mobile drops the desktop's scattered, rotated, overlapping pile —
+     there isn't enough width to spread three prints without one
+     card's caption ending up hidden under the next card stacked on
+     top of it. .hero-slider (below) replaces it entirely: one full-
+     width photo at a time, swipeable, auto-advancing. */
+  .collage { display: none; }
+  .hero-slider { display: block; order: -1; margin-bottom: 1.5rem; }
 }
-@media (max-width: 30em) {
-  .collage { height: 22rem; }
-  .print--1 { width: 13.5rem; height: 15rem; }
-  .print--1 .print__slot { height: 10.5rem; }
-  .print--2 { width: 10rem; height: 11.75rem; }
-  .print--2 .print__slot { height: 7.5rem; }
-  .print--3 { width: 8.5rem; height: 10rem; top: 12rem; right: 0; }
-  .print--3 .print__slot { height: 6rem; }
+@media (min-width: 64.0625em) {
+  .hero-slider { display: none; }
+}
+
+/* ---- Mobile hero slider ----
+   One photo at a time, full width, swipe via native scroll-snap so
+   touch dragging needs no custom gesture handling. Auto-advances on
+   a timer (see Hero.tsx); the active dot fills over that same
+   duration as a visible countdown, same pattern as the gallery
+   lightbox's timer dots. */
+.hero-slider__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  border-radius: 20px;
+}
+.hero-slider__track::-webkit-scrollbar { display: none; }
+.hero-slider__slide {
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sand);
+}
+.hero-slider__slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-slider__slide::after {
+  content: ""; position: absolute; inset: auto 0 0 0; height: 55%;
+  background: linear-gradient(to top, rgba(15, 13, 11, 0.82), transparent);
+  pointer-events: none;
+}
+.hero-slider__slide figcaption {
+  position: absolute; left: 1.1rem; right: 1.1rem; bottom: 0.9rem;
+  color: var(--paper);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.0625rem;
+}
+.hero-slider__dots {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+.hero-slider__dot {
+  position: relative;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--grey-300);
+  overflow: hidden;
+  transition: width .25s, border-radius .25s;
+}
+.hero-slider__dot.is-active { width: 26px; border-radius: 999px; }
+.hero-slider__timer {
+  display: block; height: 100%;
+  background: var(--amber);
+  animation: lbTimerFill linear forwards;
 }
 
 /* ============================================================
@@ -763,7 +836,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .stages {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(1rem, 2.5vw, 2rem);
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
@@ -808,7 +881,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 }
 
 @media (max-width: 48em) {
-  .stages { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; }
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.5rem; }
   .stage:nth-child(3)::before { display: none; }
 }
 
@@ -983,7 +1056,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 /* Sticky-note variant — rotated, slightly irregular edges. Used on
    the homepage only, and only on a minority of cards. */
 .ccards--notes {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.75rem, 2vw, 1.5rem);
   max-width: var(--maxw); margin-inline: auto;
   padding-inline: var(--pad);
@@ -1096,27 +1169,6 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .stat__body { font-size: 0.95rem; max-width: 32ch; }
 
 /* ============================================================
-   CTA BAND — closing call, centred on the warm ground
-   ============================================================ */
-.cta-band { padding-block: clamp(1.5rem, 3vw, 2.5rem); }
-.cta-band__inner {
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center;
-  max-width: 62.5rem; margin-inline: auto; padding-inline: var(--pad);
-}
-.cta-band__title {
-  font-size: clamp(2.25rem, 5.6vw, 4rem);
-  line-height: 1.03;
-  max-width: 18ch;
-  margin-bottom: 1rem;
-}
-.cta-band__body {
-  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
-  max-width: 44ch; margin-bottom: 2rem;
-}
-.cta-band__buttons { justify-content: center; }
-
-/* ============================================================
    EDITORIAL SECTION HEAD — accent-italic ordinal, sweep rule, deck
    ============================================================ */
 /* Plate-style head — kicker, title, deck, centred over the plate */
@@ -1202,20 +1254,6 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 }
 .cause:hover .cause__go { gap: 0.8rem; }
 
-/* Plate number, set as an engraving would letter it */
-.cause__plate {
-  position: absolute; top: 1.25rem; right: 1.25rem;
-  display: grid; place-items: center;
-  width: 2.125rem; height: 2.125rem;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-  background: rgba(255, 255, 255, 0.18);
-  font-family: var(--font-display);
-  font-style: italic; font-weight: 800; font-size: 0.9375rem;
-  letter-spacing: 0;
-}
-.cause--1 .cause__plate { background: rgba(20, 18, 16, 0.12); }
-
 /* The lead plate leads: bigger title, and a pinned print of its subject */
 .cause--1 .cause__title { font-size: clamp(1.6rem, 2.6vw, 2.125rem); }
 .cause--1 .cause__arch { width: 4.25rem; height: 5rem; }
@@ -1263,7 +1301,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .gallery-sec { background: var(--paper-warm); }
 .gal-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-auto-rows: 13rem;
   grid-auto-flow: dense;
   gap: clamp(0.65rem, 1.2vw, 1rem);
@@ -1282,11 +1320,15 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .tile--big  { grid-column: span 2; grid-row: span 2; }
 .tile--wide { grid-column: span 2; }
 .tile--tall { grid-row: span 2; }
-.tile img {
+.tile__stage { position: absolute; inset: 0; }
+.tile__frame {
+  position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
-  transition: scale .55s cubic-bezier(.2,.8,.2,1);
+  opacity: 0;
+  transition: opacity 3s ease-in-out, scale .55s cubic-bezier(.2,.8,.2,1);
 }
-.tile:hover img { scale: 1.06; }
+.tile__frame.is-active { opacity: 1; }
+.tile:hover .tile__frame.is-active { scale: 1.06; }
 .tile::after {
   content: ""; position: absolute; inset: auto 0 0 0; height: 62%;
   background: linear-gradient(to top, rgba(15, 13, 11, 0.88), rgba(15, 13, 11, 0.35) 45%, transparent);
@@ -1326,7 +1368,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 }
 
 @media (max-width: 64em) {
-  .gal-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 10rem; }
+  .gal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 10rem; }
 }
 @media (max-width: 30em) {
   .gal-grid { grid-auto-rows: 8.5rem; }
@@ -1491,18 +1533,30 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   flex-shrink: 0;
 }
 .lb-dot {
+  position: relative;
   width: 7px; height: 7px;
   border-radius: 50%;
   border: none; cursor: pointer;
   background: rgba(255,255,255,0.25);
-  padding: 0;
+  padding: 0; overflow: hidden;
   transition: background .2s, scale .2s, width .25s;
 }
 .lb-dot--active {
-  background: var(--teal, #0d9488);
-  width: 22px;
+  background: rgba(255,255,255,0.25);
+  width: 34px;
   border-radius: 999px;
   scale: 1;
+}
+/* Fills left to right over the slide's dwell time — a visible
+   countdown to the next auto-advance, not just a position marker. */
+.lb-dot__timer {
+  display: block; height: 100%;
+  background: var(--teal, #0d9488);
+  animation: lbTimerFill linear forwards;
+}
+@keyframes lbTimerFill {
+  from { width: 0%; }
+  to   { width: 100%; }
 }
 
 /* thumbnail strip */
@@ -1552,6 +1606,11 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .spotlight {
   background: var(--spotlight-fill, var(--coral)); color: var(--ink);
   padding-block: var(--sec-y); /* aligned to site-wide section rhythm */
+  /* Constrained to the reading column via .about-narrow-band, so its
+     own edges are visible (not full-bleed) — same slight rounding as
+     every button on the site, so it doesn't sit there as a sharp
+     rectangle next to everything else's soft corners. */
+  border-radius: var(--btn-radius);
 }
 .spotlight--amber { --spotlight-fill: var(--amber); }
 .spotlight--teal  { --spotlight-fill: var(--teal); }
@@ -1566,7 +1625,9 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .spotlight__portrait {
   position: relative;
   aspect-ratio: 4 / 5; overflow: hidden;
-  border-radius: 26px;
+  /* Same arch-corner language as .form-card, instead of a uniformly
+     rounded rectangle. */
+  border-radius: var(--card-radius-lg) 0 var(--card-radius-lg) 0;
   background: var(--paper);
   border: 3px solid var(--ink);
 }
@@ -1609,8 +1670,10 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .spotlight__chip:hover span { color: var(--ink-warm); }
 
 @media (max-width: 64em) {
-  .spotlight__inner { grid-template-columns: 1fr; }
-  .spotlight__portrait { max-width: 17rem; }
+  .spotlight__inner { grid-template-columns: 1fr; text-align: center; }
+  .spotlight__portrait { max-width: 17rem; margin-inline: auto; }
+  .spotlight__quote { margin-inline: auto; }
+  .spotlight__chips { justify-content: center; }
 }
 
 
@@ -1636,6 +1699,14 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 @media (min-width: 64.0625em) { .initiative--flip .initiative__col-media { order: 2; } }
 @media (max-width: 64em) {
   .split, .split-narrow { grid-template-columns: 1fr; gap: 2rem; }
+  /* Every inner page's hero (image + kicker/h1/lede) centres its text
+     column on mobile once it stacks — same treatment as the home
+     hero, so no page reads as "the left-aligned one." */
+  .about-hero .reveal:not(.split-image),
+  .page-hero .reveal:not(.split-image) {
+    text-align: center;
+  }
+  .about-hero .lede, .page-hero .lede { margin-inline: auto; }
 }
 
 /* Reins in a full-bleed component (its own inner grid already pads
@@ -1735,26 +1806,48 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    VALUES + TEAM
    ============================================================ */
 .values-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
-.value-item { border-top: 3px solid var(--ink); padding-top: 1.2rem; }
+/* Fixed column counts (not auto-fit) so a 5-item grid never leaves a
+   lone last-row card stretched to full width — it just sits at the
+   same column width as everything above it.
+   minmax(0, 1fr), not bare 1fr — a bare 1fr track's automatic minimum
+   is its content's min-content size, so a single long word (e.g.
+   "Sustainability") was forcing that column wider than its fair
+   share and pushing the grid's total width past the page edge,
+   silently clipped by body's overflow-x. minmax(0, ...) lets the
+   text wrap instead of pushing the column out. */
+@media (max-width: 64em) { .values-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 40em) { .values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Flat colour-block cards, same language as every other card grid on
+   the site — no more plain white-with-a-coloured-number. Blue is
+   skipped on purpose: this grid sits right above the blue leadership
+   band, so a blue card here would blend straight into it. */
+.value-item {
+  display: flex; flex-direction: column;
+  padding: var(--space-md);
+  background: var(--value-fill, var(--amber));
+  color: var(--ink);
+}
+.value-item:nth-child(5n+1) { --value-fill: var(--amber); }
+.value-item:nth-child(5n+2) { --value-fill: var(--coral); }
+.value-item:nth-child(5n+3) { --value-fill: var(--teal); color: var(--off-white); }
+.value-item:nth-child(5n+4) { --value-fill: var(--green-deep); color: var(--off-white); }
+.value-item:nth-child(5n+5) { --value-fill: var(--plum); color: var(--off-white); }
 .value-item__num {
   font-family: var(--font-display); font-size: 1.6rem;
-  font-weight: var(--fw-stat); line-height: 1; margin-bottom: 0.6rem;
+  font-weight: var(--fw-stat); line-height: 1; margin-bottom: 0.9rem;
+  color: inherit; opacity: 0.55;
 }
-.value-item:nth-child(4n+1) .value-item__num { color: var(--amber); }
-.value-item:nth-child(4n+2) .value-item__num { color: var(--blue-deep); }
-.value-item:nth-child(4n+3) .value-item__num { color: var(--green-deep); }
-.value-item:nth-child(4n+4) .value-item__num { color: var(--teal); }
-.value-item h4 { margin-bottom: 0.4rem; font-size: var(--fs-subhead); font-family: var(--font-display); font-weight: var(--fw-display); }
-.value-item p { font-size: 0.95rem; }
+.value-item h4 { margin-bottom: 0.4rem; font-size: var(--fs-subhead); font-family: var(--font-display); font-weight: var(--fw-display); color: inherit; }
+.value-item p { font-size: 0.95rem; color: inherit; }
 
 /* Square cards, sharp corners — the one deliberate break from the
    site's own arch language, matching the reference's leadership grid
    directly rather than folding it into Vagh's usual card shape. */
 .team-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.5rem 1rem;
 }
 .team-card__photo {
@@ -1783,7 +1876,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   margin-top: 0.2rem;
 }
 
-@media (max-width: 56em) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 56em) { .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 30em) { .team-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem 0.75rem; } }
 
 /* The heading right above the band needs no bottom padding of its
@@ -1806,18 +1899,17 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    inactive tab is solid paper, not a tint of the band colour, so it
    never blends into whichever tone the band happens to be. */
 .team-tabs {
-  display: flex; flex-wrap: wrap;
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
   margin-bottom: clamp(2rem, 4vw, 2.75rem);
 }
 .team-tab {
   background: var(--paper);
-  border: none; cursor: pointer;
+  border: none; cursor: pointer; border-radius: var(--btn-radius);
   padding: 0.9rem 1.5rem;
   font-family: var(--font-display); font-weight: var(--fw-display);
   font-size: 1rem; color: var(--ink);
   transition: background .18s, color .18s;
 }
-.team-tab + .team-tab { margin-left: 2px; }
 .team-tab:hover { background: var(--yellow-400); }
 .team-tab.is-active { background: var(--ink); color: var(--paper); }
 
@@ -1864,19 +1956,21 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 /* ============================================================
    NEWSLETTER / EMAIL SIGNUP — square inputs, black submit
    ============================================================ */
-.email-signup { padding-block: var(--sec-y-tight); }
+.email-signup { padding-block: var(--sec-y); }
 .email-signup__inner {
   max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad);
   display: grid; grid-template-columns: 1fr auto; gap: clamp(1.5rem, 4vw, 3rem);
   align-items: center;
 }
 .email-signup__title { max-width: 20ch; margin-bottom: 0.6rem; }
-.email-signup__body { max-width: 46ch; }
+.email-signup__body { max-width: 64ch; }
 .email-signup__form { display: flex; gap: 0; flex-wrap: wrap; }
 .email-signup__form input {
   min-width: 16rem; flex: 1;
   background: var(--paper); color: var(--ink);
-  border: 2px solid var(--grey-300); border-radius: 0;
+  border: 2px solid var(--grey-300);
+  /* Joined flush against the button, so only the outer corners round. */
+  border-radius: var(--btn-radius) 0 0 var(--btn-radius);
   padding: 0.9rem 1rem;
   font-family: inherit; font-size: var(--fs-body);
 }
@@ -1884,7 +1978,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .email-signup__form button {
   display: inline-flex; align-items: center; gap: 0.6rem;
   background: var(--near-black); color: var(--off-white);
-  border: 2px solid var(--near-black); border-radius: 0;
+  border: 2px solid var(--near-black); border-radius: 0 var(--btn-radius) var(--btn-radius) 0;
   padding: 0.9rem 1.5rem;
   font-family: inherit; font-size: var(--fs-body); font-weight: var(--fw-body-bold);
   cursor: pointer; transition: background .18s, color .18s;
@@ -1893,39 +1987,68 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .email-signup__form button svg { width: 16px; height: 16px; }
 
 @media (max-width: 64em) {
-  .email-signup__inner { grid-template-columns: 1fr; }
+  /* Stacked to one column here, so it reads as a single centred CTA
+     block — heading, body, doodle and the button/form row all share
+     one centre axis instead of hugging the left edge. */
+  .email-signup__inner { grid-template-columns: 1fr; text-align: center; }
+  .email-signup__inner .doodle,
+  .email-signup__title, .email-signup__body { margin-inline: auto; }
+  .email-signup__inner .btn-row,
+  .email-signup__form { justify-content: center; }
+  /* The input and button are joined into one pill on desktop (only
+     the outer corners round) — too narrow a fit on a phone, so they
+     wrap onto separate lines, which left the joined corners looking
+     like a broken shape instead of two flush halves. Stack them on
+     purpose instead: full width, fully rounded, a real gap between. */
+  .email-signup__form { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .email-signup__form input { min-width: 0; border-radius: var(--btn-radius); }
+  .email-signup__form button { border-radius: var(--btn-radius); justify-content: center; }
 }
 
 /* ============================================================
-   FORMS
+   FORMS — flat colour card, same fill language as every other
+   block on the site (defaults to sand; pass a tone modifier to
+   match the page it sits on).
    ============================================================ */
-.form-card { background: var(--off-white); padding: clamp(1.5rem, 3vw, 2.25rem); }
-.form-card h3 { margin-bottom: 1.4rem; }
-.field { margin-bottom: 1.1rem; }
+.form-card {
+  background: var(--form-fill, var(--sand));
+  color: var(--ink);
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border-radius: var(--card-radius-lg) 0 var(--card-radius-lg) 0;
+}
+.form-card--teal  { --form-fill: var(--teal);       color: var(--off-white); }
+.form-card--green { --form-fill: var(--green-deep); color: var(--off-white); }
+.form-card--blue  { --form-fill: var(--blue-deep);  color: var(--off-white); }
+.form-card--coral { --form-fill: var(--coral); }
+.form-card--amber { --form-fill: var(--amber); }
+.form-card h3 { margin-bottom: 1rem; color: inherit; text-align: center; }
+.field { margin-bottom: 0.7rem; }
 .field label {
   display: block; font-size: var(--fs-caption); font-weight: var(--fw-body-bold);
   letter-spacing: 0.06em; text-transform: uppercase;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem; color: inherit;
 }
 .field input, .field select, .field textarea {
   width: 100%; background: var(--paper); color: var(--ink);
-  border: 2px solid var(--grey-300); border-radius: 0;
-  padding: 0.75rem 0.9rem;
+  border: 2px solid transparent; border-radius: var(--btn-radius);
+  padding: 0.55rem 0.8rem;
   font-family: inherit; font-size: var(--fs-body);
   transition: border-color .18s;
 }
 .field input:focus, .field select:focus, .field textarea:focus {
   outline: none; border-color: var(--ink);
 }
-.field textarea { min-height: 7rem; resize: vertical; }
+.field textarea { min-height: 4.5rem; resize: vertical; }
 .field-legend {
   display: block; font-size: var(--fs-caption); font-weight: var(--fw-body-bold);
   letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.5rem;
+  color: inherit;
 }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form-note { font-size: 0.85rem; color: var(--grey-500); margin-top: 0.9rem; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.form-note { font-size: 0.8rem; color: inherit; opacity: 0.75; margin-top: 0.6rem; }
+.form-card .btn--block { padding: 0.75rem 1.5rem; }
 
-.freq-toggle { display: flex; border: 2px solid var(--ink); margin-bottom: 1.4rem; }
+.freq-toggle { display: flex; border: 2px solid var(--ink); border-radius: var(--btn-radius); overflow: hidden; margin-bottom: 1.4rem; }
 .freq-toggle button {
   flex: 1; background: transparent; border: none; cursor: pointer;
   padding: 0.8rem; font-size: 0.95rem; font-weight: var(--fw-body-bold);
@@ -1933,10 +2056,10 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 }
 .freq-toggle button.active { background: var(--ink); color: var(--paper); }
 
-.amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-bottom: 1.3rem; }
+.amount-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin-bottom: 1.3rem; }
 .amount-chip {
   padding: 0.85rem 0.4rem; text-align: center;
-  border: 2px solid var(--grey-300); border-radius: 0;
+  border: 2px solid var(--grey-300); border-radius: var(--btn-radius);
   font-weight: var(--fw-body-bold); font-size: 0.95rem;
   cursor: pointer; transition: background .18s, color .18s, border-color .18s;
 }
@@ -1969,8 +2092,18 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    CONTACT
    ============================================================ */
 .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2.5rem, 5vw, 4.5rem); align-items: start; }
-.contact-item { padding: 1.25rem 0; border-top: 2px solid var(--ink); }
-.contact-item:last-of-type { border-bottom: 2px solid var(--ink); }
+/* A coloured left rule per row, cycling the brand palette — same
+   "each item gets its own accent" language as the nav links and the
+   values grid, instead of a single flat black rule top and bottom. */
+.contact-item {
+  padding: 1.1rem 0 1.1rem 1.1rem;
+  border-left: 4px solid var(--item-accent, var(--amber));
+  margin-bottom: 0.75rem;
+}
+.contact-item:nth-child(4n+1) { --item-accent: var(--amber); }
+.contact-item:nth-child(4n+2) { --item-accent: var(--teal); }
+.contact-item:nth-child(4n+3) { --item-accent: var(--coral); }
+.contact-item:nth-child(4n+4) { --item-accent: var(--green-deep); }
 .contact-item h4 {
   font-size: var(--fs-caption); letter-spacing: 0.08em;
   text-transform: uppercase; margin-bottom: 0.35rem;
@@ -2026,7 +2159,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    ============================================================ */
 .mobile-donate-fab {
   display: none; position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--near-black); color: var(--off-white) !important;
+  background: var(--coral); color: var(--paper-warm) !important;
   padding: 0.9rem 1.4rem; z-index: 998;
   font-family: var(--font-text); font-weight: var(--fw-body-bold);
   align-items: center; justify-content: center; gap: 0.5rem;
@@ -2037,12 +2170,21 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 /* ============================================================
    PAGE-LEVEL BITS
    ============================================================ */
-.cta-band .doodle--rays, .email-signup .doodle--rays { margin-bottom: 0.25rem; }
+.email-signup .doodle--rays { margin-bottom: 0.25rem; }
 
 .volunteer-intro, .donate-intro { margin-bottom: 2rem; }
 
-.check-list { border-top: 3px solid var(--ink); }
-.check-item { padding: 1.1rem 0; border-bottom: 2px solid var(--grey-300); }
+/* Same coloured left-rule language as .contact-item, instead of a
+   flat black/grey line above and below every row. */
+.check-item {
+  padding: 1.1rem 0 1.1rem 1.1rem;
+  border-left: 4px solid var(--item-accent, var(--green-deep));
+  margin-bottom: 0.75rem;
+}
+.check-item:nth-child(4n+1) { --item-accent: var(--green-deep); }
+.check-item:nth-child(4n+2) { --item-accent: var(--teal); }
+.check-item:nth-child(4n+3) { --item-accent: var(--amber); }
+.check-item:nth-child(4n+4) { --item-accent: var(--coral); }
 .check-item h4 { margin-bottom: 0.3rem; font-size: var(--fs-subhead); font-family: var(--font-display); font-weight: var(--fw-display); }
 .check-item p { font-size: 0.95rem; }
 
@@ -2075,8 +2217,11 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 
 
 /* ── Reveal ──────────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
-.reveal.in { opacity: 1; transform: none; }
+/* Elements render fully visible immediately — no fade/slide-in on
+   scroll. (The .reveal class and useReveal() hook are still applied
+   throughout the markup; this is the one line that used to hide
+   content until it scrolled into view.) */
+.reveal { opacity: 1; transform: none; }
 
 /* ============================================================
    RESPONSIVE — nav collapse

@@ -58,7 +58,7 @@ export default function Volunteer() {
                 ))}
               </div>
             </Reveal>
-            <Reveal className="form-card">
+            <Reveal className="form-card form-card--green">
               <h3>Sign up to volunteer</h3>
               <VolunteerForm />
             </Reveal>

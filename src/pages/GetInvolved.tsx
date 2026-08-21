@@ -15,6 +15,10 @@ const wayCards: ColourCard[] = getInvolved.ways.map((w, i) => ({
   linkText: w.btnText,
   doodle: DOODLES[i % DOODLES.length],
   share: w.title === 'Spread the word',
+  // Pinned off the amber slot the position cycle would otherwise give
+  // it — this page already opens on an amber hero and closes on an
+  // amber signup band, so a third amber block here read as too much.
+  tone: w.title === 'Support our cause' ? 'green' : undefined,
 }))
 
 export default function GetInvolved() {
@@ -41,7 +45,6 @@ export default function GetInvolved() {
       <EmailSignup
         titleWithEm={getInvolved.emailSignup.titleWithEm}
         body={getInvolved.emailSignup.body}
-        tone="teal"
       >
         <div className="btn-row">
           <Link to="/volunteer" className="btn btn--primary">

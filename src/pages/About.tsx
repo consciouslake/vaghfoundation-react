@@ -33,7 +33,7 @@ export default function About() {
       {/* Hero — the one full-bleed colour band the page opens on, same
           as every other inner page's header. A statement and a face,
           the way "This is who we are" opens on the reference page. */}
-      <section className="section band band--amber">
+      <section className="section band band--plum">
         <div className="wrap split about-hero">
           <Reveal>
             <span className="kicker">{about.header.eyebrow}</span>
@@ -80,20 +80,21 @@ export default function About() {
               <h2>
                 <Marked>{about.story.headingMarked}</Marked>
               </h2>
-            </Reveal>
-            <Reveal>
               {about.story.paragraphs.map((p, i) => (
                 <p key={i} className="lede">
                   <Marked>{p}</Marked>
                 </p>
               ))}
             </Reveal>
+            <Reveal className="split-image arch-tr">
+              <img src={about.story.image} alt="" />
+            </Reveal>
           </div>
         </div>
       </section>
 
       <div className="about-narrow-band">
-        <FounderSpotlight data={home.founder} />
+        <FounderSpotlight data={home.founder} tone="teal" />
       </div>
 
       {/* History — a coloured tab per era, one panel that swaps to match */}

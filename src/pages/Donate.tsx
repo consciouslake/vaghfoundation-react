@@ -36,7 +36,7 @@ export default function Donate() {
                 </p>
               </div>
             </Reveal>
-            <Reveal className="form-card">
+            <Reveal className="form-card form-card--coral">
               <h3>Make a donation</h3>
               <DonateForm amountChips={donate.amountChips} defaultChip={donate.defaultChip} />
             </Reveal>
@@ -52,7 +52,6 @@ export default function Donate() {
       <EmailSignup
         titleWithEm={donate.volunteerCta.titleWithEm}
         body={donate.volunteerCta.body}
-        tone="green"
       >
         <div className="btn-row">
           <Link to={donate.volunteerCta.btnHref} className="btn btn--primary">

@@ -1,11 +1,15 @@
-import { Fragment, useEffect, useRef } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import type { HomePage } from '../content/types'
+import { Doodle } from './Doodle'
 
 interface HeroProps {
   data: HomePage
 }
+
+/** How long each mobile slide stays up before auto-advancing. */
+const SLIDE_MS = 4500
 
 type Piece = { text: string; tag: 'plain' | 'mark' | 'em' }
 
@@ -41,6 +45,33 @@ export function Hero({ data }: HeroProps) {
   const lead = data.hero.slides[0]
   const words = toWords(data.hero.title)
   const collageRef = useRef<HTMLDivElement | null>(null)
+  const slides = data.hero.slides.slice(0, 3)
+
+  /* Mobile-only slider — one photo at a time, swipeable, auto-
+     advancing. The desktop scattered-print collage doesn't fit a
+     phone's width without prints overlapping each other, so mobile
+     gets its own full-width carousel instead of a squeezed collage. */
+  const sliderRef = useRef<HTMLDivElement | null>(null)
+  const [slideIdx, setSlideIdx] = useState(0)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const id = window.setTimeout(() => {
+      const track = sliderRef.current
+      if (!track) return
+      const nextIdx = (slideIdx + 1) % slides.length
+      track.scrollTo({ left: nextIdx * track.clientWidth, behavior: 'smooth' })
+    }, SLIDE_MS)
+    return () => window.clearTimeout(id)
+  }, [slideIdx, slides.length])
+
+  const onSliderScroll = () => {
+    const track = sliderRef.current
+    if (!track) return
+    const width = track.clientWidth || 1
+    setSlideIdx(Math.round(track.scrollLeft / width))
+  }
 
   // Pointer parallax — each print drifts a little further than the one
   // behind it. Driven through margin so it never fights the float
@@ -114,13 +145,14 @@ export function Hero({ data }: HeroProps) {
             {lead.btn2Text && lead.btn2Url ? (
               <Link to={lead.btn2Url} className="btn btn--ghost btn--pill">
                 {lead.btn2Text}
+                <Doodle name="heart" />
               </Link>
             ) : null}
           </div>
         </div>
 
         <div className="collage" ref={collageRef}>
-          {data.hero.slides.slice(0, 3).map((s, i) => (
+          {slides.map((s, i) => (
             <figure key={s.image} className={`print print--${i + 1}`}>
               <div className="print__slot">
                 <img src={s.image} alt="" />
@@ -128,6 +160,32 @@ export function Hero({ data }: HeroProps) {
               <figcaption>{data.hero.captions[i]}</figcaption>
             </figure>
           ))}
+        </div>
+
+        <div className="hero-slider">
+          <div className="hero-slider__track" ref={sliderRef} onScroll={onSliderScroll}>
+            {slides.map((s, i) => (
+              <figure key={s.image} className="hero-slider__slide">
+                <img src={s.image} alt="" />
+                <figcaption>{data.hero.captions[i]}</figcaption>
+              </figure>
+            ))}
+          </div>
+          {slides.length > 1 ? (
+            <div className="hero-slider__dots" role="tablist" aria-label="Photos">
+              {slides.map((s, i) => (
+                <span key={s.image} className={`hero-slider__dot${i === slideIdx ? ' is-active' : ''}`}>
+                  {i === slideIdx ? (
+                    <span
+                      key={slideIdx}
+                      className="hero-slider__timer"
+                      style={{ animationDuration: `${SLIDE_MS}ms` }}
+                    />
+                  ) : null}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

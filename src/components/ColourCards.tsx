@@ -1,10 +1,21 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { Href, MarkedText, Src } from '../content/types'
 import { Marked } from './Marked'
 import { ArrowRight } from './ArrowRight'
 import { Doodle } from './Doodle'
 import { ShareMenu } from './ShareMenu'
+
+type CardTone = 'amber' | 'coral' | 'teal' | 'blue' | 'green' | 'plum'
+
+const TONE_VAR: Record<CardTone, string> = {
+  amber: 'var(--amber)',
+  coral: 'var(--coral)',
+  teal: 'var(--teal)',
+  blue: 'var(--blue-deep)',
+  green: 'var(--green-deep)',
+  plum: 'var(--plum)',
+}
 
 export interface ColourCard {
   /** Caps meta label above the title. */
@@ -17,6 +28,8 @@ export interface ColourCard {
   doodle?: 'squiggle-arrow' | 'steps' | 'rays'
   /** Swaps the footer link for a social-share picker instead of navigating. */
   share?: boolean
+  /** Pin this card to a specific brand colour instead of the position-based cycle. */
+  tone?: CardTone
 }
 
 interface ColourCardsProps {
@@ -79,16 +92,19 @@ export function ColourCards({ items, notes, perView = 3, label }: ColourCardsPro
     setIndex(Math.round(row.scrollLeft / width))
   }, [])
 
+  const fillStyle = (card: ColourCard) =>
+    card.tone ? ({ '--ccard-fill': TONE_VAR[card.tone] } as CSSProperties) : undefined
+
   if (notes) {
     return (
       <div className="ccards ccards--notes">
         {items.map((card) =>
           card.href ? (
-            <Link key={card.title} to={card.href} className="ccard">
+            <Link key={card.title} to={card.href} className="ccard" style={fillStyle(card)}>
               <CardInner card={card} />
             </Link>
           ) : (
-            <div key={card.title} className="ccard">
+            <div key={card.title} className="ccard" style={fillStyle(card)}>
               <CardInner card={card} />
             </div>
           ),
@@ -107,11 +123,11 @@ export function ColourCards({ items, notes, perView = 3, label }: ColourCardsPro
       >
         {items.map((card) =>
           card.href ? (
-            <Link key={card.title} to={card.href} className="ccard">
+            <Link key={card.title} to={card.href} className="ccard" style={fillStyle(card)}>
               <CardInner card={card} />
             </Link>
           ) : (
-            <div key={card.title} className="ccard">
+            <div key={card.title} className="ccard" style={fillStyle(card)}>
               <CardInner card={card} />
             </div>
           ),

@@ -7,7 +7,7 @@ import { StatementQuote } from '../components/StatementQuote'
 import { SectionHead } from '../components/SectionHead'
 import { CausesMosaic } from '../components/CausesMosaic'
 import { Gallery } from '../components/Gallery'
-import { CTATogether } from '../components/CTATogether'
+import { EmailSignup } from '../components/EmailSignup'
 
 export default function Home() {
   return (
@@ -55,7 +55,18 @@ export default function Home() {
         </div>
       </section>
 
-      <CTATogether data={home.cta} />
+      {/* Same closing-band component every other page ends on, so the
+          last thing a visitor sees is consistent site to site. */}
+      <EmailSignup titleWithEm={home.cta.headingMarked} body={home.cta.body}>
+        <div className="btn-row">
+          <Link to={home.cta.btn1Href} className="btn btn--primary">
+            {home.cta.btn1Text}
+          </Link>
+          <Link to={home.cta.btn2Href} className="btn btn--ghost">
+            {home.cta.btn2Text}
+          </Link>
+        </div>
+      </EmailSignup>
     </div>
   )
 }

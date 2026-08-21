@@ -267,6 +267,7 @@ export interface AboutPage {
     eyebrow: string
     headingMarked: MarkedText
     paragraphs: MarkedText[]
+    image: Src
   }
   timeline: {
     eyebrow: string
