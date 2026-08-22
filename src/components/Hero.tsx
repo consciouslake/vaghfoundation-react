@@ -165,8 +165,10 @@ export function Hero({ data }: HeroProps) {
         <div className="hero-slider">
           <div className="hero-slider__track" ref={sliderRef} onScroll={onSliderScroll}>
             {slides.map((s, i) => (
-              <figure key={s.image} className="hero-slider__slide">
-                <img src={s.image} alt="" />
+              <figure key={s.image} className={`hero-slider__slide hero-slider__slide--${i + 1}`}>
+                <div className="hero-slider__slot">
+                  <img src={s.image} alt="" />
+                </div>
                 <figcaption>{data.hero.captions[i]}</figcaption>
               </figure>
             ))}

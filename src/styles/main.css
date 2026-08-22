@@ -681,6 +681,10 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 
 .print__slot { width: 100%; height: 100%; overflow: hidden; border-radius: 4px; background: var(--sand); }
 .print__slot img { width: 100%; height: 100%; object-fit: cover; }
+/* These are tall portrait photos going into a wider-than-tall frame —
+   a centred crop cut people's heads off the top. */
+.print--1 .print__slot img,
+.print--3 .print__slot img { object-position: top; }
 .print figcaption {
   position: absolute; left: 0; right: 0; bottom: 15px;
   text-align: center;
@@ -742,26 +746,34 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  border-radius: 20px;
 }
 .hero-slider__track::-webkit-scrollbar { display: none; }
+/* Each slide is a colour-block polaroid card, same palette and
+   frame-with-inset-photo language as the desktop collage — not a
+   full-bleed photo with a caption overlaid on a dark scrim, which
+   didn't read as "part of the same design" as everything else. */
 .hero-slider__slide {
-  position: relative;
   flex: 0 0 100%;
   scroll-snap-align: start;
+  background: var(--slide-fill, var(--amber));
+  padding: 1rem 1rem 1.25rem;
+  border-radius: 20px;
+}
+.hero-slider__slide--1 { --slide-fill: var(--amber); }
+.hero-slider__slide--2 { --slide-fill: var(--teal); }
+.hero-slider__slide--3 { --slide-fill: var(--coral); }
+.hero-slider__slot {
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  border-radius: 12px;
   background: var(--sand);
 }
-.hero-slider__slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.hero-slider__slide::after {
-  content: ""; position: absolute; inset: auto 0 0 0; height: 55%;
-  background: linear-gradient(to top, rgba(15, 13, 11, 0.82), transparent);
-  pointer-events: none;
-}
+.hero-slider__slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-slider__slide--1 .hero-slider__slot img,
+.hero-slider__slide--3 .hero-slider__slot img { object-position: top; }
 .hero-slider__slide figcaption {
-  position: absolute; left: 1.1rem; right: 1.1rem; bottom: 0.9rem;
-  color: var(--paper);
+  margin-top: 0.75rem;
+  color: var(--ink);
   font-family: var(--font-display); font-weight: 700; font-size: 1.0625rem;
 }
 .hero-slider__dots {
@@ -1293,6 +1305,10 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   .cause, .cause--1, .cause--2, .cause--3, .cause--4 {
     grid-column: auto; grid-row: auto; min-height: 14rem; flex-direction: column;
   }
+  /* .cause--4's align-items: center is only meant for its desktop
+     side-by-side row — stacked to a column here, it left the icon
+     and text centred instead of flush left like the other cards. */
+  .cause--4 { align-items: stretch; }
 }
 
 /* ============================================================
