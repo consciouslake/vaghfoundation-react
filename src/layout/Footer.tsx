@@ -13,7 +13,7 @@ export function Footer() {
           <div>
             <img src={site.logoLight} alt={site.brand} className="f-logo" />
             <p className="f-tagline">{site.footerTagline}</p>
-            <Link to="/donate" className="btn btn--donate footer-donate">
+            <Link to="/donate#donate-form" className="btn btn--donate footer-donate">
               Donate <Doodle name="heart" />
             </Link>
             <div className="footer-social">

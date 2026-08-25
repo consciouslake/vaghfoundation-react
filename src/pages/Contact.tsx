@@ -28,7 +28,7 @@ export default function Contact() {
               </h2>
               <ContactRows items={contact.items} />
             </Reveal>
-            <Reveal className="form-card form-card--teal">
+            <Reveal className="form-card form-card--teal" id="contact-form">
               <h3>Send us a message</h3>
               <ContactForm />
             </Reveal>

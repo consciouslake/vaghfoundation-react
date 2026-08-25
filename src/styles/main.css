@@ -471,11 +471,14 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 /* Each nav item's underline matches that page's own hero band colour,
    so hovering (or landing on) a page never shows a mismatched accent —
    Contact's link underlines teal because Contact's hero is teal, etc. */
-.nav-links a[href="/"]             { --nav-accent: var(--amber); }
-.nav-links a[href="/about"]        { --nav-accent: var(--plum); }
-.nav-links a[href="/what-we-do"]   { --nav-accent: var(--blue-deep); }
-.nav-links a[href="/get-involved"] { --nav-accent: var(--amber); }
-.nav-links a[href="/contact"]      { --nav-accent: var(--teal); }
+/* [href^=] (starts-with), not [href=] — Contact and Donate now link
+   straight to their form section (e.g. /contact#contact-form), so an
+   exact match would silently stop matching them. */
+.nav-links a[href="/"]              { --nav-accent: var(--amber); }
+.nav-links a[href^="/about"]        { --nav-accent: var(--plum); }
+.nav-links a[href^="/what-we-do"]   { --nav-accent: var(--blue-deep); }
+.nav-links a[href^="/get-involved"] { --nav-accent: var(--amber); }
+.nav-links a[href^="/contact"]      { --nav-accent: var(--teal); }
 .nav-links a:hover { text-decoration-color: var(--nav-accent, var(--amber)); }
 .nav-links a.active {
   text-decoration-color: var(--nav-accent, var(--amber));
@@ -672,7 +675,9 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .print {
   position: absolute;
   background: var(--print-fill, var(--paper-warm));
-  padding: 0.75rem 0.75rem 2.875rem;
+  /* Extra bottom padding — captions are content-driven and can run
+     to two lines; the old 2.875rem only really had room for one. */
+  padding: 0.75rem 0.75rem 3.5rem;
   border-radius: 8px;
   box-shadow: 0 24px 50px rgba(20, 18, 16, 0.15);
   animation: printFloat 6s ease-in-out infinite;
@@ -686,18 +691,22 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .print--1 .print__slot img,
 .print--3 .print__slot img { object-position: top; }
 .print figcaption {
-  position: absolute; left: 0; right: 0; bottom: 15px;
+  position: absolute; left: 0.4rem; right: 0.4rem; bottom: 15px;
   text-align: center;
   font-family: var(--font-display);
   font-size: 0.8125rem; font-weight: 700;
+  line-height: 1.3;
   color: var(--ink);
 }
 .print:hover { rotate: 0deg; scale: 1.04; z-index: 5; }
 
 /* Each polaroid frame carries its own brand colour instead of the
    same plain off-white, same rotating-palette treatment as every
-   other card grid on the site. */
-.print--1 { --print-fill: var(--amber); width: 18rem; height: 20.125rem; top: 0; right: 0.75rem; rotate: 4deg; z-index: 1; }
+   other card grid on the site. print--1 sits on top of the stack:
+   its caption can run to two lines (captions are content-driven and
+   vary in length), and with a lower z-index than print--2 the second
+   line was getting covered by the card overlapping it. */
+.print--1 { --print-fill: var(--amber); width: 18rem; height: 20.125rem; top: 0; right: 0.75rem; rotate: 4deg; z-index: 4; }
 .print--1 .print__slot { height: 14.75rem; }
 .print--2 { --print-fill: var(--teal); width: 13.375rem; height: 15.625rem; bottom: 1.5rem; left: -1.875rem; rotate: -6deg; z-index: 3; animation-delay: -2s; }
 .print--2 .print__slot { height: 10.375rem; }
@@ -774,6 +783,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .hero-slider__slide figcaption {
   margin-top: 0.75rem;
   color: var(--ink);
+  text-align: center;
   font-family: var(--font-display); font-weight: 700; font-size: 1.0625rem;
 }
 .hero-slider__dots {
@@ -950,9 +960,11 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   letter-spacing: var(--tracking-display);
   color: var(--ink-warm);
   max-width: 26ch;
+  margin-inline: auto;
+  text-align: center;
 }
 .statement-band__text mark { color: var(--ink-warm); text-decoration-color: var(--ink-warm); }
-.statement-section .doodle--rays { margin-bottom: -0.5rem; color: var(--ink-warm); }
+.statement-section .doodle--rays { margin-bottom: -0.5rem; margin-inline: auto; color: var(--ink-warm); }
 
 /* ============================================================
    COLOUR CARDS — full-bleed row, arch-cornered image inset,
@@ -1702,7 +1714,11 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .split-image img { width: 100%; height: 100%; object-fit: cover; }
 
 .initiative { margin-bottom: clamp(3rem, 7vw, 5.5rem); scroll-margin-top: 6rem; }
-.initiative__media { border-radius: 0 var(--card-radius-lg) 0 0; }
+/* These photos are wide landscape shots — the shared .split-image's
+   fixed 5:4 box was cropping people off both edges. Let the image
+   keep its own natural ratio instead, so the whole shot is visible. */
+.initiative__media { aspect-ratio: auto; border-radius: 0 var(--card-radius-lg) 0 0; }
+.initiative__media img { height: auto; object-fit: contain; }
 .initiative--flip .initiative__media { border-radius: var(--card-radius-lg) 0 0 0; }
 .initiative__label {
   font-size: var(--fs-caption); font-weight: var(--fw-body-bold);
@@ -2031,6 +2047,9 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   color: var(--ink);
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   border-radius: var(--card-radius-lg) 0 var(--card-radius-lg) 0;
+  /* Donate links jump straight to #donate-form — this keeps the
+     fixed mobile nav from covering its top edge on arrival. */
+  scroll-margin-top: 6rem;
 }
 .form-card--teal  { --form-fill: var(--teal);       color: var(--off-white); }
 .form-card--green { --form-fill: var(--green-deep); color: var(--off-white); }

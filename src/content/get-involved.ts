@@ -19,7 +19,7 @@ export const getInvolved: GetInvolvedPage = {
       title: 'Support our cause',
       body: 'Your generosity fuels our work. Every contribution, big or small, helps us extend nourishment, peace, learning, and care to more lives.',
       btnText: 'Donate now',
-      btnHref: '/donate',
+      btnHref: '/donate#donate-form',
     },
     {
       title: 'Volunteer your time',
@@ -35,7 +35,7 @@ export const getInvolved: GetInvolvedPage = {
       title: 'Partner with us',
       body: 'Are you an organization that shares our values? Let’s collaborate to create a greater collective impact.',
       btnText: 'Start a conversation',
-      btnHref: '/contact',
+      btnHref: '/contact#contact-form',
     },
   ],
   emailSignup: {

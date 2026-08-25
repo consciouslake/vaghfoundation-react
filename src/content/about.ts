@@ -8,7 +8,7 @@ export const about: AboutPage = {
     image: '/images/about-hero.png',
   },
   gateMission: {
-    image: '/images/about-mission.png',
+    image: '/images/about-section-1.png',
     kicker: 'Our mission',
     titleMarked: 'To serve with <mark>humility</mark> and heart.',
     desc: 'To serve communities through thoughtful initiatives that nurture the body, calm the mind, enrich the spirit, and protect the world around us.',
@@ -22,7 +22,7 @@ export const about: AboutPage = {
       'Vagh Foundation was born from a simple yet powerful belief: that meaningful change is created not through grand gestures alone, but through consistent, heartfelt acts of service.',
       'Our work is guided not by recognition, but by the genuine difference we can make in everyday lives: quietly, patiently, and with lasting care.',
     ],
-    image: '/images/home-our-story.jpg',
+    image: '/images/about-section-2.png',
   },
   timeline: {
     eyebrow: 'Our journey',

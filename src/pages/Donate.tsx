@@ -36,7 +36,7 @@ export default function Donate() {
                 </p>
               </div>
             </Reveal>
-            <Reveal className="form-card form-card--coral">
+            <Reveal className="form-card form-card--coral" id="donate-form">
               <h3>Make a donation</h3>
               <DonateForm amountChips={donate.amountChips} defaultChip={donate.defaultChip} />
             </Reveal>

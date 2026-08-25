@@ -25,11 +25,11 @@ export const site: Site = {
     { label: 'About',        href: '/about' },
     { label: 'What we do',   href: '/what-we-do' },
     { label: 'Get involved', href: '/get-involved' },
-    { label: 'Contact',      href: '/contact' },
+    { label: 'Contact',      href: '/contact#contact-form' },
   ],
   footerAct: [
     { label: 'Volunteer',       href: '/volunteer' },
-    { label: 'Donate',          href: '/donate' },
+    { label: 'Donate',          href: '/donate#donate-form' },
     { label: 'Partner with us', href: '/get-involved' },
   ],
 }

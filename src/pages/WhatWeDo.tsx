@@ -41,7 +41,7 @@ export default function WhatWeDo() {
           <Link to="/volunteer" className="btn btn--primary">
             Volunteer with us
           </Link>
-          <Link to="/donate" className="btn btn--ghost">
+          <Link to="/donate#donate-form" className="btn btn--ghost">
             Make a donation
           </Link>
         </div>

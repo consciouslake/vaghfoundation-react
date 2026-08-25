@@ -4,7 +4,7 @@ export const home: HomePage = {
   hero: {
     eyebrow: 'Compassion in action',
     title: 'Small acts of <mark>kindness,</mark> gathered into <em>extraordinary</em> change.',
-    captions: ['Children we walk with', 'A meal, shared', 'Families we serve'],
+    captions: ['Health, Education, and Hope for every child', 'Meal support initiatives', 'Our Partner Families'],
     slides: [
       {
         image: '/images/hero-slide-1.jpg',
@@ -14,7 +14,7 @@ export const home: HomePage = {
         btnText: 'Get involved',
         btnUrl: '/get-involved',
         btn2Text: 'Support our work',
-        btn2Url: '/donate',
+        btn2Url: '/donate#donate-form',
       },
       {
         image: '/images/hero-slide-2.png',
@@ -58,7 +58,7 @@ export const home: HomePage = {
         span: 'big',
         slides: [
           { image: '/images/story-1-warm-meal.png', caption: 'A midday meal, shared' },
-          { image: '/images/pillar-1-nourishment.png', caption: 'Food for every child' },
+          { image: '/images/nourishment-slide-2.jpeg', caption: 'Food for every child' },
           { image: '/images/wwd-nourishment.png', caption: 'Reaching the last mile' },
         ],
       },
@@ -78,7 +78,7 @@ export const home: HomePage = {
         caption: 'Listening first',
         slides: [
           { image: '/images/home-our-story.jpg', caption: 'Listening first' },
-          { image: '/images/about-mission.png', caption: 'Building trust, together' },
+          { image: '/images/community-slide-2.jpeg', caption: 'Building trust, together' },
           { image: '/images/about-hero.png', caption: 'Rooted in community' },
         ],
       },
@@ -89,8 +89,8 @@ export const home: HomePage = {
         span: 'tall',
         slides: [
           { image: '/images/story-2-community-teach.png', caption: 'A class in the open' },
-          { image: '/images/pillar-3-learning.png', caption: 'Knowledge as a right' },
-          { image: '/images/wwd-learning.png', caption: 'Every child, every lesson' },
+          { image: '/images/learning-slide-2.jpeg', caption: 'Knowledge as a right' },
+          { image: '/images/learning-slide-3.jpeg', caption: 'Every child, every lesson' },
         ],
       },
       {
@@ -100,19 +100,19 @@ export const home: HomePage = {
         span: 'tall',
         slides: [
           { image: '/images/home-our-work.jpg', caption: 'Hands in the soil' },
-          { image: '/images/volunteer-hero.png', caption: 'Showing up, every drive' },
+          { image: '/images/volunteers-slide-2.jpeg', caption: 'Showing up, every drive' },
           { image: '/images/gi-hero.png', caption: 'A movement of quiet service' },
         ],
       },
       {
-        image: '/images/wwd-planet.png',
+        image: '/images/planet-slide-1.jpeg',
         category: 'Our planet',
         caption: 'Planting day',
         span: 'wide',
         slides: [
-          { image: '/images/wwd-planet.png', caption: 'Planting day' },
-          { image: '/images/pillar-4-planet.png', caption: 'Care for the earth we share' },
-          { image: '/images/home-compassion-in-action.png', caption: 'Growing something green' },
+          { image: '/images/planet-slide-1.jpeg', caption: 'Planting day' },
+          { image: '/images/planet-slide-2.jpeg', caption: 'Care for the earth we share' },
+          { image: '/images/planet-slide-3.jpeg', caption: 'Growing something green' },
         ],
       },
     ],
@@ -215,6 +215,6 @@ export const home: HomePage = {
     btn1Text: 'Volunteer with us',
     btn1Href: '/volunteer',
     btn2Text: 'Make a donation',
-    btn2Href: '/donate',
+    btn2Href: '/donate#donate-form',
   },
 }
