@@ -71,7 +71,13 @@
   --fs-body:       1rem;
   --fs-caption:    0.75rem;
 
-  --lh-display:    0.94;     /* near-negative leading — the signature move */
+  /* Was 0.94 (lines packed tighter than their own box, "the signature
+     move") — but that meant a native per-line text-selection highlight
+     overlapped the line above/below it, since the selection box is as
+     tall as the line-height and the lines sit closer together than
+     that. 1.02 is the least loosening that stops lines' boxes from
+     overlapping, while staying close to the original tight stack. */
+  --lh-display:    1.02;
   --lh-title:      1.05;
   --lh-body:       1.6;
   --tracking-display: -0.03em;
@@ -96,7 +102,12 @@
 
   --maxw:   75rem;             /* 1200px */
   --maxw-r: 48rem;
-  --pad:    clamp(1.25rem, 5vw, 7.5rem);
+  /* Mozilla's own reference CSS uses the same 75rem container (see
+     --maxw) but a much narrower side gutter (~4rem at desktop, not
+     7.5rem) — ours was eating further into that shared max-width,
+     so the actual reading column ran noticeably narrower than theirs
+     even though the container itself was sized the same. */
+  --pad:    clamp(1.25rem, 4vw, 4rem);
   /* The one vertical rhythm used between every section on every page.
      Two sections back to back always add up to the same gap, because
      every section contributes the same padding — no "tight" variant
@@ -1748,7 +1759,13 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 
 /* Hero photo: wider column + full section height fill.
    .page-hero is the generic class used by PageHeader (all inner pages).
-   .about-hero is kept as an alias for the About page's custom section. */
+   .about-hero is kept as an alias for the About page's custom section.
+   No padding-block or min-height added here on purpose — this band
+   uses exactly the same ambient .section padding every other section
+   gets. The row's height is set by the image's own min-height below;
+   align-items: stretch (not center) makes the image fill that row
+   exactly, so the visible gap above/below is only ever the section's
+   normal padding, never a second, separate margin stacked on top. */
 @media (min-width: 64.0625em) {
   .about-hero,
   .page-hero {
@@ -1757,9 +1774,9 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   }
   .about-hero .split-image,
   .page-hero .split-image {
-    aspect-ratio: unset;   /* fill height naturally */
-    min-height: 26rem;
-    height: 100%;          /* actually use the stretched row height */
+    aspect-ratio: unset;
+    min-height: 32rem;
+    height: 100%;
     align-self: stretch;
   }
 }
@@ -2081,6 +2098,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
 .form-note { font-size: 0.8rem; color: inherit; opacity: 0.75; margin-top: 0.6rem; }
+.form-note--error { color: var(--coral); opacity: 1; font-weight: var(--fw-body-bold); }
 .form-card .btn--block { padding: 0.75rem 1.5rem; }
 
 .freq-toggle { display: flex; border: 2px solid var(--ink); border-radius: var(--btn-radius); overflow: hidden; margin-bottom: 1.4rem; }

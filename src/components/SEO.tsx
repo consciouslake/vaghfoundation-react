@@ -16,12 +16,16 @@ const SITE_URL = 'https://vaghfoundation.org'
 
 export function SEO({ title, description, image, path }: SEOProps) {
   const fullTitle = `${title} | ${site.brand}`
-  const ogImage = image ?? site.logoLight
+  const imagePath = image ?? site.logoLight
+  // OG/Twitter crawlers don't resolve relative image URLs against the
+  // page — must be absolute, or link previews show a broken image.
+  const ogImage = imagePath.startsWith('http') ? imagePath : `${SITE_URL}${imagePath}`
   const url = path ? `${SITE_URL}${path}` : SITE_URL
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      <meta name="robots" content="index, follow" />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />

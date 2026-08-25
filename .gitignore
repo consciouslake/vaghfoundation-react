@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Env files — real keys live in .env.local (gitignored via *.local
+# above), but keep this here too as an explicit backstop.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
