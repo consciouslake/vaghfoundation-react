@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="home">
       <SEO
-        title="Compassion in action, service at heart"
+        title="Home"
         description="Vagh Foundation nurtures lives and nourishes communities through everyday acts of compassion: food, wellbeing, learning, and care for the planet."
         path="/"
       />
@@ -33,12 +33,6 @@ export default function Home() {
             intro={home.pillars.sub}
           />
           <CausesMosaic data={home.pillars} />
-
-          <div className="causes__cta">
-            <Link to={home.pillars.btnHref} className="btn btn--primary">
-              {home.pillars.btnText}
-            </Link>
-          </div>
         </div>
       </section>
 

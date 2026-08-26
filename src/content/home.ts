@@ -7,7 +7,7 @@ export const home: HomePage = {
     captions: ['Health, Education, and Hope for every child', 'Meal support initiatives', 'Our Partner Families'],
     slides: [
       {
-        image: '/images/hero-slide-1.jpg',
+        image: '/images/hero-slide-1.png',
         h1Line1: 'Nurturing lives.',
         h1Line2: 'Nourishing communities.',
         lede: 'We believe lasting change begins with compassion in action. Through everyday acts of giving and support, we work toward a world where wellbeing, dignity, and opportunity reach everyone.',

@@ -1222,117 +1222,313 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .section-head .rule-sm { display: block; }
 
 /* ============================================================
-   CAUSES MOSAIC — the four causes, uneven by design: one tall,
-   two small, one wide. Rounded, saturated, and the loudest thing
-   on the page.
+   CAUSES MOSAIC — cmos namespace.
+   Two-column grid: LEFT = active cause (tall, photo + text);
+   RIGHT = three stacked preview tiles (coloured, no photo).
+   BELOW = one flex bar: [CTA btn ........... counter ← →]
    ============================================================ */
-.causes {
+
+/* ── Outer grid wrapper ──────────────────────────────────── */
+.cmos {
   display: grid;
-  grid-template-columns: 1.05fr 1fr 1fr;
-  grid-auto-rows: minmax(15rem, auto);
-  gap: clamp(0.85rem, 1.5vw, 1.375rem);
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: repeat(3, 1fr);
+  gap: clamp(0.6rem, 1vw, 1rem);
+  /* Height: fills ~52% of the viewport but never more than 34rem
+     so the heading + bar all stay on screen without scrolling. */
+  height: clamp(20rem, 52vh, 34rem);
 }
-.cause {
-  position: relative;
-  display: flex; flex-direction: column; justify-content: space-between;
-  gap: 1.5rem;
+
+/* ── Active card (left column, spans all 3 rows) ─────────── */
+.cmos__active {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
   overflow: hidden;
-  padding: clamp(1.5rem, 2.4vw, 2.125rem);
-  border-radius: 26px;
-  background: var(--cause-fill);
-  color: var(--paper-warm);
+  border-radius: 22px;
+  background: var(--cmos-fill, var(--amber));
+  color: var(--cmos-ink, var(--paper-warm));
   isolation: isolate;
-  transition: translate .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+  gap: 0;
+  transition: box-shadow .35s;
 }
-/* Fills come from the wordmark's own teal→blue→green, with amber as
-   the warm fourth for nourishment. */
-.cause--1 { --cause-fill: var(--amber); grid-row: span 2; color: var(--ink-warm); }
-.cause--2 { --cause-fill: var(--teal); grid-column: 2; }
-.cause--3 { --cause-fill: var(--blue-deep); grid-column: 3; }
-.cause--4 { --cause-fill: var(--green-deep); grid-column: 2 / span 2; }
-.cause:hover { translate: 0 -8px; box-shadow: 0 26px 44px -22px rgba(20, 18, 16, 0.5); }
 
-/* A soft light that follows the card into its hover state */
-.cause__glow {
-  position: absolute; inset: -40% -10% auto -10%; height: 80%;
-  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.35), transparent);
-  opacity: 0; transition: opacity .35s, translate .35s;
-  z-index: -1;
+/* Photo — left portion, fills the full card height */
+.cmos__photo {
+  flex: 0 0 42%;
+  align-self: stretch;
+  overflow: hidden;
+  border-radius: 22px 0 0 22px;
+  background: rgba(20, 18, 16, 0.15);
+  animation: cmosPhotoIn .55s cubic-bezier(.2,.8,.2,1) both;
 }
-.cause:hover .cause__glow { opacity: 1; translate: 0 12%; }
+@keyframes cmosPhotoIn {
+  from { opacity: 0; transform: translateX(-14px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+.cmos__photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center center;   /* show the middle — no top clipping */
+  transition: scale .5s cubic-bezier(.2,.8,.2,1);
+  display: block;
+}
+.cmos__active:hover .cmos__photo img { scale: 1.05; }
 
-/* The icon sits in a small arch niche — the wordmark shape again, at
-   the scale of a doorway rather than a picture frame. */
-.cause__arch {
+/* Text body — right portion */
+.cmos__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: clamp(1.125rem, 2vw, 1.875rem);
+  min-width: 0;
+}
+
+/* Arch icon badge */
+.cmos__arch {
   display: grid; place-items: center;
-  width: 3.5rem; height: 4rem;
+  width: 3.25rem; height: 3.75rem;
   border-radius: 999px 999px 8px 8px;
-  background: rgba(255, 255, 255, 0.22);
-  transition: translate .35s cubic-bezier(.2,.8,.2,1), background .35s;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  transition: translate .3s, background .3s;
 }
-.cause--1 .cause__arch { background: rgba(20, 18, 16, 0.14); }
-.cause:hover .cause__arch { translate: 0 -5px; background: rgba(255, 255, 255, 0.34); }
-.cause--1:hover .cause__arch { background: rgba(20, 18, 16, 0.22); }
+.cmos__active[style*='--amber'] .cmos__arch,
+.cmos__active[style*='amber']   .cmos__arch { background: rgba(20, 18, 16, 0.12); }
+.cmos__active:hover .cmos__arch { translate: 0 -4px; }
 
-.cause__title {
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
+/* Active card typography */
+.cmos__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  line-height: var(--lh-display);
+  font-weight: 700;
   color: inherit;
-  margin-bottom: 0.5rem;
 }
-.cause__desc { font-size: 1rem; max-width: 36ch; margin-bottom: 1rem; opacity: 0.95; }
-.cause__go {
+.cmos__desc {
+  font-size: clamp(0.875rem, 1.15vw, 1rem);
+  line-height: 1.55;
+  opacity: 0.92;
+  max-width: 34ch;
+  flex: 1;
+}
+.cmos__go {
   display: inline-flex; align-items: center; gap: 0.45rem;
-  font-family: var(--font-display); font-weight: 700; font-size: 0.9375rem;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 0.9rem;
   padding-bottom: 3px;
   border-bottom: 2px solid currentColor;
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
   transition: gap .22s;
 }
-.cause:hover .cause__go { gap: 0.8rem; }
+.cmos__active:hover .cmos__go { gap: 0.8rem; }
 
-/* The lead plate leads: bigger title, and a pinned print of its subject */
-.cause--1 .cause__title { font-size: clamp(1.6rem, 2.6vw, 2.125rem); }
-.cause--1 .cause__arch { width: 4.25rem; height: 5rem; }
-.cause__print {
-  flex: 1;
-  min-height: 8rem;
-  border-radius: 999px 999px 12px 12px;
+/* ── Preview tiles (right column, rows 1–3) ──────────────── */
+.cmos__preview {
+  grid-column: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(0.65rem, 1.2vw, 1rem);
+  padding: clamp(0.875rem, 1.5vw, 1.25rem);
+  border-radius: 18px;
+  background: var(--cmos-fill, var(--teal));
+  color: var(--cmos-ink, var(--paper-warm));
+  cursor: pointer;
+  user-select: none;
   overflow: hidden;
-  background: rgba(20, 18, 16, 0.1);
+  isolation: isolate;
+  transition: translate .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, filter .2s;
 }
-.cause__print img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: scale .5s cubic-bezier(.2,.8,.2,1);
-}
-.cause--1:hover .cause__print img { scale: 1.06; }
-@media (max-width: 64em) { .cause__print { display: none; } }
-
-.plate-foot {
-  text-align: center;
-  font-family: var(--font-display);
-  font-style: italic; font-size: 1rem;
-  color: var(--slate);
-  margin: clamp(1.75rem, 3vw, 2.25rem) auto 0;
-  max-width: none;
+.cmos__preview:hover {
+  translate: 0 -3px;
+  box-shadow: 0 14px 32px -12px rgba(20, 18, 16, 0.45);
+  filter: brightness(1.07);
 }
 
-/* The wide card runs its niche beside the copy */
-.cause--4 { flex-direction: row; align-items: center; gap: clamp(1.5rem, 4vw, 3rem); }
-.cause--4 .cause__arch { flex: 0 0 auto; }
-.cause--4 .cause__body { flex: 1; }
-.cause--4 .cause__desc { max-width: 46ch; }
+/* Grid-row classes (CSS classes, NOT inline styles, so breakpoints can reset them) */
+.cmos__preview--r1 { grid-row: 1; }
+.cmos__preview--r2 { grid-row: 2; }
+.cmos__preview--r3 { grid-row: 3; }
 
-.causes__cta { margin-top: clamp(1.75rem, 3.5vw, 3rem); }
+/* Small arch badge */
+.cmos__parch {
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  width: 2.625rem; height: 3rem;
+  border-radius: 999px 999px 6px 6px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: translate .3s, background .3s;
+}
+.cmos__preview:hover .cmos__parch { translate: 0 -3px; background: rgba(255,255,255,0.3); }
 
-@media (max-width: 64em) {
-  .causes { grid-template-columns: 1fr; grid-auto-rows: auto; }
-  .cause, .cause--1, .cause--2, .cause--3, .cause--4 {
-    grid-column: auto; grid-row: auto; min-height: 14rem; flex-direction: column;
+/* Preview body */
+.cmos__pbody {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.cmos__ptitle {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+  line-height: 1.2; color: inherit;
+}
+.cmos__pgo {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 0.78rem;
+  padding-bottom: 2px; border-bottom: 1.5px solid currentColor;
+  text-decoration: none; color: inherit;
+  width: fit-content; opacity: 0.82;
+  transition: gap .2s, opacity .2s;
+}
+.cmos__preview:hover .cmos__pgo { gap: 0.55rem; opacity: 1; }
+
+/* ── Bottom bar: CTA left  |  counter + arrows right ────── */
+.cmos__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: clamp(0.6rem, 1.1vw, 0.875rem);
+}
+
+/* "Explore what we do" sits at the left edge of the bar */
+.cmos__explore {
+  /* inherits .btn .btn--primary — just tweak sizing to match arrow btns */
+  font-size: 0.875rem;
+  padding-inline: 1.1rem;
+  height: 2.75rem;
+}
+
+/* Counter + arrows cluster on the right */
+.cmos__nav {
+  display: flex; align-items: center; gap: 0.65rem;
+}
+.cmos__count {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 0.875rem; color: var(--slate);
+  min-width: 2.25rem;
+}
+.cmos__btn {
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: transparent; color: var(--ink);
+  cursor: pointer;
+  transition: background .2s, color .2s, translate .2s;
+}
+.cmos__btn:hover { background: var(--ink); color: var(--paper); translate: 0 -2px; }
+.cmos__btn--next { background: var(--amber); border-color: var(--amber); color: var(--ink-warm); }
+.cmos__btn--next:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+/* ── Tablet (≤960px): 2-col top, 3-col preview row below ── */
+@media (max-width: 60em) {
+  .cmos {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    height: unset; min-height: unset;
+    gap: clamp(0.5rem, 1vw, 0.75rem);
   }
-  /* .cause--4's align-items: center is only meant for its desktop
-     side-by-side row — stacked to a column here, it left the icon
-     and text centred instead of flush left like the other cards. */
-  .cause--4 { align-items: stretch; }
+  /* Active card spans all 3 cols on row 1 */
+  .cmos__active {
+    grid-column: 1 / span 3;
+    grid-row: 1;
+    min-height: 14rem;
+    border-radius: 18px;
+  }
+  /* Previews sit side-by-side on row 2 */
+  .cmos__preview {
+    grid-column: auto;
+    grid-row: 2 !important;         /* override r1/r2/r3 classes */
+  }
+  .cmos__preview--r1,
+  .cmos__preview--r2,
+  .cmos__preview--r3 { grid-row: 2; }  /* reinforce for specificity */
+  .cmos__preview {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 7rem;
+  }
+  /* Smaller padding in active body */
+  .cmos__body { padding: 1.25rem; gap: 0.5rem; }
+  .cmos__bar { flex-wrap: wrap; gap: 0.5rem; }
 }
+
+/* ── Mobile (≤480px): single-column, full fits on screen ── */
+@media (max-width: 30em) {
+  .cmos {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 0.5rem;
+    height: unset;
+  }
+
+  /* Active card: compact ROW layout (photo left, text right) */
+  .cmos__active {
+    grid-column: 1;
+    grid-row: auto;
+    flex-direction: row;           /* keep photo + text side by side */
+    min-height: 8.5rem;
+    border-radius: 16px;
+  }
+  .cmos__photo {
+    flex: 0 0 36%;                 /* narrower photo column */
+    border-radius: 16px 0 0 16px;
+  }
+  .cmos__body {
+    padding: 0.875rem 1rem;
+    gap: 0.4rem;
+  }
+  /* Hide description on mobile — saves ~3rem per card */
+  .cmos__desc { display: none; }
+  .cmos__arch {
+    width: 2.5rem; height: 2.875rem;
+  }
+  .cmos__title { font-size: 1.05rem; }
+  .cmos__go { font-size: 0.825rem; }
+
+  /* Preview tiles: compact horizontal rows */
+  .cmos__preview,
+  .cmos__preview--r1,
+  .cmos__preview--r2,
+  .cmos__preview--r3 {
+    grid-column: 1;
+    grid-row: auto;               /* let grid flow naturally */
+    flex-direction: row;
+    align-items: center;
+    min-height: 4rem;
+    border-radius: 14px;
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+  }
+  .cmos__parch {
+    width: 2.25rem; height: 2.6rem;
+  }
+  .cmos__ptitle { font-size: 0.925rem; }
+
+  /* Bar: always inline on mobile */
+  .cmos__bar {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: space-between;
+  }
+  .cmos__explore {
+    font-size: 0.8125rem;
+    padding-inline: 0.9rem;
+    height: 2.5rem;
+  }
+}
+
+
 
 /* ============================================================
    GALLERY — photo mosaic, scrim, pill category chips
@@ -2263,7 +2459,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    anything sitting on a colour block must keep its own colour, or the
    slate wins on specificity and greys out half a headline. */
 .home p { color: var(--slate); }
-.home :is(.band, .cause, .spotlight, .causeband) p { color: inherit; }
+.home :is(.band, .cmos__active, .cmos__preview, .spotlight, .causeband) p { color: inherit; }
 .home .statement-band__text { color: var(--ink-warm); }
 /* Gallery captions sit on the scrim and stay light regardless */
 .home .tile__cap { color: var(--paper-warm); }
@@ -2308,6 +2504,6 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   .hero__title .w { opacity: 1; transform: none; }
   .hero__lede, .hero__cta { opacity: 1; transform: none; }
   .print { translate: none; }
-  .statement-band::before, .cause__glow { display: none; }
+  .statement-band::before { display: none; }
   :is(h1, h2, h3) em { background-position: 0 50%; }
 }
