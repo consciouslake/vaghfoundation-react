@@ -4,7 +4,7 @@ export const home: HomePage = {
   hero: {
     eyebrow: 'Compassion in action',
     title: 'Small acts of <mark>kindness,</mark> gathered into <em>extraordinary</em> change.',
-    captions: ['Health, Education, and Hope for every child', 'Meal support initiatives', 'Our Partner Families'],
+    captions: ['Empowering through learning', 'Meal support initiatives', 'Nurturing Growth'],
     slides: [
       {
         image: '/images/hero-slide-1.png',
@@ -25,7 +25,7 @@ export const home: HomePage = {
         btnUrl: '/about',
       },
       {
-        image: '/images/hero-slide-3.png',
+        image: '/images/planet-slide-3.jpeg',
         h1Line1: 'Small acts.',
         h1Line2: 'Extraordinary change.',
         lede: 'Nourishment, peace of mind, learning and care for our planet: the four causes we champion, and the initiatives that bring them to life.',

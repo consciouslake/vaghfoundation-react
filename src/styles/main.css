@@ -1255,13 +1255,17 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   transition: box-shadow .35s;
 }
 
-/* Photo — left portion, fills the full card height */
+/* Photo — left portion: floats within the card colour with rounded corners */
 .cmos__photo {
   flex: 0 0 42%;
   align-self: stretch;
-  overflow: hidden;
   border-radius: 22px 0 0 22px;
-  background: rgba(20, 18, 16, 0.15);
+  background: var(--cmos-fill, var(--amber));
+  padding: 1rem 0.875rem 1rem 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   animation: cmosPhotoIn .55s cubic-bezier(.2,.8,.2,1) both;
 }
 @keyframes cmosPhotoIn {
@@ -1269,13 +1273,16 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   to   { opacity: 1; transform: none; }
 }
 .cmos__photo img {
-  width: 100%; height: 100%;
+  /* Square frame — same shape on every card */
+  aspect-ratio: 1;
+  width: 100%;
+  max-height: 100%;
   object-fit: cover;
-  object-position: center center;   /* show the middle — no top clipping */
-  transition: scale .5s cubic-bezier(.2,.8,.2,1);
+  object-position: center center;
   display: block;
+  border-radius: 20px;   /* visibly rounded */
 }
-.cmos__active:hover .cmos__photo img { scale: 1.05; }
+
 
 /* Text body — right portion */
 .cmos__body {
