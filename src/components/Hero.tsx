@@ -123,9 +123,26 @@ export function Hero({ data }: HeroProps) {
                   {i > 0 ? ' ' : null}
                   <span className="w" style={delay}>
                     {w.tag === 'mark' ? (
-                      <mark>{w.text}</mark>
+                      <mark>
+                        {w.text}
+                        <svg className="hero-doodle" viewBox="0 0 300 120" aria-hidden="true">
+                          <path d="M148 8C70 6 12 30 10 60c-2 34 96 52 160 50 62-2 128-22 120-54-6-26-70-42-150-40" />
+                        </svg>
+                      </mark>
                     ) : w.tag === 'em' ? (
-                      <em>{w.text}</em>
+                      <em>
+                        {w.text}
+                        <svg className="hero-doodle" viewBox="0 0 400 24" preserveAspectRatio="none" aria-hidden="true">
+                          <defs>
+                            <linearGradient id="heroAccentGradient" x1="0" x2="1">
+                              <stop offset="0" stopColor="var(--teal)" />
+                              <stop offset="0.5" stopColor="var(--blue-deep)" />
+                              <stop offset="1" stopColor="var(--green-deep)" />
+                            </linearGradient>
+                          </defs>
+                          <path d="M6 16C120 6 280 6 394 13" stroke="url(#heroAccentGradient)" />
+                        </svg>
+                      </em>
                     ) : (
                       w.text
                     )}

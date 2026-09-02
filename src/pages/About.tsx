@@ -33,7 +33,7 @@ export default function About() {
       {/* Hero — the one full-bleed colour band the page opens on, same
           as every other inner page's header. A statement and a face,
           the way "This is who we are" opens on the reference page. */}
-      <section className="section band band--plum">
+      <section className="section band band--teal">
         <div className="wrap split about-hero">
           <Reveal>
             <span className="kicker">{about.header.eyebrow}</span>

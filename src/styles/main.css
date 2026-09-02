@@ -58,9 +58,12 @@
   --card-fill-6:  var(--green-deep);
 
   /* Typography — two faces, site-wide: Plus Jakarta Sans for every
-     heading/display element, Inter for body text. Nothing else. */
+     heading/display element, Inter for body text. Nothing else, save
+     one deliberate exception: Fraunces italic, used only for the
+     hand-drawn accent word in the home hero headline. */
   --font-display: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
   --font-text:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-serif:   "Fraunces", Georgia, serif;
 
   --fs-hero:       clamp(2.25rem, 4.7vw, 4.25rem);
   --fs-statement:  clamp(2.1rem, 4.6vw, 3.25rem);
@@ -293,6 +296,10 @@ em { font-style: italic; }
 .band--plum       { --band-fill: var(--plum); color: var(--off-white); }
 .band--yellow     { --band-fill: var(--yellow-400); } /* mark-highlight only */
 .band--dark       { --band-fill: var(--near-black); color: var(--off-white); }
+/* Deliberate exception to "text on colour is always black" above:
+   the lede on the Get Involved (amber) and Donate (coral) headers is
+   set to white on request. */
+.band--amber .lede, .band--coral .lede { color: var(--off-white); }
 /* Legacy aliases — kept for backwards compat, map to brand colours */
 .band--orange     { --band-fill: var(--amber); }
 .band--orange-soft{ --band-fill: var(--amber); }
@@ -406,8 +413,11 @@ em { font-style: italic; }
 .link--light:hover { background: var(--yellow-400); color: var(--ink); }
 /* A <button class="link"> should read identically to an <a class="link">
    — strip the native button chrome (white fill, border, padding) that
-   would otherwise show through. */
-button.link { background: none; border: none; padding: 0; font: inherit; }
+   would otherwise show through. `font: inherit` would also wipe out
+   the font-family/size/weight .link sets above (it's a shorthand for
+   all four), leaving the button's text thin and a different size
+   from its sibling links — so only the box-model is reset here. */
+button.link { background: none; border: none; padding: 0; }
 
 /* Inline prose links */
 p a:not(.link):not(.btn) {
@@ -486,9 +496,9 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
    straight to their form section (e.g. /contact#contact-form), so an
    exact match would silently stop matching them. */
 .nav-links a[href="/"]              { --nav-accent: var(--amber); }
-.nav-links a[href^="/about"]        { --nav-accent: var(--plum); }
+.nav-links a[href^="/about"]        { --nav-accent: var(--teal); }
 .nav-links a[href^="/what-we-do"]   { --nav-accent: var(--blue-deep); }
-.nav-links a[href^="/get-involved"] { --nav-accent: var(--amber); }
+.nav-links a[href^="/get-involved"] { --nav-accent: var(--coral); }
 .nav-links a[href^="/contact"]      { --nav-accent: var(--teal); }
 .nav-links a:hover { text-decoration-color: var(--nav-accent, var(--amber)); }
 .nav-links a.active {
@@ -659,8 +669,44 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 
 /* Emphasised words in the hero heading are real <mark>/<em>
    elements, same as everywhere else the Marked component renders
-   them, so they pick up the shared emphasis rule above rather than
-   a hero-only treatment — a gradient text-fill, no drawn strokes. */
+   them — but here, and only here, they get their own hand-drawn
+   treatment instead of the sitewide "reads as plain text" reset
+   above: a coral ring circling the <mark> word, and the <em> word
+   set in italic serif with a gradient stroke swept beneath it. */
+.hero__title mark, .hero__title em { position: relative; }
+.hero__title mark .hero-doodle,
+.hero__title em .hero-doodle {
+  position: absolute;
+  z-index: -1;
+  overflow: visible;
+  pointer-events: none;
+}
+.hero__title mark .hero-doodle {
+  inset: -22% -16%;
+  width: 132%; height: 144%;
+}
+.hero__title mark .hero-doodle path {
+  fill: none; stroke: var(--coral); stroke-width: 5; stroke-linecap: round;
+  stroke-dasharray: 760; stroke-dashoffset: 760;
+  animation: heroDraw 1.1s ease 1.15s forwards;
+}
+.hero__title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+}
+.hero__title em .hero-doodle {
+  left: -3%; right: -3%; bottom: -0.1em;
+  width: 106%; height: 0.44em;
+}
+.hero__title em .hero-doodle path {
+  fill: none; stroke-width: 13; stroke-linecap: round;
+  stroke-dasharray: 420; stroke-dashoffset: 420;
+  animation: heroDraw 1s ease 0.95s forwards;
+}
+@keyframes heroDraw {
+  to { stroke-dashoffset: 0; }
+}
 
 .hero__lede {
   font-size: clamp(0.9375rem, 1.3vw, 1.0625rem);
@@ -688,7 +734,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   background: var(--print-fill, var(--paper-warm));
   /* Extra bottom padding — captions are content-driven and can run
      to two lines; the old 2.875rem only really had room for one. */
-  padding: 0.75rem 0.75rem 3.5rem;
+  padding: 0.75rem 0.75rem 3.75rem;
   border-radius: 8px;
   box-shadow: 0 24px 50px rgba(20, 18, 16, 0.15);
   animation: printFloat 6s ease-in-out infinite;
@@ -702,11 +748,11 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .print--1 .print__slot img,
 .print--3 .print__slot img { object-position: top; }
 .print figcaption {
-  position: absolute; left: 0.4rem; right: 0.4rem; bottom: 15px;
+  position: absolute; left: 0.4rem; right: 0.4rem; bottom: 12px;
   text-align: center;
   font-family: var(--font-display);
-  font-size: 0.8125rem; font-weight: 700;
-  line-height: 1.3;
+  font-size: clamp(1.0625rem, 2.6vw, 1.3125rem); font-weight: 700;
+  line-height: 1.22;
   color: var(--ink);
 }
 .print:hover { rotate: 0deg; scale: 1.04; z-index: 5; }
@@ -1031,6 +1077,16 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .ccard__desc { margin-bottom: 1.4rem; max-width: none; }
 .ccard .link { margin-top: auto; align-self: flex-start; }
 .ccard .share-menu { margin-top: auto; align-self: flex-start; }
+/* The link only has margin-top:auto, not the doodle below it — so the
+   pair moves as one unit pinned flush to the card's bottom edge. Each
+   doodle keeps its own aspect ratio (rays is flatter than steps/the
+   squiggle-arrow), so without a fixed height here a shorter doodle
+   pushes that whole unit — link included — further down the card,
+   throwing the link out of line with its neighbours'. Fixing the
+   height (width stays auto, so each icon keeps its own shape) makes
+   every card reserve the same vertical room, so every link lands on
+   the same line regardless of which doodle sits under it. */
+.ccard__doodle { height: 4.75rem; width: auto; }
 
 /* Share picker — centred overlay, not an anchored popover, since the
    trigger sits inside a horizontally-scrolling card row that clips
@@ -1223,317 +1279,307 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 
 /* ============================================================
    CAUSES MOSAIC — cmos namespace.
-   Two-column grid: LEFT = active cause (tall, photo + text);
-   RIGHT = three stacked preview tiles (coloured, no photo).
-   BELOW = one flex bar: [CTA btn ........... counter ← →]
+   Mozilla Community Spotlight layout:
+   - Pos 1: Selected card on top-left (48% width x 48% height)
+   - Left space below Pos 1: Contains the text block (eyebrow, title, description, links)
+   - Pos 3, 4, 2: Three stepped square cards cascading down on right (left: 48%):
+     - Pos 3: Top step (18% width, top: clamp(1.5rem, 3vw, 3rem))
+     - Pos 4: Middle step (28% width, top: calc(18% + clamp(...)))
+     - Pos 2: Bottom step (40% width, top: calc(46% + clamp(...))) -> ends at ~86%
+   - Right space below Pos 2: Contains the navigation controls (counter + arrow buttons)
+   - Left column and right column now fill the frame in complete harmony
    ============================================================ */
 
-/* ── Outer grid wrapper ──────────────────────────────────── */
+/* ── Outer wrapper — centered with proportional scaling ────────── */
 .cmos {
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  grid-template-rows: repeat(3, 1fr);
-  gap: clamp(0.6rem, 1vw, 1rem);
-  /* Height: fills ~52% of the viewport but never more than 34rem
-     so the heading + bar all stay on screen without scrolling. */
-  height: clamp(20rem, 52vh, 34rem);
+  position: relative;
+  max-width: 46rem;
+  margin-inline: auto;
+  width: 100%;
 }
 
-/* ── Active card (left column, spans all 3 rows) ─────────── */
-.cmos__active {
-  grid-column: 1;
-  grid-row: 1 / span 3;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+/* ── Carousel container — contains all cards + text + nav in exact coordinate frame ─ */
+.cmos__carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 100 / 92;
+  margin-bottom: 0;
+  /* The cards/text/nav only occupy this box's own left 0%–82% (pos 2,
+     the widest secondary card, is the rightmost thing in it and ends
+     at left:45% + width:37% = 82%) — .cmos itself is centred via
+     margin-inline:auto, but that centres the BOX, and this box has an
+     18%-wide empty margin baked into its own right side. Left
+     uncorrected, the whole composition reads as pushed left on the
+     page. Nudging it right by half that dead zone (9%) re-centres
+     the actual visual content instead of the invisible box. */
+  transform: translateX(9%);
+}
+
+/* Reset the <ol> so it doesn't affect layout */
+.cmos__slides {
+  list-style: none;
+  margin: 0; padding: 0;
+  position: relative;
+  width: 100%; height: 100%;
+}
+.cmos__slides li { margin: 0; padding: 0; }
+
+/* ── Every card — solid color square box touching its neighbors ─ */
+.cmos__card {
+  position: absolute;
+  margin: 0;
   overflow: hidden;
-  border-radius: 22px;
   background: var(--cmos-fill, var(--amber));
-  color: var(--cmos-ink, var(--paper-warm));
-  isolation: isolate;
-  gap: 0;
-  transition: box-shadow .35s;
+  aspect-ratio: 1 / 1;
+  border-radius: 0; /* Pure square boxes */
+  outline: none;
+  transition: left .5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              top .5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              width .5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              opacity .3s ease;
+  cursor: default;
+  box-sizing: border-box;
 }
 
-/* Photo — left portion: floats within the card colour with rounded corners */
-.cmos__photo {
-  flex: 0 0 42%;
-  align-self: stretch;
-  border-radius: 22px 0 0 22px;
-  background: var(--cmos-fill, var(--amber));
-  padding: 1rem 0.875rem 1rem 1.125rem;
+/* Pos 1: Selected featured card placeholder on top-left (height subtly extended) */
+.cmos__card[data-pos="1"] {
+  left: 0;
+  top: 0;
+  width: 45%;
+  aspect-ratio: 45 / 49;
+  z-index: 3;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Pos 3: Top step on right (17% width, touches Pos 1 at 45%) */
+.cmos__card[data-pos="3"] {
+  left: 45%;
+  top: clamp(1rem, 2.2vw, 2.25rem);
+  width: 17%;
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+}
+
+/* Pos 4: Middle step on right (26% width, touches bottom of Pos 3) */
+.cmos__card[data-pos="4"] {
+  left: 45%;
+  top: calc(17% + clamp(1rem, 2.2vw, 2.25rem));
+  width: 26%;
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+}
+
+/* Pos 2: Bottom largest step on right (37% width, touches bottom of Pos 4) */
+.cmos__card[data-pos="2"] {
+  left: 45%;
+  top: calc(43% + clamp(1rem, 2.2vw, 2.25rem));
+  width: 37%;
+  z-index: 2;
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+}
+
+/* Hover highlight on clickable secondary cards */
+.cmos__card[data-pos="2"]:hover,
+.cmos__card[data-pos="3"]:hover,
+.cmos__card[data-pos="4"]:hover {
+  filter: brightness(1.08);
+}
+
+/* ── Photo inside the colored square box ───────────────────────── */
+.cmos__figure {
+  margin: 0;
+  width: 100%; height: 100%;
+  padding: clamp(0.35rem, 0.75vw, 0.75rem);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  animation: cmosPhotoIn .55s cubic-bezier(.2,.8,.2,1) both;
 }
-@keyframes cmosPhotoIn {
-  from { opacity: 0; transform: translateX(-14px) scale(.97); }
-  to   { opacity: 1; transform: none; }
+
+/* Inset padding on the main featured card */
+.cmos__card[data-pos="1"] .cmos__figure {
+  padding: clamp(0.85rem, 1.8vw, 1.65rem);
 }
-.cmos__photo img {
-  /* Square frame — same shape on every card */
-  aspect-ratio: 1;
-  width: 100%;
-  max-height: 100%;
+
+.cmos__figure img {
+  width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center center;
   display: block;
-  border-radius: 20px;   /* visibly rounded */
 }
 
-
-/* Text body — right portion */
-.cmos__body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  padding: clamp(1.125rem, 2vw, 1.875rem);
-  min-width: 0;
+/* ── Shape masks for images inside the square boxes ────────────── */
+.cmos__card--circle .cmos__figure img {
+  border-radius: 50%;
 }
 
-/* Arch icon badge */
-.cmos__arch {
-  display: grid; place-items: center;
-  width: 3.25rem; height: 3.75rem;
-  border-radius: 999px 999px 8px 8px;
-  background: rgba(255, 255, 255, 0.2);
-  flex-shrink: 0;
-  transition: translate .3s, background .3s;
+.cmos__card--tr .cmos__figure img {
+  border-radius: 0 var(--card-radius-lg) 0 0;
 }
-.cmos__active[style*='--amber'] .cmos__arch,
-.cmos__active[style*='amber']   .cmos__arch { background: rgba(20, 18, 16, 0.12); }
-.cmos__active:hover .cmos__arch { translate: 0 -4px; }
 
-/* Active card typography */
-.cmos__title {
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
-  line-height: var(--lh-display);
-  font-weight: 700;
-  color: inherit;
+.cmos__card--tl .cmos__figure img {
+  border-radius: var(--card-radius-lg) 0 0 0;
 }
-.cmos__desc {
-  font-size: clamp(0.875rem, 1.15vw, 1rem);
-  line-height: 1.55;
-  opacity: 0.92;
-  max-width: 34ch;
-  flex: 1;
+
+.cmos__card--bl .cmos__figure img {
+  border-radius: 0 0 0 var(--card-radius-lg);
 }
-.cmos__go {
+
+/* ── Hand-drawn arrow doodle positioned in the notch slightly above the 3rd step ── */
+.cmos__arrow {
+  position: absolute;
+  left: calc(68% + clamp(0.5rem, 1vw, 1.25rem));
+  top: clamp(0.75rem, 1.6vw, 1.75rem);
+  width: clamp(3rem, 5vw, 4.5rem);
+  color: var(--ink);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ── Text block fits directly in the open space below Pos 1 ────── */
+.cmos__text {
+  position: absolute;
+  left: 0;
+  top: calc(49% + clamp(1.4rem, 2.6vw, 2.25rem));
+  width: 43%;
+  padding-right: 0.5rem;
+  z-index: 10;
+}
+
+/* Eyebrow / kicker */
+.cmos__eyebrow {
   display: inline-flex; align-items: center; gap: 0.45rem;
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 0.9rem;
-  padding-bottom: 3px;
+  font-family: var(--font-display);
+  font-size: 0.8125rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  transition: color .3s ease;
+}
+
+/* Pillar name */
+.cmos__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.3vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.4rem;
+}
+
+/* Description */
+.cmos__desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--slate);
+  margin-bottom: 0.85rem;
+}
+
+/* Links row */
+.cmos__links { display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap; }
+.cmos__go {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.8125rem;
+  padding-bottom: 2px;
   border-bottom: 2px solid currentColor;
-  text-decoration: none;
-  color: inherit;
-  width: fit-content;
+  color: var(--ink);
   transition: gap .22s;
 }
-.cmos__active:hover .cmos__go { gap: 0.8rem; }
+.cmos__go:hover { gap: 0.6rem; }
+.cmos__explore { font-size: 0.75rem; padding: 0.45rem 0.85rem; height: auto; }
 
-/* ── Preview tiles (right column, rows 1–3) ──────────────── */
-.cmos__preview {
-  grid-column: 2;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: clamp(0.65rem, 1.2vw, 1rem);
-  padding: clamp(0.875rem, 1.5vw, 1.25rem);
-  border-radius: 18px;
-  background: var(--cmos-fill, var(--teal));
-  color: var(--cmos-ink, var(--paper-warm));
-  cursor: pointer;
-  user-select: none;
-  overflow: hidden;
-  isolation: isolate;
-  transition: translate .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s, filter .2s;
-}
-.cmos__preview:hover {
-  translate: 0 -3px;
-  box-shadow: 0 14px 32px -12px rgba(20, 18, 16, 0.45);
-  filter: brightness(1.07);
-}
-
-/* Grid-row classes (CSS classes, NOT inline styles, so breakpoints can reset them) */
-.cmos__preview--r1 { grid-row: 1; }
-.cmos__preview--r2 { grid-row: 2; }
-.cmos__preview--r3 { grid-row: 3; }
-
-/* Small arch badge */
-.cmos__parch {
-  display: grid; place-items: center;
-  flex-shrink: 0;
-  width: 2.625rem; height: 3rem;
-  border-radius: 999px 999px 6px 6px;
-  background: rgba(255, 255, 255, 0.2);
-  transition: translate .3s, background .3s;
-}
-.cmos__preview:hover .cmos__parch { translate: 0 -3px; background: rgba(255,255,255,0.3); }
-
-/* Preview body */
-.cmos__pbody {
-  flex: 1; min-width: 0;
-  display: flex; flex-direction: column; gap: 0.3rem;
-}
-.cmos__ptitle {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(0.85rem, 1.2vw, 1.05rem);
-  line-height: 1.2; color: inherit;
-}
-.cmos__pgo {
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 0.78rem;
-  padding-bottom: 2px; border-bottom: 1.5px solid currentColor;
-  text-decoration: none; color: inherit;
-  width: fit-content; opacity: 0.82;
-  transition: gap .2s, opacity .2s;
-}
-.cmos__preview:hover .cmos__pgo { gap: 0.55rem; opacity: 1; }
-
-/* ── Bottom bar: CTA left  |  counter + arrows right ────── */
-.cmos__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: clamp(0.6rem, 1.1vw, 0.875rem);
-}
-
-/* "Explore what we do" sits at the left edge of the bar */
-.cmos__explore {
-  /* inherits .btn .btn--primary — just tweak sizing to match arrow btns */
-  font-size: 0.875rem;
-  padding-inline: 1.1rem;
-  height: 2.75rem;
-}
-
-/* Counter + arrows cluster on the right */
+/* ── Navigation cluster — sits directly below the last pic (left: 45%, width: 37%) ─ */
 .cmos__nav {
-  display: flex; align-items: center; gap: 0.65rem;
+  position: absolute;
+  left: 45%;
+  width: 37%;
+  top: calc(80% + clamp(1rem, 2.2vw, 2.25rem) + clamp(1.25rem, 2.5vw, 1.85rem));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  z-index: 10;
+  white-space: nowrap;
 }
 .cmos__count {
-  font-family: var(--font-display); font-weight: 600;
-  font-size: 0.875rem; color: var(--slate);
-  min-width: 2.25rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink-warm);
+  margin-right: 0.4rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-block;
 }
 .cmos__btn {
   display: grid; place-items: center;
-  width: 2.75rem; height: 2.75rem;
+  width: 2.5rem; height: 2.5rem;
   border-radius: 50%;
-  border: 2px solid var(--ink);
-  background: transparent; color: var(--ink);
+  border: none;
+  background: var(--coral); color: var(--paper);
   cursor: pointer;
-  transition: background .2s, color .2s, translate .2s;
+  transition: background .2s, transform .2s;
+  flex-shrink: 0;
 }
-.cmos__btn:hover { background: var(--ink); color: var(--paper); translate: 0 -2px; }
-.cmos__btn--next { background: var(--amber); border-color: var(--amber); color: var(--ink-warm); }
-.cmos__btn--next:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.cmos__btn:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+.cmos__btn--next { background: var(--coral); color: var(--paper); }
+.cmos__btn--next:hover { background: var(--ink); color: var(--paper); }
 
-/* ── Responsive ──────────────────────────────────────────── */
-
-/* ── Tablet (≤960px): 2-col top, 3-col preview row below ── */
+/* ── Responsive Reflow ────────────────────────────────────────── */
 @media (max-width: 60em) {
-  .cmos {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    height: unset; min-height: unset;
-    gap: clamp(0.5rem, 1vw, 0.75rem);
-  }
-  /* Active card spans all 3 cols on row 1 */
-  .cmos__active {
-    grid-column: 1 / span 3;
-    grid-row: 1;
-    min-height: 14rem;
-    border-radius: 18px;
-  }
-  /* Previews sit side-by-side on row 2 */
-  .cmos__preview {
-    grid-column: auto;
-    grid-row: 2 !important;         /* override r1/r2/r3 classes */
-  }
-  .cmos__preview--r1,
-  .cmos__preview--r2,
-  .cmos__preview--r3 { grid-row: 2; }  /* reinforce for specificity */
-  .cmos__preview {
+  .cmos__carousel {
+    aspect-ratio: auto;
+    height: auto;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    min-height: 7rem;
+    gap: 1rem;
+    transform: none; /* the desktop re-centring shift doesn't apply to this flex reflow */
   }
-  /* Smaller padding in active body */
-  .cmos__body { padding: 1.25rem; gap: 0.5rem; }
-  .cmos__bar { flex-wrap: wrap; gap: 0.5rem; }
-}
-
-/* ── Mobile (≤480px): single-column, full fits on screen ── */
-@media (max-width: 30em) {
-  .cmos {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 0.5rem;
-    height: unset;
-  }
-
-  /* Active card: compact ROW layout (photo left, text right) */
-  .cmos__active {
-    grid-column: 1;
-    grid-row: auto;
-    flex-direction: row;           /* keep photo + text side by side */
-    min-height: 8.5rem;
-    border-radius: 16px;
-  }
-  .cmos__photo {
-    flex: 0 0 36%;                 /* narrower photo column */
-    border-radius: 16px 0 0 16px;
-  }
-  .cmos__body {
-    padding: 0.875rem 1rem;
-    gap: 0.4rem;
-  }
-  /* Hide description on mobile — saves ~3rem per card */
-  .cmos__desc { display: none; }
-  .cmos__arch {
-    width: 2.5rem; height: 2.875rem;
-  }
-  .cmos__title { font-size: 1.05rem; }
-  .cmos__go { font-size: 0.825rem; }
-
-  /* Preview tiles: compact horizontal rows */
-  .cmos__preview,
-  .cmos__preview--r1,
-  .cmos__preview--r2,
-  .cmos__preview--r3 {
-    grid-column: 1;
-    grid-row: auto;               /* let grid flow naturally */
-    flex-direction: row;
-    align-items: center;
-    min-height: 4rem;
-    border-radius: 14px;
-    padding: 0.75rem 1rem;
+  .cmos__slides {
+    display: flex;
     gap: 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    width: 100%;
+    height: auto;
   }
-  .cmos__parch {
-    width: 2.25rem; height: 2.6rem;
+  .cmos__slides::-webkit-scrollbar { display: none; }
+  .cmos__slides li { flex: none; }
+  .cmos__card {
+    position: relative;
+    left: auto !important; top: auto !important;
+    width: 60vw !important;
+    max-width: 18rem;
+    aspect-ratio: 1 / 1 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    cursor: pointer;
+    scroll-snap-align: start;
+    outline: none !important;
+    transition: transform .2s ease;
   }
-  .cmos__ptitle { font-size: 0.925rem; }
-
-  /* Bar: always inline on mobile */
-  .cmos__bar {
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 0;
-    justify-content: space-between;
+  .cmos__card .cmos__figure {
+    padding: clamp(0.6rem, 1.8vw, 1rem) !important;
   }
-  .cmos__explore {
-    font-size: 0.8125rem;
-    padding-inline: 0.9rem;
-    height: 2.5rem;
+  .cmos__arrow { display: none; }
+  .cmos__text { position: static; width: 100%; padding-right: 0; }
+  .cmos__nav { position: static; width: auto; justify-content: flex-end; margin-top: 0.75rem; }
+}
+@media (max-width: 30em) {
+  .cmos__card {
+    width: 75vw !important;
   }
 }
+
+
 
 
 
@@ -2276,6 +2322,14 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
 .form-card--blue  { --form-fill: var(--blue-deep);  color: var(--off-white); }
 .form-card--coral { --form-fill: var(--coral); }
 .form-card--amber { --form-fill: var(--amber); }
+/* Neutral light-grey card — Donate's own tone. Text stays the base
+   .form-card ink colour (no override needed, unlike the saturated
+   tones above), but the unselected amount chips' border was tuned
+   for a saturated background: var(--grey-300) all but disappears on
+   a background this close to it in value, so it's darkened here. */
+.form-card--grey { --form-fill: #f0f0f0; }
+.form-card--grey .amount-chip { border-color: rgba(20, 18, 16, 0.28); }
+.form-card--grey .amount-chip:hover { border-color: var(--ink); }
 .form-card h3 { margin-bottom: 1rem; color: inherit; text-align: center; }
 .field { margin-bottom: 0.7rem; }
 .field label {
@@ -2509,6 +2563,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
      resting state explicitly. */
   .reveal { opacity: 1; transform: none; }
   .hero__title .w { opacity: 1; transform: none; }
+  .hero__title .hero-doodle path { stroke-dashoffset: 0 !important; }
   .hero__lede, .hero__cta { opacity: 1; transform: none; }
   .print { translate: none; }
   .statement-band::before { display: none; }

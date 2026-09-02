@@ -8,7 +8,7 @@
  * slightly irregular pen strokes) is carried across.
  */
 
-type DoodleName = 'rays' | 'rule' | 'separator' | 'squiggle-arrow' | 'steps' | 'heart'
+type DoodleName = 'rays' | 'rule' | 'separator' | 'squiggle-arrow' | 'corner-arrow' | 'steps' | 'heart'
 
 interface DoodleProps {
   name: DoodleName
@@ -84,6 +84,19 @@ export function Doodle({ name, className }: DoodleProps) {
           <g {...STROKE} strokeWidth={2.6}>
             <path d="M7 79 L31 41 L45 63 L74 9" />
             <path d="M60 12 L75 8 L78 23" />
+          </g>
+        </svg>
+      )
+
+    /* Elbow arrow — runs along flat, then bends and drops straight
+       down into an arrowhead. Connects two stacked elements the way
+       the reference site's own carousel doodle does. */
+    case 'corner-arrow':
+      return (
+        <svg viewBox="0 0 130 170" className={`${cls} doodle--mark`} aria-hidden="true" style={{ overflow: 'visible' }}>
+          <g {...STROKE} strokeWidth={4.5}>
+            <path d="M10 24 C 42 20 72 26 96 23 C 112 21 116 30 114 56 C 112 90 114 122 113 144" />
+            <path d="M97 130 L113 160 L125 130" />
           </g>
         </svg>
       )

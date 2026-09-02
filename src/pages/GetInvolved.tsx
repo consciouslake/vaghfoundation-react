@@ -29,7 +29,7 @@ export default function GetInvolved() {
         description="Four ways to join the Vagh Foundation movement: volunteer your time, support the cause, spread the word, or partner with us."
         path="/get-involved"
       />
-      <PageHeader data={getInvolved.header} tone="amber" />
+      <PageHeader data={getInvolved.header} tone="coral" />
 
       <section className="section">
         <div className="wrap">
