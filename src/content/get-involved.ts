@@ -2,10 +2,15 @@ import type { GetInvolvedPage } from './types'
 
 export const getInvolved: GetInvolvedPage = {
   header: {
-    eyebrow: 'Join the movement',
-    h1Marked: 'Be the <mark>change</mark> you wish to see.',
+    tag: 'GET INVOLVED',
+    eyebrow: 'JOIN THE MOVEMENT',
+    h1Marked: 'Be the <em>change</em><br />you wish to see.',
     lede: 'Whether you have time, resources, or simply a willingness to help, your contribution creates ripples that reach further than you might imagine.',
     image: '/images/gi-hero.png',
+    btnText: 'Ways to contribute',
+    btnUrl: '#ways-to-give',
+    badgeNumber: 'Join us',
+    badgeLabel: 'in making a difference',
   },
   section: {
     eyebrow: 'Ways to contribute',

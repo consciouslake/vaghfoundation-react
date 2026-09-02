@@ -2,10 +2,43 @@ import type { WhatWeDoPage } from './types'
 
 export const whatWeDo: WhatWeDoPage = {
   header: {
-    eyebrow: 'Our initiatives',
-    h1Marked: 'Turning compassion into <mark>meaningful action</mark>.',
+    tag: 'WHAT WE DO',
+    eyebrow: 'OUR PROGRAMS',
+    h1Marked: 'Four causes.<br /><em>One</em> shared belief.',
     lede: 'Our work spans several interconnected causes, each rooted in the belief that wellbeing is holistic. We nourish, we support, we empower, and we protect.',
     image: '/images/wwd-hero.png',
+    btnText: 'Explore programs',
+    btnUrl: '#initiatives',
+    cards: [
+      {
+        title: 'Nourishment',
+        action: 'We nourish',
+        subtitle: 'Nourishment for all',
+        image: '/images/pillar-1-nourishment.png',
+        color: 'coral',
+      },
+      {
+        title: 'Peace of mind',
+        action: 'We support',
+        subtitle: 'Peace of mind & calm',
+        image: '/images/pillar-2-peace.png',
+        color: 'teal',
+      },
+      {
+        title: 'Learning & growth',
+        action: 'We empower',
+        subtitle: 'Learning & growth',
+        image: '/images/pillar-3-learning.png',
+        color: 'amber',
+      },
+      {
+        title: 'Our planet',
+        action: 'We protect',
+        subtitle: 'Caring for our planet',
+        image: '/images/pillar-4-planet.png',
+        color: 'green',
+      },
+    ],
   },
   initiatives: [
     {

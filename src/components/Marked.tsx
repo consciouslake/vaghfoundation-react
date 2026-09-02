@@ -8,15 +8,19 @@ import { Fragment, type ReactNode } from 'react'
  */
 export function Marked({ children }: { children: string }) {
   const nodes: ReactNode[] = []
-  const re = /<(mark|em)>([\s\S]*?)<\/\1>/g
+  const re = /<(mark|em)>([\s\S]*?)<\/\1>|<br\s*\/?>/gi
   let last = 0
   let m: RegExpExecArray | null
   while ((m = re.exec(children)) !== null) {
     if (m.index > last) nodes.push(children.slice(last, m.index))
-    const tag = m[1]
-    const inner = m[2]
-    if (tag === 'mark') nodes.push(<mark key={nodes.length}>{inner}</mark>)
-    else nodes.push(<em key={nodes.length}>{inner}</em>)
+    if (m[0].toLowerCase().startsWith('<br')) {
+      nodes.push(<br key={nodes.length} />)
+    } else {
+      const tag = m[1]?.toLowerCase()
+      const inner = m[2]
+      if (tag === 'mark') nodes.push(<mark key={nodes.length}>{inner}</mark>)
+      else nodes.push(<em key={nodes.length}>{inner}</em>)
+    }
     last = m.index + m[0].length
   }
   if (last < children.length) nodes.push(children.slice(last))

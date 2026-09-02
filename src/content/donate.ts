@@ -2,10 +2,14 @@ import type { DonatePage } from './types'
 
 export const donate: DonatePage = {
   header: {
-    eyebrow: 'Support our work',
-    h1Marked: 'Every contribution creates a <mark>ripple</mark> of hope.',
+    tag: 'DONATE',
+    eyebrow: 'SUPPORT OUR WORK',
+    h1Marked: 'Every contribution<br />creates a <em>ripple</em> of hope.',
     lede: 'When you give to Vagh Foundation, you become a partner in compassion, and a force for extraordinary change.',
     image: '/images/donate-hero.png',
+    btnText: 'Make a donation',
+    btnUrl: '#donate-form',
+    badgeNumber: 'Every bit counts',
   },
   mechanism: {
     eyebrow: 'The mechanism',

@@ -2,10 +2,14 @@ import type { VolunteerPage } from './types'
 
 export const volunteer: VolunteerPage = {
   header: {
-    eyebrow: 'Volunteer with us',
-    h1Marked: 'Your <mark>time</mark> is a gift that transforms lives.',
+    tag: 'VOLUNTEER',
+    eyebrow: 'VOLUNTEER WITH US',
+    h1Marked: 'Your time is<br />a gift that <em>transforms</em> lives.',
     lede: 'Volunteering with us is more than an act of giving. It’s an experience of connection, purpose, and shared humanity.',
     image: '/images/volunteer-hero.jpg',
+    btnText: 'Volunteer today',
+    btnUrl: '#volunteer-form',
+    badgeNumber: 'Join our team',
   },
   section: {
     eyebrow: 'How you can help',

@@ -2,10 +2,15 @@ import type { AboutPage } from './types'
 
 export const about: AboutPage = {
   header: {
-    eyebrow: 'About Us',
-    h1Marked: 'Who we are',
-    lede: 'We walk quietly alongside those we serve, offering nourishment, supporting peace of mind, encouraging learning, and caring for the world we all share.',
+    tag: 'ABOUT',
+    eyebrow: 'SINCE 2015',
+    h1Marked: 'Rooted in <em>community</em>,<br />built by hand.',
+    lede: 'What began as a handful of neighbours sharing meals has grown into a foundation working across Gujarat — always led by the people it serves.',
     image: '/images/about-hero.png',
+    btnText: 'Read our story',
+    btnUrl: '#our-story',
+    badgeNumber: '9 yrs',
+    badgeLabel: 'of continuous service',
   },
   gateMission: {
     image: '/images/about-section-1.png',

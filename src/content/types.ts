@@ -110,11 +110,27 @@ export interface GateFeature {
  */
 export type FeatureBlock = GateFeature
 
+export interface HeaderCard {
+  title: string
+  action?: string
+  subtitle?: string
+  image: Src
+  color: 'coral' | 'teal' | 'amber' | 'green' | 'blue'
+  icon?: string
+}
+
 export interface PageHeader {
+  tag?: string
   eyebrow: string
   h1Marked: MarkedText
   lede: MarkedText
   image: Src
+  caption?: string
+  btnText?: string
+  btnUrl?: Href
+  badgeNumber?: string
+  badgeLabel?: string
+  cards?: HeaderCard[]
 }
 
 export interface TimelineEntry {

@@ -5,10 +5,14 @@ const phoneTelHref = 'tel:' + site.contactPhone.replace(/[^0-9+]/g, '')
 
 export const contact: ContactPage = {
   header: {
-    eyebrow: 'Get in touch',
-    h1Marked: 'We’d love to <mark>hear</mark> from you.',
+    tag: 'CONTACT',
+    eyebrow: 'GET IN TOUCH',
+    h1Marked: 'We’d love to<br /><em>hear</em> from you.',
     lede: 'Whether you’d like to volunteer, contribute, collaborate, or simply learn more, every conversation is a step toward greater good.',
     image: '/images/contact-hero.png',
+    btnText: 'Send a message',
+    btnUrl: '#contact-form',
+    badgeNumber: 'Let’s talk',
   },
   section: {
     eyebrow: 'Reach us',

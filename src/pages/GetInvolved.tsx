@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import { getInvolved } from '../content/get-involved'
 import { SEO } from '../components/SEO'
-import { PageHeader } from '../components/PageHeader'
 import { SectionHead } from '../components/SectionHead'
 import { ColourCards, type ColourCard } from '../components/ColourCards'
 import { EmailSignup } from '../components/EmailSignup'
+import { Reveal } from '../components/Reveal'
+import { Marked } from '../components/Marked'
+import { ArrowRight } from '../components/ArrowRight'
 
 const DOODLES = ['squiggle-arrow', 'steps', 'rays'] as const
 
@@ -29,9 +31,47 @@ export default function GetInvolved() {
         description="Four ways to join the Vagh Foundation movement: volunteer your time, support the cause, spread the word, or partner with us."
         path="/get-involved"
       />
-      <PageHeader data={getInvolved.header} tone="coral" />
 
-      <section className="section">
+      {/* Hero — custom editorial layout matching reference */}
+      <section className="gi-hero">
+        <div className="gi-hero__grid wrap">
+          <Reveal className="gi-hero__left">
+            {getInvolved.header.tag && (
+              <span className="gi-hero__tag">{getInvolved.header.tag}</span>
+            )}
+            <h1 className="gi-hero__title">
+              <Marked>{getInvolved.header.h1Marked}</Marked>
+            </h1>
+            <p className="gi-hero__lede">
+              <Marked>{getInvolved.header.lede}</Marked>
+            </p>
+            <div className="gi-hero__cta">
+              <a href="#ways-to-give" className="btn btn--primary btn--pill">
+                {getInvolved.header.btnText || 'Ways to contribute'} <ArrowRight />
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal className="gi-hero__right">
+            <div className="gi-hero__card-wrap">
+              <figure className="gi-hero__card">
+                <div className="gi-hero__card-inner">
+                  <div className="gi-hero__card-photo">
+                    <img src={getInvolved.header.image} alt="Join the movement" />
+                  </div>
+                </div>
+              </figure>
+
+              {/* Floating dark badge at bottom-left */}
+              <div className="gi-hero__badge">
+                <div className="gi-hero__badge-num">{getInvolved.header.badgeNumber || 'Join us'}</div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="section" id="ways-to-give">
         <div className="wrap">
           <SectionHead
             eyebrow={getInvolved.section.eyebrow}

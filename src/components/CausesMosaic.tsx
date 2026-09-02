@@ -64,22 +64,22 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
       if (delta < -total / 2) delta += total
 
       const nextStreamIdx = currentStreamIdx + delta
-      const targetElement = container.children[nextStreamIdx] as HTMLElement | undefined
-      if (targetElement) {
-        isScrollingRef.current = true
-        targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
-        scrollTimeoutRef.current = setTimeout(() => {
-          isScrollingRef.current = false
-          if (!slidesRef.current) return
-          const pos = Math.round(slidesRef.current.scrollLeft / itemWidth)
-          if (pos >= total * 2) {
-            slidesRef.current.scrollLeft -= total * itemWidth
-          } else if (pos < total) {
-            slidesRef.current.scrollLeft += total * itemWidth
-          }
-        }, 450)
-      }
+      isScrollingRef.current = true
+      container.scrollTo({
+        left: nextStreamIdx * itemWidth,
+        behavior: 'smooth',
+      })
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      scrollTimeoutRef.current = setTimeout(() => {
+        isScrollingRef.current = false
+        if (!slidesRef.current) return
+        const pos = Math.round(slidesRef.current.scrollLeft / itemWidth)
+        if (pos >= total * 2) {
+          slidesRef.current.scrollLeft -= total * itemWidth
+        } else if (pos < total) {
+          slidesRef.current.scrollLeft += total * itemWidth
+        }
+      }, 450)
     }
   }
 

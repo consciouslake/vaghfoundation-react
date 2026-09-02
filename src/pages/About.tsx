@@ -30,22 +30,42 @@ export default function About() {
         path="/about"
       />
 
-      {/* Hero — the one full-bleed colour band the page opens on, same
-          as every other inner page's header. A statement and a face,
-          the way "This is who we are" opens on the reference page. */}
-      <section className="section band band--teal">
-        <div className="wrap split about-hero">
-          <Reveal>
-            <span className="kicker">{about.header.eyebrow}</span>
-            <h1>
+      {/* Hero — custom editorial layout with polaroid frame & service badge */}
+      <section className="about-hero">
+        <div className="about-hero__grid wrap">
+          <Reveal className="about-hero__left">
+            {about.header.tag && (
+              <span className="about-hero__tag">{about.header.tag}</span>
+            )}
+            <h1 className="about-hero__title">
               <Marked>{about.header.h1Marked}</Marked>
             </h1>
-            <p className="lede">
+            <p className="about-hero__lede">
               <Marked>{about.header.lede}</Marked>
             </p>
+            <div className="about-hero__cta">
+              <a href="#our-story" className="btn btn--primary btn--pill">
+                {about.header.btnText || 'Read our story'} <ArrowRight />
+              </a>
+            </div>
           </Reveal>
-          <Reveal className="split-image arch-tr">
-            <img src={about.header.image} alt="" />
+
+          <Reveal className="about-hero__right">
+            <div className="about-hero__card-wrap">
+              <figure className="about-hero__card">
+                <div className="about-hero__card-inner">
+                  <div className="about-hero__card-photo">
+                    <img src={about.header.image} alt="Vagh Foundation founders" />
+                  </div>
+                </div>
+              </figure>
+
+              {/* Floating dark badge at bottom-left */}
+              <div className="about-hero__badge">
+                <div className="about-hero__badge-num">{about.header.badgeNumber || '9 yrs'}</div>
+                <div className="about-hero__badge-lbl">{about.header.badgeLabel || 'of continuous service'}</div>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
