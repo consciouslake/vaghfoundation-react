@@ -6,7 +6,7 @@ export const getInvolved: GetInvolvedPage = {
     eyebrow: 'JOIN THE MOVEMENT',
     h1Marked: 'Be the <em>change</em><br />you wish to see.',
     lede: 'Whether you have time, resources, or simply a willingness to help, your contribution creates ripples that reach further than you might imagine.',
-    image: '/images/gi-hero.png',
+    image: '/images/gi-hero.webp',
     btnText: 'Ways to contribute',
     btnUrl: '#ways-to-give',
     badgeNumber: 'Join us',

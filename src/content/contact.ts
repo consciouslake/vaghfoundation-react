@@ -9,7 +9,7 @@ export const contact: ContactPage = {
     eyebrow: 'GET IN TOUCH',
     h1Marked: 'We’d love to<br /><em>hear</em> from you.',
     lede: 'Whether you’d like to volunteer, contribute, collaborate, or simply learn more, every conversation is a step toward greater good.',
-    image: '/images/contact-hero.png',
+    image: '/images/contact-hero.webp',
     btnText: 'Send a message',
     btnUrl: '#contact-form',
     badgeNumber: 'Let’s talk',

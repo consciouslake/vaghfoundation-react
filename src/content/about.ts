@@ -6,14 +6,14 @@ export const about: AboutPage = {
     eyebrow: 'SINCE 2015',
     h1Marked: 'Rooted in <em>community</em>,<br />built by hand.',
     lede: 'What began as a handful of neighbours sharing meals has grown into a foundation working across Gujarat — always led by the people it serves.',
-    image: '/images/about-hero.png',
+    image: '/images/about-hero.webp',
     btnText: 'Read our story',
     btnUrl: '#our-story',
     badgeNumber: '9 yrs',
     badgeLabel: 'of continuous service',
   },
   gateMission: {
-    image: '/images/about-section-1.png',
+    image: '/images/about-section-1.webp',
     kicker: 'Our mission',
     titleMarked: 'To serve with <mark>humility</mark> and heart.',
     desc: 'To serve communities through thoughtful initiatives that nurture the body, calm the mind, enrich the spirit, and protect the world around us.',
@@ -27,7 +27,7 @@ export const about: AboutPage = {
       'Vagh Foundation was born from a simple yet powerful belief: that meaningful change is created not through grand gestures alone, but through consistent, heartfelt acts of service.',
       'Our work is guided not by recognition, but by the genuine difference we can make in everyday lives: quietly, patiently, and with lasting care.',
     ],
-    image: '/images/about-section-2.png',
+    image: '/images/about-section-2.webp',
   },
   timeline: {
     eyebrow: 'Our journey',
@@ -71,8 +71,8 @@ export const about: AboutPage = {
       {
         label: 'Leadership',
         members: [
-          { name: 'A. Kumar',  role: 'Founder & Chair', photo: '/images/team-a-kumar.png' },
-          { name: 'R. Sharma', role: 'Trustee',         photo: '/images/team-r-sharma.png' },
+          { name: 'A. Kumar',  role: 'Founder & Chair', photo: '/images/team-a-kumar.webp' },
+          { name: 'R. Sharma', role: 'Trustee',         photo: '/images/team-r-sharma.webp' },
         ],
       },
     ],
