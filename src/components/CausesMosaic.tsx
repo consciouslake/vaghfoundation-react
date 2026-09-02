@@ -40,12 +40,48 @@ function mod(n: number, m: number) { return ((n % m) + m) % m }
  */
 export function CausesMosaic({ data }: CausesMosaicProps) {
   const total = data.items.length
+  const loopedItems = [...data.items, ...data.items, ...data.items]
   const [active, setActive] = useState(0)
   const pausedRef = useRef(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const slidesRef = useRef<HTMLOListElement | null>(null)
   const isScrollingRef = useRef(false)
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const scrollToSlide = (targetIdx: number) => {
+    if (typeof window === 'undefined' || !slidesRef.current) return
+    const container = slidesRef.current
+    if (window.innerWidth <= 960) {
+      const firstChild = container.firstElementChild as HTMLElement | null
+      if (!firstChild) return
+      const itemWidth = firstChild.offsetWidth + 12
+      const currentScroll = container.scrollLeft
+      const currentStreamIdx = Math.round(currentScroll / itemWidth)
+      const currentNorm = mod(currentStreamIdx, total)
+
+      let delta = targetIdx - currentNorm
+      if (delta > total / 2) delta -= total
+      if (delta < -total / 2) delta += total
+
+      const nextStreamIdx = currentStreamIdx + delta
+      const targetElement = container.children[nextStreamIdx] as HTMLElement | undefined
+      if (targetElement) {
+        isScrollingRef.current = true
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+        scrollTimeoutRef.current = setTimeout(() => {
+          isScrollingRef.current = false
+          if (!slidesRef.current) return
+          const pos = Math.round(slidesRef.current.scrollLeft / itemWidth)
+          if (pos >= total * 2) {
+            slidesRef.current.scrollLeft -= total * itemWidth
+          } else if (pos < total) {
+            slidesRef.current.scrollLeft += total * itemWidth
+          }
+        }, 450)
+      }
+    }
+  }
 
   const startTimer = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
@@ -60,19 +96,16 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
     }, ROTATE_MS)
   }, [total])
 
-  const scrollToSlide = (idx: number) => {
-    if (typeof window === 'undefined' || !slidesRef.current) return
-    const container = slidesRef.current
-    const item = container.children[idx] as HTMLElement | undefined
-    if (item && window.innerWidth <= 960) {
-      isScrollingRef.current = true
-      item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
-      scrollTimeoutRef.current = setTimeout(() => {
-        isScrollingRef.current = false
-      }, 400)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 960 && slidesRef.current) {
+      const container = slidesRef.current
+      const firstChild = container.firstElementChild as HTMLElement | null
+      if (firstChild) {
+        const itemWidth = firstChild.offsetWidth + 12
+        container.scrollLeft = total * itemWidth
+      }
     }
-  }
+  }, [total])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -98,10 +131,22 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
     const firstItem = container.firstElementChild as HTMLElement | null
     if (!firstItem) return
     const itemWidth = firstItem.offsetWidth + 12 // width + 0.75rem gap
-    const newIdx = Math.round(scrollLeft / itemWidth)
-    if (newIdx >= 0 && newIdx < total && newIdx !== active) {
-      setActive(newIdx)
+    const streamIdx = Math.round(scrollLeft / itemWidth)
+    const normalizedIdx = mod(streamIdx, total)
+    if (normalizedIdx !== active) {
+      setActive(normalizedIdx)
     }
+
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (!slidesRef.current) return
+      const pos = Math.round(slidesRef.current.scrollLeft / itemWidth)
+      if (pos >= total * 2) {
+        slidesRef.current.scrollLeft -= total * itemWidth
+      } else if (pos < total) {
+        slidesRef.current.scrollLeft += total * itemWidth
+      }
+    }, 150)
   }
 
   /* pos 1 = active       -> featured (big square, left)
@@ -130,12 +175,13 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
           ref={slidesRef}
           onScroll={handleScroll}
         >
-          {data.items.map((item, idx) => {
+          {loopedItems.map((item, fullIdx) => {
+            const idx = fullIdx % total
             const pos = posOf(idx)
             const isFeatured = pos === 1
             const shape = SHAPES[idx % SHAPES.length]
             return (
-              <li key={idx}>
+              <li key={fullIdx}>
                 <article
                   className={`cmos__card cmos__card--${shape}`}
                   data-pos={pos}

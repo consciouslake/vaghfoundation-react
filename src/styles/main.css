@@ -1323,6 +1323,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   width: 100%; height: 100%;
 }
 .cmos__slides li { margin: 0; padding: 0; }
+.cmos__slides li:nth-child(n+5) { display: none; }
 
 /* ── Every card — solid color square box touching its neighbors ─ */
 .cmos__card {
@@ -1551,7 +1552,7 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
     height: auto;
   }
   .cmos__slides::-webkit-scrollbar { display: none; }
-  .cmos__slides li { flex: none; }
+  .cmos__slides li { flex: none; display: block !important; }
   .cmos__card {
     position: relative;
     left: auto !important; top: auto !important;
