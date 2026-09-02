@@ -235,14 +235,17 @@ mark {
 .band :is(h1, h2, h3) :is(mark, em),
 .statement-band__text :is(mark, em) {
   background-image: none;
-  -webkit-text-fill-color: var(--ink-warm);
-  color: var(--ink-warm);
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
   animation: none;
 }
 .band--dark :is(h1, h2, h3) :is(mark, em),
+.band--blue :is(h1, h2, h3) :is(mark, em),
+.band--blue-soft :is(h1, h2, h3) :is(mark, em),
 .spotlight :is(h1, h2, h3) :is(mark, em) {
   background-image: none;
-  color: var(--amber);
+  color: var(--off-white);
+  -webkit-text-fill-color: var(--off-white);
   animation: none;
 }
 
@@ -267,10 +270,12 @@ em { font-style: italic; }
   font-weight: var(--fw-body-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--near-black);
   margin-bottom: 0.9rem;
 }
-.band--dark .kicker { color: var(--off-white); }
+.band--dark .kicker,
+.band--blue .kicker,
+.band--blue-soft .kicker { color: var(--off-white); }
 
 /* ============================================================
    LAYOUT
@@ -285,21 +290,33 @@ em { font-style: italic; }
    produces between neighbours is never a special case. */
 .section--tight { padding-block: var(--sec-y); }
 
-/* Solid colour bands — text on colour is ALWAYS black */
-.band { background: var(--band-fill, var(--amber)); color: var(--ink); }
+/* Solid colour bands — text on colour is dark near-black by default */
+.band { background: var(--band-fill, var(--amber)); color: var(--near-black); }
 /* 6 brand-colour modifiers */
-.band--amber      { --band-fill: var(--amber); }
-.band--coral      { --band-fill: var(--coral); }
-.band--teal       { --band-fill: var(--teal); color: var(--off-white); }
+.band--amber      { --band-fill: var(--amber); color: var(--near-black); }
+.band--coral      { --band-fill: var(--coral); color: var(--near-black); }
+.band--teal       { --band-fill: var(--teal); color: var(--near-black); }
+.band--green      { --band-fill: var(--green-deep); color: var(--near-black); }
 .band--blue       { --band-fill: var(--blue-deep); color: var(--off-white); }
-.band--green      { --band-fill: var(--green-deep); color: var(--off-white); }
 .band--plum       { --band-fill: var(--plum); color: var(--off-white); }
-.band--yellow     { --band-fill: var(--yellow-400); } /* mark-highlight only */
+.band--yellow     { --band-fill: var(--yellow-400); color: var(--near-black); } /* mark-highlight only */
 .band--dark       { --band-fill: var(--near-black); color: var(--off-white); }
-/* Deliberate exception to "text on colour is always black" above:
-   the lede on the Get Involved (amber) and Donate (coral) headers is
-   set to white on request. */
-.band--amber .lede, .band--coral .lede { color: var(--off-white); }
+
+/* Ensure all text elements inside blue band inherit white, and amber/teal/coral/green use dark near-black */
+.band--blue :is(h1, h2, h3, h4, p, .lede, .kicker),
+.band--blue-soft :is(h1, h2, h3, h4, p, .lede, .kicker) {
+  color: var(--off-white);
+}
+
+.band--amber :is(h1, h2, h3, h4, p, .lede, .kicker),
+.band--coral :is(h1, h2, h3, h4, p, .lede, .kicker),
+.band--teal :is(h1, h2, h3, h4, p, .lede, .kicker),
+.band--green :is(h1, h2, h3, h4, p, .lede, .kicker),
+.band--orange :is(h1, h2, h3, h4, p, .lede, .kicker),
+.band--orange-soft :is(h1, h2, h3, h4, p, .lede, .kicker) {
+  color: var(--near-black);
+}
+
 /* Legacy aliases — kept for backwards compat, map to brand colours */
 .band--orange     { --band-fill: var(--amber); }
 .band--orange-soft{ --band-fill: var(--amber); }
