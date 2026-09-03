@@ -57,9 +57,9 @@ function CardInner({ card }: { card: ColourCard }) {
       {card.share ? (
         <ShareMenu />
       ) : card.href ? (
-        <span className="link">
+        <Link to={card.href} className="link">
           {card.linkText ?? 'Find out more'} <ArrowRight />
-        </span>
+        </Link>
       ) : null}
       {card.doodle ? <Doodle name={card.doodle} className="ccard__doodle" /> : null}
     </>
@@ -98,17 +98,11 @@ export function ColourCards({ items, notes, perView = 3, label }: ColourCardsPro
   if (notes) {
     return (
       <div className="ccards ccards--notes">
-        {items.map((card) =>
-          card.href ? (
-            <Link key={card.title} to={card.href} className="ccard" style={fillStyle(card)}>
-              <CardInner card={card} />
-            </Link>
-          ) : (
-            <div key={card.title} className="ccard" style={fillStyle(card)}>
-              <CardInner card={card} />
-            </div>
-          ),
-        )}
+        {items.map((card) => (
+          <div key={card.title} className="ccard" style={fillStyle(card)}>
+            <CardInner card={card} />
+          </div>
+        ))}
       </div>
     )
   }
@@ -121,17 +115,11 @@ export function ColourCards({ items, notes, perView = 3, label }: ColourCardsPro
         onScroll={scrollable ? onScroll : undefined}
         aria-label={label}
       >
-        {items.map((card) =>
-          card.href ? (
-            <Link key={card.title} to={card.href} className="ccard" style={fillStyle(card)}>
-              <CardInner card={card} />
-            </Link>
-          ) : (
-            <div key={card.title} className="ccard" style={fillStyle(card)}>
-              <CardInner card={card} />
-            </div>
-          ),
-        )}
+        {items.map((card) => (
+          <div key={card.title} className="ccard" style={fillStyle(card)}>
+            <CardInner card={card} />
+          </div>
+        ))}
       </div>
 
       {scrollable ? (

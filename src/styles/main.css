@@ -2709,6 +2709,17 @@ p a:not(.link):not(.btn):hover { color: var(--teal); }
   max-width: var(--maxw); margin-inline: auto;
 }
 .ccards__count { font-size: 0.9rem; font-weight: var(--fw-body-bold); }
+/* The counter tracks scroll position at single-card granularity, which
+   only reads correctly when one card is visible at a time (mobile).
+   Desktop shows 3 cards per view, so with the row still stepping one
+   card at a time the count (e.g. "2 / 4") doesn't match what's on
+   screen — most or all of the remaining cards are already visible.
+   Arrows alone are unambiguous at any card count, so the count is
+   desktop-only noise; drop it there and keep it for the single-card
+   mobile view where "N / total" is literally true. */
+@media (min-width: 64.0625em) {
+  .ccards__count { display: none; }
+}
 .ccards__arrow {
   width: 36px; height: 36px; border-radius: 50%;
   border: none; cursor: pointer;

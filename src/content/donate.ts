@@ -4,7 +4,7 @@ export const donate: DonatePage = {
   header: {
     tag: 'DONATE',
     eyebrow: 'SUPPORT OUR WORK',
-    h1Marked: 'Every contribution<br />creates a <em>ripple</em> of hope.',
+    h1Marked: 'Every contribution creates a <em>ripple</em> of hope.',
     lede: 'When you give to Vagh Foundation, you become a partner in compassion, and a force for extraordinary change.',
     image: '/images/donate-hero.webp',
     btnText: 'Make a donation',

@@ -4,7 +4,7 @@ export const about: AboutPage = {
   header: {
     tag: 'ABOUT',
     eyebrow: 'SINCE 2015',
-    h1Marked: 'Rooted in <em>community</em>,<br />built by hand.',
+    h1Marked: 'Rooted in <em>community</em>, built by hand.',
     lede: 'What began as a handful of neighbours sharing meals has grown into a foundation working across Gujarat — always led by the people it serves.',
     image: '/images/about-hero.webp',
     btnText: 'Read our story',
