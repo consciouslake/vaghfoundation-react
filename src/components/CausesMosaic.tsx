@@ -23,7 +23,6 @@ const PILLAR_METAS = [
 
 /* Each card colour is fixed to its identity (index), not its slot */
 const FILLS = ['var(--amber)', 'var(--coral)', 'var(--blue-deep)', 'var(--teal)']
-const SHAPES = ['circle', 'tr', 'tl', 'bl'] as const
 const ROTATE_MS = 5000
 
 function mod(n: number, m: number) { return ((n % m) + m) % m }
@@ -47,6 +46,9 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
   const slidesRef = useRef<HTMLOListElement | null>(null)
   const isScrollingRef = useRef(false)
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const isAnimatingRef = useRef(false)
+  const stepTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const scrollToSlide = (targetIdx: number) => {
     if (typeof window === 'undefined' || !slidesRef.current) return
@@ -86,7 +88,7 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
   const startTimer = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current)
     intervalRef.current = setInterval(() => {
-      if (!pausedRef.current) {
+      if (!pausedRef.current && !isAnimatingRef.current) {
         setActive((a) => {
           const next = (a + 1) % total
           scrollToSlide(next)
@@ -114,6 +116,7 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current)
       if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      if (stepTimeoutRef.current) clearTimeout(stepTimeoutRef.current)
     }
   }, [startTimer])
 
@@ -122,7 +125,17 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
     startTimer()
     scrollToSlide(i)
   }
-  const go = (dir: 1 | -1) => select(mod(active + dir, total))
+
+  const stepBy = (dir: number) => {
+    setActive((prev) => {
+      const next = mod(prev + dir, total)
+      scrollToSlide(next)
+      return next
+    })
+    startTimer()
+  }
+
+  const go = (dir: number) => stepBy(dir)
 
   const handleScroll = () => {
     if (isScrollingRef.current || !slidesRef.current) return
@@ -149,11 +162,68 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
     }, 150)
   }
 
-  /* pos 1 = active       -> featured (big square, left)
-     pos 2 = active+1     -> bottom-right (large secondary square)
-     pos 3 = active+2     -> top-right (small secondary square)
-     pos 4 = active+3     -> top-far-right (small secondary square) */
-  const posOf = (cardIdx: number): number => mod(cardIdx - active, total) + 1
+  /* Circular queue positions:
+     Slot 1: Featured (Left, 45% width)
+     Slot 2: Top-Right (17% width)
+     Slot 3: Middle-Right (26% width)
+     Slot 4: Bottom-Right (37% width)
+     
+     Queue direction: Slot 1 -> Slot 2 -> Slot 3 -> Slot 4 -> Slot 1
+     This matches the arrow doodle pointing RIGHT and DOWN.
+     
+     diff = mod(cardIdx - active, total)
+     diff 0 -> pos 1 (Featured)
+     diff 1 -> pos 4 (Bottom-Right, next in line to become Featured)
+     diff 2 -> pos 3 (Middle-Right, 2 steps in line)
+     diff 3 -> pos 2 (Top-Right, 3 steps in line)
+  */
+  const posOf = (cardIdx: number): number => {
+    const diff = mod(cardIdx - active, total)
+    if (diff === 0) return 1
+    if (diff === 1) return 4
+    if (diff === 2) return 3
+    return 2
+  }
+
+  const handleCardClick = (idx: number) => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 960) {
+      select(idx)
+      return
+    }
+
+    if (isAnimatingRef.current) return
+
+    const pos = posOf(idx)
+
+    // 1. Featured card (pos 1): rotation should not happen
+    if (pos === 1) {
+      return
+    }
+
+    // 2. Top-most smallest card (pos 2): rotate anticlockwise
+    if (pos === 2) {
+      stepBy(-1)
+      return
+    }
+
+    // 3. Middle card (pos 3): rotate by two clockwise in visible circular flow
+    //    Step 1: moves to Pos 4 (bottom); Step 2: moves into Pos 1 (featured)
+    if (pos === 3) {
+      isAnimatingRef.current = true
+      stepBy(1)
+      if (stepTimeoutRef.current) clearTimeout(stepTimeoutRef.current)
+      stepTimeoutRef.current = setTimeout(() => {
+        stepBy(1)
+        setTimeout(() => {
+          isAnimatingRef.current = false
+        }, 320)
+      }, 300)
+      return
+    }
+
+    // 4. Bottom card (pos 4): rotate by one clockwise
+    stepBy(1)
+  }
 
   const pillar = data.items[active]
   const meta = PILLAR_METAS[active % PILLAR_METAS.length]
@@ -179,21 +249,20 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
             const idx = fullIdx % total
             const pos = posOf(idx)
             const isFeatured = pos === 1
-            const shape = SHAPES[idx % SHAPES.length]
             return (
               <li key={fullIdx}>
                 <article
-                  className={`cmos__card cmos__card--${shape}`}
+                  className="cmos__card"
                   data-pos={pos}
                   data-slide={idx + 1}
                   aria-hidden={!isFeatured}
                   aria-label={`Pillar ${idx + 1} of ${total}`}
                   style={{ '--cmos-fill': FILLS[idx] } as React.CSSProperties}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => select(idx)}
+                  role={isFeatured ? undefined : 'button'}
+                  tabIndex={isFeatured ? -1 : 0}
+                  onClick={() => handleCardClick(idx)}
                   onKeyDown={(e: React.KeyboardEvent) => {
-                    if (e.key === 'Enter' || e.key === ' ') select(idx)
+                    if (e.key === 'Enter' || e.key === ' ') handleCardClick(idx)
                   }}
                 >
                   <figure className="cmos__figure">
@@ -205,8 +274,16 @@ export function CausesMosaic({ data }: CausesMosaicProps) {
           })}
         </ol>
 
-        {/* Hand-drawn arrow doodle pointing down to secondary cards */}
-        <Doodle name="corner-arrow" className="cmos__arrow" />
+        {/* Hand-drawn arrow doodle indicating circular queue flow */}
+        <button
+          type="button"
+          className="cmos__arrow-btn"
+          onClick={() => go(1)}
+          aria-label="Next cause"
+          title="Next cause"
+        >
+          <Doodle name="corner-arrow" className="cmos__arrow" />
+        </button>
 
         {/* Text block positioned directly in the open space below the featured card */}
         <div className="cmos__text" aria-live="polite">

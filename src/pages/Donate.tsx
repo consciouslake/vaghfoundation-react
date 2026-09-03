@@ -6,7 +6,6 @@ import { EmailSignup } from '../components/EmailSignup'
 import { DonateForm } from '../components/DonateForm'
 import { Reveal } from '../components/Reveal'
 import { Marked } from '../components/Marked'
-import { ArrowRight } from '../components/ArrowRight'
 
 export default function Donate() {
   return (
@@ -17,42 +16,18 @@ export default function Donate() {
         path="/donate"
       />
 
-      {/* Hero — custom editorial layout matching reference */}
-      <section className="donate-hero">
-        <div className="donate-hero__grid wrap">
-          <Reveal className="donate-hero__left">
-            {donate.header.tag && (
-              <span className="donate-hero__tag">{donate.header.tag}</span>
-            )}
-            <h1 className="donate-hero__title">
-              <Marked>{donate.header.h1Marked}</Marked>
-            </h1>
-            <p className="donate-hero__lede">
-              <Marked>{donate.header.lede}</Marked>
-            </p>
-            <div className="donate-hero__cta">
-              <a href="#donate-form" className="btn btn--primary btn--pill">
-                {donate.header.btnText || 'Make a donation'} <ArrowRight />
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal className="donate-hero__right">
-            <div className="donate-hero__card-wrap">
-              <figure className="donate-hero__card">
-                <div className="donate-hero__card-inner">
-                  <div className="donate-hero__card-photo">
-                    <img src={donate.header.image} alt="Support Vagh Foundation" />
-                  </div>
-                </div>
-              </figure>
-
-              {/* Floating dark badge at bottom-left */}
-              <div className="donate-hero__badge">
-                <div className="donate-hero__badge-num">{donate.header.badgeNumber || 'Every bit counts'}</div>
-              </div>
-            </div>
-          </Reveal>
+      {/* Hero — a plain full-bleed colour strip, same as the About
+          page's own: a heading and a subtitle on solid colour,
+          nothing else. Coral — one of the home page's four pillar
+          colours (amber/coral/blue/teal). */}
+      <section className="page-header band band--amber">
+        <div className="wrap">
+          <h1>
+            <Marked>{donate.header.h1Marked}</Marked>
+          </h1>
+          <p>
+            <Marked>{donate.header.lede}</Marked>
+          </p>
         </div>
       </section>
 
@@ -74,7 +49,7 @@ export default function Donate() {
                 </p>
               </div>
             </Reveal>
-            <Reveal className="form-card form-card--grey" id="donate-form">
+            <Reveal className="form-card form-card--amber" id="donate-form">
               <h3>Make a donation</h3>
               <DonateForm amountChips={donate.amountChips} defaultChip={donate.defaultChip} />
             </Reveal>

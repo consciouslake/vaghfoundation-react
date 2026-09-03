@@ -7,6 +7,9 @@ interface FounderSpotlightProps {
   data: FounderMessage
   /** Fill colour — same six-tone brand palette as every other band. */
   tone?: 'coral' | 'amber' | 'teal' | 'blue' | 'green' | 'plum'
+  /** Mirrors the layout — portrait on the right, words on the left —
+   *  for when two spotlights sit one after another on the same page. */
+  reverse?: boolean
 }
 
 /**
@@ -18,11 +21,12 @@ interface FounderSpotlightProps {
  * none, so the space carries real words instead. Drop the counters in
  * here the moment there are verified numbers.
  */
-export function FounderSpotlight({ data, tone = 'coral' }: FounderSpotlightProps) {
+export function FounderSpotlight({ data, tone = 'coral', reverse = false }: FounderSpotlightProps) {
   const toneClass = tone === 'coral' ? '' : ` spotlight--${tone}`
+  const innerClass = `spotlight__inner${reverse ? ' spotlight__inner--reverse' : ''}`
   return (
     <section className={`spotlight${toneClass}`}>
-      <Reveal className="spotlight__inner">
+      <Reveal className={innerClass}>
         <div className="spotlight__portrait">
           <img src={data.photo} alt={data.name} />
         </div>

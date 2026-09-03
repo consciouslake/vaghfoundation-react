@@ -141,7 +141,7 @@ export const home: HomePage = {
     photo: '/images/founder-dhirubhai.webp',
     name: 'Dhirubhai S. Vagh',
     role: 'Founder, Vagh Foundation',
-    quote: 'Compassion, when practiced with consistency, becomes a quiet force. It doesn’t demand attention. It simply shows up, day after day, wherever it is needed most. Vagh Foundation was born from this belief, and grows with every act of service.',
+    quote: 'Compassion, practiced consistently, becomes a quiet force — showing up wherever it’s needed most. That belief is what Vagh Foundation was built on.',
   },
   pillars: {
     eyebrow: 'Plate I–IV',

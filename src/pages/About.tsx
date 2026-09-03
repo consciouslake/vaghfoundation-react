@@ -30,43 +30,21 @@ export default function About() {
         path="/about"
       />
 
-      {/* Hero — custom editorial layout with polaroid frame & service badge */}
-      <section className="about-hero">
-        <div className="about-hero__grid wrap">
-          <Reveal className="about-hero__left">
-            {about.header.tag && (
-              <span className="about-hero__tag">{about.header.tag}</span>
-            )}
-            <h1 className="about-hero__title">
-              <Marked>{about.header.h1Marked}</Marked>
-            </h1>
-            <p className="about-hero__lede">
-              <Marked>{about.header.lede}</Marked>
-            </p>
-            <div className="about-hero__cta">
-              <a href="#our-story" className="btn btn--primary btn--pill">
-                {about.header.btnText || 'Read our story'} <ArrowRight />
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal className="about-hero__right">
-            <div className="about-hero__card-wrap">
-              <figure className="about-hero__card">
-                <div className="about-hero__card-inner">
-                  <div className="about-hero__card-photo">
-                    <img src={about.header.image} alt="Vagh Foundation founders" />
-                  </div>
-                </div>
-              </figure>
-
-              {/* Floating dark badge at bottom-left */}
-              <div className="about-hero__badge">
-                <div className="about-hero__badge-num">{about.header.badgeNumber || '9 yrs'}</div>
-                <div className="about-hero__badge-lbl">{about.header.badgeLabel || 'of continuous service'}</div>
-              </div>
-            </div>
-          </Reveal>
+      {/* Hero — a plain full-bleed colour strip, same as the reference
+          site's own "Drive change with us" band: a heading and a
+          subtitle on solid colour, nothing else (no photo, no badge,
+          no button). Coral — one of the home page's four pillar
+          colours (amber/coral/blue/teal) — differs from "What we do"
+          (blue) right next to it in the nav, and from the teal/blue
+          bands further down this same page. */}
+      <section className="page-header band band--coral">
+        <div className="wrap">
+          <h1>
+            <Marked>{about.header.h1Marked}</Marked>
+          </h1>
+          <p>
+            <Marked>{about.header.lede}</Marked>
+          </p>
         </div>
       </section>
 
@@ -112,6 +90,14 @@ export default function About() {
           </div>
         </div>
       </section>
+
+      {/* Co-founder spotlight first, mirrored (portrait right, words
+          left) and in amber — one of the same four pillar colours as
+          the hero, so the two bands read as a pair rather than a
+          repeat. */}
+      <div className="about-narrow-band">
+        <FounderSpotlight data={about.coFounder} tone="amber" reverse />
+      </div>
 
       <div className="about-narrow-band">
         <FounderSpotlight data={home.founder} tone="teal" />

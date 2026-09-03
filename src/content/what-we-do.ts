@@ -69,12 +69,6 @@ export const whatWeDo: WhatWeDoPage = {
       para2: 'From encouraging greener practices to supporting a cleaner environment, we are committed to nurturing a world that remains healthy, vibrant, and abundant.',
       image: '/images/wwd-section-4.webp',
     },
-    {
-      label: 'Health & wellness support',
-      h3: 'Caring for wellbeing',
-      para1: 'Good health is the foundation of a fulfilling life. Vagh Foundation supports health and wellness initiatives that promote holistic wellbeing across communities.',
-      image: '/images/wwd-section-5.webp',
-    },
   ],
   emailSignup: {
     titleWithEm: 'Be part of the <em>work</em>',

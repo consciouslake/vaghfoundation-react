@@ -5,7 +5,6 @@ import { ColourCards, type ColourCard } from '../components/ColourCards'
 import { Reveal } from '../components/Reveal'
 import { Marked } from '../components/Marked'
 import { VolunteerForm } from '../components/VolunteerForm'
-import { ArrowRight } from '../components/ArrowRight'
 
 const wayCards: ColourCard[] = volunteer.ways.map((w) => ({
   title: w.title,
@@ -23,42 +22,21 @@ export default function Volunteer() {
         path="/volunteer"
       />
 
-      {/* Hero — custom editorial layout matching reference */}
-      <section className="volunteer-hero">
-        <div className="volunteer-hero__grid wrap">
-          <Reveal className="volunteer-hero__left">
-            {volunteer.header.tag && (
-              <span className="volunteer-hero__tag">{volunteer.header.tag}</span>
-            )}
-            <h1 className="volunteer-hero__title">
-              <Marked>{volunteer.header.h1Marked}</Marked>
-            </h1>
-            <p className="volunteer-hero__lede">
-              <Marked>{volunteer.header.lede}</Marked>
-            </p>
-            <div className="volunteer-hero__cta">
-              <a href="#volunteer-form" className="btn btn--primary btn--pill">
-                {volunteer.header.btnText || 'Volunteer today'} <ArrowRight />
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal className="volunteer-hero__right">
-            <div className="volunteer-hero__card-wrap">
-              <figure className="volunteer-hero__card">
-                <div className="volunteer-hero__card-inner">
-                  <div className="volunteer-hero__card-photo">
-                    <img src={volunteer.header.image} alt="Volunteer with us" />
-                  </div>
-                </div>
-              </figure>
-
-              {/* Floating dark badge at bottom-left */}
-              <div className="volunteer-hero__badge">
-                <div className="volunteer-hero__badge-num">{volunteer.header.badgeNumber || 'Join our team'}</div>
-              </div>
-            </div>
-          </Reveal>
+      {/* Hero — a plain full-bleed colour strip, same as the About
+          page's own: a heading and a subtitle on solid colour,
+          nothing else. Teal — one of the home page's four pillar
+          colours (amber/coral/blue/teal). Get Involved, What we do
+          and Donate each link straight to this page and already use
+          amber/blue/coral respectively, so teal is the one colour
+          that never repeats the page someone just clicked from. */}
+      <section className="page-header band band--teal">
+        <div className="wrap">
+          <h1>
+            <Marked>{volunteer.header.h1Marked}</Marked>
+          </h1>
+          <p>
+            <Marked>{volunteer.header.lede}</Marked>
+          </p>
         </div>
       </section>
 

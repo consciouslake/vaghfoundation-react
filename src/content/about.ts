@@ -12,6 +12,13 @@ export const about: AboutPage = {
     badgeNumber: '9 yrs',
     badgeLabel: 'of continuous service',
   },
+  coFounder: {
+    eyebrow: 'A message from our co-founder',
+    photo: '/images/founder-rambhiben.png',
+    name: 'Rambhiben Dhirubhai Vagh',
+    role: 'Co-Founder, Vagh Foundation',
+    quote: 'True service isn’t found in grand gestures. It’s in showing up for people, again and again, with an open heart.',
+  },
   gateMission: {
     image: '/images/about-section-1.webp',
     kicker: 'Our mission',
@@ -69,10 +76,10 @@ export const about: AboutPage = {
         })),
       },
       {
-        label: 'Leadership',
+        label: 'Leaders',
         members: [
-          { name: 'A. Kumar',  role: 'Founder & Chair', photo: '/images/team-a-kumar.webp' },
-          { name: 'R. Sharma', role: 'Trustee',         photo: '/images/team-r-sharma.webp' },
+          { name: 'Dhirubhai S. Vagh',        role: 'Founder',    photo: '/images/founder-dhirubhai.webp' },
+          { name: 'Rambhiben Dhirubhai Vagh', role: 'Co-Founder', photo: '/images/founder-rambhiben.png' },
         ],
       },
     ],

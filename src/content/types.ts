@@ -278,6 +278,7 @@ export interface HomePage {
 
 export interface AboutPage {
   header: PageHeader
+  coFounder: FounderMessage
   gateMission: GateFeature
   story: {
     eyebrow: string

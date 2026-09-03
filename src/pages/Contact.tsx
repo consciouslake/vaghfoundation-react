@@ -6,7 +6,6 @@ import { ContactRows } from '../components/ContactRows'
 import { ContactForm } from '../components/ContactForm'
 import { Reveal } from '../components/Reveal'
 import { Marked } from '../components/Marked'
-import { ArrowRight } from '../components/ArrowRight'
 
 export default function Contact() {
   return (
@@ -17,42 +16,18 @@ export default function Contact() {
         path="/contact"
       />
 
-      {/* Hero — custom editorial layout matching reference */}
-      <section className="contact-hero">
-        <div className="contact-hero__grid wrap">
-          <Reveal className="contact-hero__left">
-            {contact.header.tag && (
-              <span className="contact-hero__tag">{contact.header.tag}</span>
-            )}
-            <h1 className="contact-hero__title">
-              <Marked>{contact.header.h1Marked}</Marked>
-            </h1>
-            <p className="contact-hero__lede">
-              <Marked>{contact.header.lede}</Marked>
-            </p>
-            <div className="contact-hero__cta">
-              <a href="#contact-form" className="btn btn--primary btn--pill">
-                {contact.header.btnText || 'Send a message'} <ArrowRight />
-              </a>
-            </div>
-          </Reveal>
-
-          <Reveal className="contact-hero__right">
-            <div className="contact-hero__card-wrap">
-              <figure className="contact-hero__card">
-                <div className="contact-hero__card-inner">
-                  <div className="contact-hero__card-photo">
-                    <img src={contact.header.image} alt="Contact Vagh Foundation" />
-                  </div>
-                </div>
-              </figure>
-
-              {/* Floating dark badge at bottom-left */}
-              <div className="contact-hero__badge">
-                <div className="contact-hero__badge-num">{contact.header.badgeNumber || 'Let’s talk'}</div>
-              </div>
-            </div>
-          </Reveal>
+      {/* Hero — a plain full-bleed colour strip, same as the About
+          page's own: a heading and a subtitle on solid colour,
+          nothing else. Teal — one of the home page's four pillar
+          colours (amber/coral/blue/teal). */}
+      <section className="page-header band band--teal">
+        <div className="wrap">
+          <h1>
+            <Marked>{contact.header.h1Marked}</Marked>
+          </h1>
+          <p>
+            <Marked>{contact.header.lede}</Marked>
+          </p>
         </div>
       </section>
 
