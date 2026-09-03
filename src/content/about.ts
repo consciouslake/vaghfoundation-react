@@ -13,10 +13,10 @@ export const about: AboutPage = {
     badgeLabel: 'of continuous service',
   },
   coFounder: {
-    eyebrow: 'A message from our co-founder',
-    photo: '/images/founder-rambhiben.png',
-    name: 'Rambhiben Dhirubhai Vagh',
-    role: 'Co-Founder, Vagh Foundation',
+    eyebrow: 'A message from our director',
+    photo: '/images/founder-krishna.png',
+    name: 'Krishna Vagh',
+    role: 'Director, Vagh Foundation',
     quote: 'True service isn’t found in grand gestures. It’s in showing up for people, again and again, with an open heart.',
   },
   gateMission: {
@@ -78,8 +78,8 @@ export const about: AboutPage = {
       {
         label: 'Leaders',
         members: [
-          { name: 'Dhirubhai S. Vagh',        role: 'Founder',    photo: '/images/founder-dhirubhai.webp' },
-          { name: 'Rambhiben Dhirubhai Vagh', role: 'Co-Founder', photo: '/images/founder-rambhiben.png' },
+          { name: 'Dhirubhai S. Vagh', role: 'Founder',  photo: '/images/founder-dhirubhai.webp' },
+          { name: 'Krishna Vagh',      role: 'Director', photo: '/images/founder-krishna.png' },
         ],
       },
     ],
